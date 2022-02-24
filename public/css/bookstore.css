@@ -1,0 +1,245 @@
+.bookstore{
+  color: var(--text-color);
+}
+
+.items-slider{
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  display: block;
+}
+
+.items-grid .item-preview{
+  display: inline-block;
+}
+
+.items-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.item-title-preview{
+  font-size: 16px;
+  font-weight: bold;
+  width: 90%;
+  margin-left: 2.5%;
+  margin-top: 8px;
+  line-height: 18px;
+  max-height: 36px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-authors-preview{
+  font-size: 12px;
+  opacity: 0.8;
+  line-height: 12px;
+  width: 90%;
+  margin-top: 8px;
+  margin-left: 2.5%;
+}
+
+.item-preview{
+  max-width: 170px;
+  width: 170px;
+  min-width: 170px;
+  height: 300px;
+  margin: 0px;
+  display: table-cell;
+  overflow: hidden;
+  scroll-snap-align: start;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+.item-preview:active .preview-cover{
+  transform: scale(0.95);
+}
+
+.preview-container{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.preview-cover{
+  transition: transform .2s ease;
+  width: 90%;
+  margin-top: 10px;
+  height: 68%;
+  margin-left: 2.5%;
+  object-fit: contain;
+}
+
+.preview-cover.shadow{
+  filter: blur(5px);
+  position: absolute;
+  top: -10px;
+}
+
+.full-cover{
+  animation: cover-fadein 0.5s ease;
+  width: 60%;
+  margin-left: 20%;
+  transform-origin: center left;
+}
+
+@keyframes cover-fadein{
+  from{
+    transform: scale(0.8) rotateY(80deg);
+  }
+
+  to{
+    transform: scale(1) rotateY(0deg);
+  }
+}
+
+.item-title{
+  margin-top: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.item-authors{
+  opacity: 0.8;
+  font-weight: normal;
+  text-align: center;
+}
+
+.copy-option{
+  margin-bottom: 8px;
+  padding: 10px;
+  border-width: 4px;
+  display: table;
+  width: 100%;
+}
+
+.copy-option.selected{
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.copy-option.selected .copy-check i{
+  color: var(--primary-color);
+}
+
+.copy-condition{
+  display: table-cell;
+  margin-right: 10px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.copy-price{
+  text-align: right;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.copy-check{
+  display: table-cell;
+  vertical-align: middle;
+  width: 40px;
+}
+
+.full-cover.small{
+  width: 40%;
+  margin-left: 30%;
+}
+
+.copy-price-large{
+  width: 100%;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 600;
+  margin-top: 50px;
+  margin-bottom: 60px;
+}
+
+.confirm-order{
+  color: var(--text-color);
+}
+
+.order-confirmed{
+  text-align: center;
+}
+
+.barcode-scanner{
+  position: relative;
+}
+
+.barcode-scanner video{
+  width: 100%;
+  border-radius: 30px;
+  height: 200px;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.barcode-scanner .barcode-overlay{
+  position: absolute;
+  opacity: 0.5;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  text-align: center;
+}
+
+.barcode-scanner .barcode-overlay i{
+  font-size: 200px;
+}
+
+.barcode-scanner canvas{
+  display: none;
+}
+
+.copy-uid-large{
+  font-family: "Roboto Mono", monospace !important;
+  font-size: 60px;
+  font-weight: 600;
+  line-height: 60px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.sell-icon{
+  height: 150px;
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+}
+
+
+
+@media(min-width: 800px){
+  .bookstore-dialog{
+    height: 80vh;
+    max-height: 800px !important;
+  }
+
+  .order-confirmation{
+    height: 650px;
+  }
+}
+
+.slideLeft-enter-active, .slideLeft-leave-active,
+.slideRight-enter-active, .slideRight-leave-active{
+  transition: opacity .2s ease, transform .2s ease;
+}
+.slideLeft-enter, .slideLeft-leave-to{
+  opacity: 0;
+  transform: translateX(100px);
+}
+
+.slideRight-enter, .slideRight-leave-to{
+  opacity: 0;
+  transform: translateX(-100px);
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s ease;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}

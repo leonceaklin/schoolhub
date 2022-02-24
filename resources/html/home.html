@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>SchoolHub</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&family=Roboto+Mono&display=swap" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" crossorigin="anonymous" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<link href="css/bookstore.css" rel="stylesheet" type="text/css" />
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/icon/site.webmanifest">
+	<link rel="mask-icon" href="/icon/safari-pinned-tab.svg" color="#2977ff">
+	<link rel="shortcut icon" href="/icon/favicon.ico">
+	<meta name="msapplication-TileColor" content="#2977ff">
+	<meta name="msapplication-config" content="/icon/browserconfig.xml">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)"  content="#1e1e1e">
+	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+	<meta name="author" content="Léonce Aklin">
+	<meta name="description" content="Notenrechner, Terminplan, Absenzen und Bookstore.">
+
+
+	<!-- Matomo -->
+	<script type="text/javascript">
+		var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//analytics.zebrapig.com/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '102']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+
+	</script>
+	<!-- End Matomo Code -->
+
+</head>
+
+<body>
+	<svg style="display: none">
+		<linearGradient id="chart-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+			<stop offset="0%" stop-color="#ffffff" />
+			<stop offset="100%" stop-color="#ffffff00" />
+		</linearGradient>
+	</svg>
+	<div id="app" style="display: none">
+		<v-app>
+			<v-card class="pa-5 main-content">
+				<h1>SchoolHub</h1>
+				{{ username == "e221754" ? "Premium" : "" }}
+				<v-dialog v-model="subjectsDialog" class="select-subject" scrollable transition="dialog-bottom-transition" width="500">
+					<template v-slot:activator="{ on, attrs }">
+						<v-btn primary class="mt-5 mb-5 full-width" v-bind="attrs" v-on="on" color="primary">
+							{{ subjects.length > 0 ? "Meine Noten" : "Login" }}
+						</v-btn>
+					</template>
+					<v-card v-if="subjects.length > 0">
+						<v-card-title>
+							<v-btn icon class="mr-2" @click="subjectsDialog = false">
+								<v-icon>mdi-close</v-icon>
+							</v-btn>
+							Noten
+						</v-card-title>
+						<v-divider></v-divider>
+						<v-card-text>
+							<v-card class="latest-grades my-5 primary" dark>
+								<v-card-title>Neuste</v-card-title>
+								<div class="pa-5 pt-0">
+									<div ripple v-for="(grade, key) in gradesSortedByDate.slice(0,4)">
+										<v-row class="my-1">
+											<v-col style="flex-grow:1.5">
+												{{ grade.subject.name }}
+												<!--<v-btn small icon @click.stop="subjectsDialog = false; getGradesFromSubject(grade.subject)">
+                    <v-icon>mdi-plus</v-icon>
+                  </v-btn>!-->
+											</v-col>
+											<v-col style="flex-grow:2" class="px-0">{{ grade.name }}</v-col>
+											<v-col class="text-right" style="flex-grow:0.5">
+												<h3>{{ grade.value }}</h3>
+											</v-col>
+										</v-row>
+										<v-divider v-if="key < 3"></v-divider>
+									</div>
+								</div>
+							</v-card>
+							Es kann selten vorkommen, dass einige Fächer fehlen. Wir arbeiten daran.
+							<v-expansion-panels class="select-subject mb-5">
+								<v-expansion-panel v-for="subject in subjects">
+									<v-expansion-panel-header disable-icon-rotate>
+										{{ subject.name }}
+										<!--<span class="text--secondary ml-2">{{ subject.identifier }}</span>!-->
+										<span class="ml-2"></span>
+            <template v-slot:actions>
+              <v-chip v-if="subject.grades"
+              :class="{'mr-2': true, 'primary': getAvg(subject.grades) >= 5}"
+              :color="getAvg(subject.grades) < 4 ? 'red' : ''"
+              :dark="getAvg(subject.grades) < 4 ? true : false">∅
+                {{ Math.round(getAvg(subject.grades)*100)/100 }}
+              </v-chip>
+              <v-btn icon @click.stop="subjectsDialog = false; getGradesFromSubject(subject)">
+                <v-icon>mdi-plus</v-icon>
+              </v-btn>
+            </template>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-data-table v-if="subject.grades" :items="subject.grades" hide-default-footer :mobile-breakpoint="0" :headers="subjectGradeHeaders">
+              </v-data-table>
+              <v-card class="primary pa-3 mt-5 mb-2 rounded-lg" dark v-if="subject.grades">
+                <b>Verlauf</b>
+                <g-chart
+                  class="grade-chart overflow-hidden"
+                  type="AreaChart"
+                  @ready="onChartReady"
+                  :options="chartOptions"
+                  :data="getChartData(subject.grades)"
+                />
+              </v-card>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+        <p>Eingeloggt als {{ user.name }} ({{ user.username }})</p>
+        <v-btn class="full-width" @click="logout">Logout</v-btn>
+        </v-card-text>
+      </v-card>
+      <v-card v-else>
+        <v-form @submit.prevent="fetchData">
+        <v-card-title>
+          <v-btn icon class="mr-2" @click="subjectsDialog = false"><v-icon>mdi-close</v-icon></v-btn>
+          SAL-Login
+        </v-card-title>
+         <v-divider></v-divider>
+        <v-card-text>
+          <p class="mb-6">
+          Logge dich mit deinen SAL-Zugangsdaten ein, um alle Funktionen zu nutzen.</p>
+          <v-autocomplete outlined :items="schools" item-text="name" item-value="identifier" label="Schule" v-model="school"></v-autocomplete>
+          <v-text-field outlined v-model="username" label="E-Nummer" autocomplete="username" :error="loginError"></v-text-field>
+          <v-text-field outlined v-model="password" type="password" autocomplete="password" label="Passwort" :error="loginError"></v-text-field>
+          <p>Angaben zu Noten, Terminen und Absenzen ohne Gewähr. Nutzung auf eigene Verantwortung. Zugangsdaten werden verschlüsselt und ausschliesslich auf deinem Gerät gespeichert.</p>
+          <v-checkbox label="Damit bin ich einverstanden" v-model="acceptConditions"></v-checkbox>
+
+          <v-btn
+            type="submit"
+            @click="fetchData"
+            :loading="fetchingData"
+            :disabled="!acceptConditions || !password || !username || !school"
+            class="full-width primary"
+          >
+            Login
+          </v-btn>
+        </v-card-text>
+        </v-form>
+      </v-card>
+    </v-dialog>
+
+    <v-row v-if="subjects.length > 0">
+      <v-col>
+        <v-btn primary class="mb-1 full-width primary" @click="eventsDialog = true">
+          Termine
+        </v-btn>
+      </v-col>
+      <v-col>
+        <v-btn primary class="mb-1 full-width primary" @click="absencesDialog = true">
+          Absenzen
+        </v-btn>
+      </v-col>
+    </v-row>
+
+
+    <v-row v-if="bookstoreAvailable">
+      <v-col>
+        <v-sheet rounded elevation="2" v-ripple class="bookstore-sheet mb-5 pa-5 full-width" @click="bookstoreDialog = true">
+          Bookstore
+        </v-sheet>
+      </v-col>
+    </v-row>
+    <cancel-order></cancel-order>
+
+    <transition name="fade">
+      <div v-if="this.birthdayToday.length > 0">
+        <v-card class="pa-4 mb-4 birthday-card" v-for="birthdayChild in this.birthdayToday">
+          <v-icon class="mr-2">mdi-cake-variant</v-icon>
+          <b v-if="birthdayChild.first_name != user.first_name || birthdayChild.last_name != user.last_name">
+            {{ birthdayChild.first_name.split(" ")[0] }} wird heute {{ birthdayChild.age }}!
+          </b>
+
+          <b v-if="birthdayChild.birth == user.birth && birthdayChild.first_name == user.first_name && birthdayChild.last_name == user.last_name">
+            Happy Birthday!
+          </b>
+        </v-card>
+      </div>
+    </transition>
+
+    <v-dialog
+      v-model="bookstoreDialog"
+      scrollable
+      transition="dialog-bottom-transition"
+      width="500"
+    >
+      <v-card class="bookstore-dialog">
+        <v-card-title>
+          <v-btn icon class="mr-2" @click="bookstoreDialog = false"><v-icon>mdi-close</v-icon></v-btn>
+          Bookstore
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-text>
+          <div v-if="false">
+          Zusammen mit der SO Gymnasium Liestal entwickeln wir einen Bookstore, auf dem du deine nächste Lektüre bereits günstig bestellt hast, bevor deine Lehrperson mit der Liste durch die Klasse gegangen ist.
+          </div>
+          <bookstore v-else></bookstore>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog
+      v-model="absencesDialog"
+      class="select-subject"
+      scrollable
+      transition="dialog-bottom-transition"
+      width="500"
+      v-if="subjects.length > 0"
+    >
+      <v-card>
+        <v-card-title>
+          <v-btn icon class="mr-2" @click="absencesDialog = false"><v-icon>mdi-close</v-icon></v-btn>
+          Absenzen
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-text>
+          <div v-for="period in absencePeriods">
+            <v-card class="primary pa-3 my-5 rounded-lg" dark v-if="period.initial_quota && period.remaining_quota">
+                <b>Kontingent</b>
+                <svg class="quota-chart" width="100%" height="100%" viewBox="0 0 100 90">
+                  <circle cx="50" cy="50" r="47" class="background"/>
+                  <circle cx="50" cy="50" r="47" class="foreground" :style="{'--final-dashoffset': 609.5 - (205.5 * period.remaining_quota/period.initial_quota)}"/>
+                  <text text-anchor="middle" style="font-weight: bold; font-size: 50" fill="#ffffff" alignment-baseline="central">
+                    <tspan x="50" dy="60">{{ period.remaining_quota }}</tspan>
+                  </text>
+                  <text text-anchor="middle" style="font-size: 10; opacity: 0.5" fill="#ffffff" alignment-baseline="central">
+                    <tspan x="50" dy="80">/ {{ period.initial_quota }}</tspan>
+                  </text>
+                </svg>
+                <div class="quota-chart-period">
+                  {{ (new Date(period.start)).toLocaleDateString("de-DE") }} -
+                  {{ (new Date(period.end)).toLocaleDateString("de-DE") }}
+                </div>
+            </v-card>
+            <v-data-table v-if="period.absences" :items="period.absences" hide-default-footer :mobile-breakpoint="0" :headers="absenceHeaders">
+              <template v-slot:item.start="{ item }">
+                {{ (new Date(item.start)).toLocaleDateString("de-DE", {weekday: 'short', day: 'numeric', month: 'numeric', year:'numeric'}) }}
+              </template>
+            </v-data-table>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog
+      v-model="eventsDialog"
+      class="select-subject"
+      scrollable
+      transition="dialog-bottom-transition"
+      width="500"
+      v-if="subjects.length > 0"
+    >
+      <v-card>
+        <v-card-title>
+          <v-btn icon class="mr-2" @click="eventsDialog = false"><v-icon>mdi-close</v-icon></v-btn>
+          Termine
+        </v-card-title>
+        <v-tabs v-model="eventsTab" grow>
+          <v-tab>Übersicht</v-tab>
+          <v-tab>Kalender</v-tab>
+        </v-tabs>
+        <v-divider></v-divider>
+        <v-card-text class="pa-0">
+        <v-tabs-items v-model="eventsTab" style="height: 100%; overflow: auto;">
+        <v-tab-item>
+          <div class="pa-5">
+          <v-card class="elevation-2 pa-4 mb-4" v-if="nextEvent">
+            <b>Als nächstes</b>
+            <p class="mt-2 mb-0">{{ (new Date(nextEvent.start.replaceAll("-", "/"))).toLocaleDateString("de-DE", {weekday: 'short', day: 'numeric', month: 'numeric', year:'numeric', hour:'numeric', minute: 'numeric'}) }}</p>
+            <h1 class="mb-2 mt-0">{{ subjects.filter((s) => {return s.identifier == nextEvent.title})[0] ? subjects.filter((s) => {return s.identifier == nextEvent.title})[0].name : nextEvent.title}}</h1>
+            <p>{{ nextEvent.title }}</p>
+            <h3 v-if="upcomingEvents[0].room"><v-icon>mdi-map-marker</v-icon>{{ upcomingEvents[0].room.label }}</h3>
+          </v-card>
+          <div class="mb-5 mt-2">
+            <b>Nächste Prüfungen</b>
+            <v-card class="primary rounded-lg pa-4 my-2"dark v-for="event in tests.slice(0, 4)">
+              {{ (new Date(event.start.replaceAll("-", "/"))).toLocaleDateString("de-DE", {weekday: 'short', day: 'numeric', month: 'numeric', year:'numeric', hour:'numeric', minute: 'numeric'}) }} - <b>{{ event.title }}</b>
+              <h2>{{ event.grade.name }}</h2>
+              <p v-if="event.grade.description" v-html="event.grade.description.replaceAll('?', '')"></p>
+              <p class="mb-0">{{ relativeTimeDays(event.start.replaceAll("-", "/"), "de-DE") }}</p>
+            </v-card>
+          </div>
+
+          <div class="my-5">
+            <b>Veränderungen im Stundenplan</b>
+            <v-card class="rounded-lg pa-4 my-2" :color="event.deleted ? 'red' : 'orange'" dark v-for="event in alteredEvents.slice(0, 5)">
+              <v-row>
+                <v-col style="flex-grow: 0.05">
+                  <v-icon v-if="event.substitute">mdi-account-switch</v-icon>
+                  <v-icon v-else-if="event.moved">mdi-pencil</v-icon>
+                  <v-icon v-else-if="event.no_teacher">mdi-clipboard-account</v-icon>
+                  <v-icon v-else-if="event.deleted">mdi-trash</v-icon>
+
+                </v-col>
+                <v-col>
+                  {{ (new Date(event.start.replaceAll("-", "/"))).toLocaleDateString("de-DE", {weekday: 'short', day: 'numeric', month: 'numeric', year:'numeric', hour:'numeric', minute: 'numeric'}) }} - <b>{{ event.title }}</b>
+                  <v-row>
+                    <v-col v-if="event.no_teacher">Arbeitsauftrag von {{ event.teacher.name }}</v-col>
+                    <v-col v-if="event.substitute"><b>{{ event.teacher.identifier }}</b> als Stellvertretung</v-col>
+                    <v-col v-if="event.moved">Lektion verschoben oder verändert</v-col>
+                    <v-col v-if="event.deleted">Fällt aus</v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
+            </v-card>
+          </div>
+          </div>
+        </v-tab-item>
+        <v-tab-item style="height: 100%">
+          <div v-if="calendarEvents" class="calendar-wrapper">
+            <div class="d-flex calendar-controls pa-4 pb-0">
+              <!--<v-btn-toggle v-model="eventsCalendarMode" group mandatory>
+                <v-btn :value="mode.value" v-for="mode in eventsCalendarModes" small>{{mode.text}}</v-btn>
+              </v-btn-toggle>!-->
+                <v-select class="d-inline-block calendar-select" label="Anzeigen" dense v-model="eventsCalendarMode" :items="eventsCalendarModes"></v-select>
+                <h2 class="ml-4 mt-2">{{ (new Date(eventsCalendarDate)).toLocaleDateString("de-DE", {month: 'long'}) }}</h2>
+                <v-spacer></v-spacer>
+                <v-btn @click="$refs.eventsCalendar.prev()" icon><v-icon>mdi-chevron-left</v-icon></v-btn>
+                <v-btn text @click="eventsCalendarDate = new Date()" dense>Heute</v-btn>
+                <v-btn @click="$refs.eventsCalendar.next()" icon><v-icon>mdi-chevron-right</v-icon></v-btn>
+            </div>
+
+            <v-calendar locale="de-DE" ref="eventsCalendar" class="calendar" v-model="eventsCalendarDate"
+            :type="eventsCalendarMode" :weekdays="[1, 2, 3, 4, 5]" :now="new Date()"
+            :events="calendarEvents" first-time="07:00" @click:event="onEventClick"
+            event-overlap-mode="column">
+               <template v-slot:day-body="{ date, week }">
+            <div
+              class="v-current-time"
+              :class="{ first: date === week[0].date }"
+              :style="{ top: eventsCalendarNowY }"
+            ></div>
+          </template>
+            </v-calendar>
+          </div>
+        </v-tab-item>
+
+        </v-tabs-items>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+<div class="elevation-2 mb-5">
+    <v-data-table class="mb-3" v-if="grades.length > 0" :items="grades" hide-default-footer :mobile-breakpoint="0" :headers="mainGradeHeaders">
+      <template v-slot:item.uid="{ item }">
+        <v-btn icon @click="removeGrade(item.uid)"><v-icon>mdi-minus</v-icon></v-btn>
+      </template>
+    </v-data-table>
+
+
+    <v-col>
+      <v-row class="pa-3">
+        <v-text-field type="number" ref="valueInput" min="1" autofocus max="6" v-model="newGradeValue" label="Notenwert" class="mr-2" @keydown.enter="addGrade"></v-text-field>
+        <v-text-field @keydown.enter="addGrade" type="number" min="0" max="1" v-model="newGradeWeight" label="Gewichtung"></v-text-field>
+        <v-btn class="ml-2 mt-2" fab color="primary" small @click="addGrade"><v-icon color="white">mdi-plus</v-icon></v-btn>
+      </v-row>
+    </v-col>
+ </div>
+
+<div class="elevation-2 mb-5 py-3 upcoming-grades" v-if="upcomingGrades.length > 0">
+    <h4 class="mx-4">Kommende Prüfungen im gewählten Fach</h4>
+    <v-btn icon class="remove-upcoming-grades" @click="upcomingGrades = []"><v-icon>mdi-close</v-icon></v-btn>
+    <v-data-table class="mt-3" :items="upcomingGrades" hide-default-footer :mobile-breakpoint="0" :headers="upcomingGradeHeaders">
+    </v-data-table>
+    <v-col>
+      <v-btn class="d-block full-width" color="primary" text @click="setWeightToUpcomingGradesSum"><v-icon class="mr-2">mdi-star-four-points-outline</v-icon>Benötigter Schnitt</v-btn>
+    </v-col>
+    <div class="upcoming-grades-description mx-4">
+      Du erhältst den benötigten Schnitt der kommenden Prüfungen, indem die Gewichtung der "nächsten Note" auf die Summe der bevorstehenden Prüfungen gesetzt wird.
+    </div>
+</div>
+
+    <v-text-field type="number" v-model="nextWeight" label="Gewichtung der nächsten Note"></v-text-field>
+    <v-slider min="1" max="6" type="number" v-model="aimedAvg" :step="0.5" class="mt-5" thumb-label="always" label="Zielnote im Zeugnis"></v-slider>
+    <v-row>
+
+      <v-col v-if="count">
+        <p class="text--secondary stat-label">Anzahl</p>
+        <h1>{{ count }}</h1>
+      </v-col>
+
+      <v-col v-if="avg">
+        <p class="text--secondary stat-label">Durchschnitt</p>
+        <h1>{{ Math.round(avg*100)/100 }}</h1>
+      </v-col>
+
+      <v-col v-if="nextGrade">
+        <p class="text--secondary stat-label">Benötigt</p>
+        <h1 class="rainbow">{{ Math.round(nextGrade*100)/100 }}</h1>
+      </v-col>
+    </v-row>
+
+    <v-card class="primary pa-4 mt-4" dark>
+    <h3>Gefällt's dir?</h3>
+    Teile mich mit deinen Freunden.
+    <v-btn class="d-block full-width mt-3" text @click="shareApp"><v-icon class="mr-2">mdi-share</v-icon>Teilen</v-btn>
+    </v-card>
+
+  </v-card>
+
+  <v-dialog transition="dialog-bottom-transition" v-model="eventDetailDialog" width="300">
+    <v-card v-if="focusedEvent" :class="{'event-detail': true, primary: focusedEvent.type == 'test', 'orange': focusedEvent.altered, 'red': focusedEvent.deleted}" :dark="focusedEvent.altered || focusedEvent.type == 'test'">
+      <v-card-title><v-btn icon class="mr-2" @click="eventDetailDialog = false"><v-icon>mdi-close</v-icon></v-btn>{{ focusedEvent.type == "test" ? focusedEvent.grade.name : focusedEvent.title }}</v-card-title>
+      <v-card-text>
+        <p>
+        {{ (new Date(focusedEvent.start.replaceAll("-", "/"))).toLocaleDateString("de-DE", {weekday: 'short', day: 'numeric', month: 'numeric', year:'numeric', hour:'numeric', minute: 'numeric'}) }}
+        </p>
+        <p v-if="focusedEvent.deleted">Fällt aus</p>
+        <p v-if="focusedEvent.room && focusedEvent.room.key != 0">
+          <v-icon>mdi-map-marker</v-icon>
+          {{ focusedEvent.room.label }}
+        </p>
+        <p v-if="focusedEvent.substitute"><b>{{ focusedEvent.teacher.identifier }}</b> als Stellvertretung</p>
+        <p v-if="focusedEvent.grade">
+          {{ focusedEvent.grade.description }}
+        </p>
+
+      </v-card-text>
+    </v-card>
+  </v-dialog>
+
+  <v-snackbar multi-line v-model="installationBanner" color="primary" :timeout="-1">
+    <p>
+      Füge mich zu deinem Home-Bildschirm hinzu!
+    </p>
+    <p class="d-block" v-if="!installationPrompt">Tippe dafür auf <v-icon>mdi-export-variant</v-icon> und anschliessend auf <v-icon>mdi-plus-box</v-icon> Zum Home-Bildschirm.</p>
+    <v-btn v-if="installationPrompt" class="d-block full-width" text ripple @click="installApp"><v-icon class="mr-2">mdi-plus-box</v-icon>Installieren</v-btn>
+    <template v-slot:action>
+      <v-btn icon @click="installationBanner = false"><v-icon>mdi-close</v-icon></v-btn>
+    </template>
+  </v-snackbar>
+</v-app>
+</div>
+
+<!-- BEGIN BOOKSTORE !-->
+<div style="display: none">
+<div id="bookstore">
+  <!-- <transition name="slideRight"> !-->
+    <subjects-page v-if="page.name == 'subjects'"></subjects-page>
+  <!-- </transition> !-->
+	<!-- <transition name="slideLeft"> !-->
+    <item-page v-if="page.name == 'item'"></item-page>
+		<!-- </transition> !-->
+
+		<!-- <transition name="slideLeft"> !-->
+    <sell-item-page v-if="page.name == 'sell-item'"></sell-item-page>
+		<!-- </transition> !-->
+</div>
+
+<div id="subjects-page">
+  <v-btn class="full-width mt-2 mb-2" @click="goToSellItemPage()">Etwas verkaufen <v-icon right dark>mdi-chevron-right</v-icon></v-btn>
+  <v-text-field outlined label="Finden" class="mt-1" append-icon="mdi-magnify" v-model="query" clearable></v-text-field>
+  <search-results v-if="query != '' && query != null" :query="query"></search-results>
+  <v-skeleton-loader v-if="relevantSubjects.length == 0" type="article@3"></v-skeleton-loader>
+  <div v-if="query == '' || query == null" v-for="subject in relevantSubjects" :key="subject.id">
+    <h2>{{ subject.title }}</h2>
+    <items-display :items="subject.items">
+    </items-display>
+  </div>
+</div>
+
+<div id="items-display">
+  <div class="items-slider">
+    <item-preview v-for="item in items" :key="item.id" :item="item"></item-preview>
+  </div>
+</div>
+
+<div id="item-preview">
+  <div class="preview-container" @click="viewItem(item)">
+    <v-img class="preview-cover elevation-2" :src="item.cover.data.thumbnails[3].url"></v-img>
+    <div class="item-title-preview">{{ item.title }}</div>
+    <div class="item-authors-preview">{{ item.authors }}</div>
+  </div>
+</div>
+
+<div id="item-page">
+  <v-btn icon class="mr-2 mt-2" @click="bookstore.goBack()">
+		<v-icon>mdi-arrow-left</v-icon>
+	</v-btn>
+  <v-img class="full-cover elevation-2" :aspect-ratio="item.cover.width/item.cover.height" :src="item.cover.data.thumbnails[5].url"></v-img>
+  <h2 class="item-title">{{ item.title }}</h2>
+  <h3 class="item-authors mb-5">{{ item.authors }}</h3>
+
+  <copy-selector v-if="copiesVisible" @select="selectCopy" :copies="item.copies"></copy-selector>
+
+  <v-btn class="primary full-width" v-if="item.copies.length > 0" @click="viewCopies()">{{ mainButtonText }}</v-btn>
+
+  <v-dialog
+      v-model="confirmOrderVisible"
+      scrollable
+      transition="dialog-bottom-transition"
+      width="500">
+    <v-card>
+        <v-card-title>
+          <v-btn icon class="mr-2" @click="confirmOrderVisible = false"><v-icon>mdi-close</v-icon></v-btn>
+          Deine Bestellung
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-text class="pa-0">
+          <confirm-order :copy="selectedCopy" :item="item" :main-element="mainElement"></confirm-order>
+        </v-card-text>
+  </v-dialog>
+
+  <v-btn class="full-width" v-if="item.copies.length == 0" disabled>Nicht verfügbar :/</v-btn>
+
+  <div class="mb-4"></div>
+
+  <v-expansion-panels>
+    <v-expansion-panel v-if="item.description">
+      <v-expansion-panel-header v-slot="{open}">
+        <transition name="fade">
+          <div>
+            <v-icon class="mr-2">mdi-card-text</v-icon>Beschreibung
+          </div>
+        </transition>
+      </v-expansion-panel-header>
+      <v-expansion-panel-content>
+        <div v-html="item.description.replaceAll('\n', '<br>')"></div>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+  </v-expansion-panels>
+
+</div>
+
+<div id="search-results">
+  <div class="mb-3">
+  <v-skeleton-loader v-if="loading" type="article@2"></v-skeleton-loader>
+  <div class="items-grid">
+  <item-preview v-for="item in results" :key="item.id" :item="item"></item-preview></div>
+  <div v-if="!loading && results.length == 0">
+    Wir haben nichts gefunden. Versuch es mit einem anderen Suchbegriff.
+  </div>
+  </div>
+</div>
+
+<div id="copy-selector">
+  <div class="mt-2">
+    <v-card outlined :class="{'copy-option': true, 'selected': selectedCopy == copy}" @click="selectedCopy = copy" :key="copy.id" v-for="copy in copies">
+      <div class="copy-check"><v-icon>{{ selectedCopy == copy ? 'mdi-check-circle' : 'mdi-circle-outline' }}</v-icon></div>
+      <div class="copy-condition">
+        <b>{{ getCondition(copy) }}</b>
+        <div v-if="copy.edition">{{copy.edition.number}}. Auflage ({{copy.edition.year}}) {{ copy.edition.name }}</div>
+      </div>
+      <div class="copy-price">CHF {{ copy.price }}.-</div>
+    </v-card>
+  </div>
+</div>
+
+<div id="confirm-order">
+  <div class="pa-5 order-confirmation">
+    <v-img class="full-cover small elevation-2 mt-2" :aspect-ratio="item.cover.width/item.cover.height" :src="item.cover.data.thumbnails[5].url"></v-img>
+    <h2 class="item-title">{{ item.title }}</h2>
+    <h3 class="item-authors">{{ item.authors }}</h3>
+
+      <div v-if="!orderConfirmed">
+        <h2 class="copy-price-large">CHF {{ copy.price }}.-</h2>
+        <v-btn class="full-width primary" :loading="loading" @click="confirmOrder()">Bestellung abschliessen</v-btn>
+        <p class="text--secondary my-2">Du bestellst als {{ app.user.first_name }} {{ app.user.last_name }}. <b>Bezahlung bei der Abholung.</b> Wir senden dir eine E-Mail als Bestätigung, mit der du die Bestellung auch stornieren kannst.</p>
+      </div>
+    <transition name="fade">
+      <div class="order-confirmed" v-if="orderConfirmed">
+        <v-icon class="mt-5" large>mdi-check-circle</v-icon>
+        <h2 class="my-5">Danke für deine Bestellung!</h2>
+        <p>Du hast von uns eine E-Mail erhalten, die deine Bestellung bestätigt. Du kannst das Buch beim Bookstore PickUp neben dem Lichthof gegen Bezahlung abholen.</p>
+        <v-btn class="full-width primary" @click="goBack()">Zurück zum Store</v-btn>
+      </div>
+    </transition>
+  </div>
+</div>
+
+<div id="cancel-order">
+    <v-dialog v-model="showDialog" persistent max-width="290">
+      <v-card>
+        <v-card-title class="text-h5">
+          <div v-if="!cancelConfirmed">Bist du sicher?</div>
+          <div v-if="cancelConfirmed">Alles klar!</div>
+        </v-card-title>
+        <v-card-text>
+          <div v-if="!cancelConfirmed">
+            Möchtest du dies wirklich stornieren?
+          </div>
+          <div v-if="cancelConfirmed">
+            Wir haben es storniert.
+          </div>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn text @click="showDialog = false">
+            {{ cancelConfirmed ? 'Ok' : 'Abbrechen' }}
+          </v-btn>
+          <v-btn text  v-if="!cancelConfirmed" :loading='loading' @click="cancelOrder">
+            Stornieren
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+</div>
+
+<div id="sell-item-page">
+  <v-btn icon class="mr-2 mt-2" @click="bookstore.goBack()">
+		<v-icon>mdi-arrow-left</v-icon>
+	</v-btn>
+  <img v-if="!item" src="images/sell.svg" class="sell-icon">
+  <h2 class="center">Verkaufe ein Buch</h2>
+
+    <div v-if="!this.item">
+      <p class="center">Scanne als erstes den Barcode deines Buchs, um herauszufinden, ob wir es verkaufen können.</p>
+        <v-btn class="primary full-width" v-if="!showScanner" @click="showScanner = true; showManually = false"><v-icon dark left>mdi-barcode-scan</v-icon>Barcode scannen</v-btn>
+        <barcode-scanner v-if="showScanner" @scan="checkIsbn" @error="showScanner = false; showManually = true"></barcode-scanner>
+
+        <v-btn class="full-width mt-3" v-if="!this.showManually" @click="showManually = true; showScanner = false">ISBN manuell eingeben</v-btn>
+        <v-text-field autofocus @keydown="checkIsbnInput" v-if="showManually" type="text" hint="Lass die Bindestriche weg. Gib nur die Zahlen ein." v-model="isbnInput" class="mt-4" outlined label="ISBN" pattern="\d*"></v-text-field>
+
+        <div v-if="notFound" class="text--secondary">Wir haben nichts gefunden. Du kannst eine Aufnahme des Buchs beantragen:<br>
+            <v-btn class="btn primary mt-2 full-width" :href="'mailto:GymLi Bookstore Support<'+'buecher'+'gymli'+'estal'+'@'+'gma'+'il.c'+'om?subject=['+isbn+'] Bitte nehmt dieses Buch in den Bookstore auf&body=ISBN: '+isbn+'%0D%0AMein Name: '+app.user.name+' ('+app.username+')%0D%0ADas Buch heisst: %0D%0AWird in folgendem Fach verwendet: %0D%0A'"><v-icon dark left>mdi-book</v-icon>Aufnahme beantragen</v-btn>
+        </div>
+    </div>
+    <div class="mt-3" v-if="this.item">
+      <v-img class="full-cover small elevation-2 mt-2" :aspect-ratio="item.cover.width/item.cover.height" :src="item.cover.data.thumbnails[5].url"></v-img>
+      <h2 class="item-title">{{ item.title }}</h2>
+      <h3 class="item-authors">{{ item.authors }}</h3>
+
+      <v-text-field @blur="validatePrice" @keydown="checkPriceInput" class="mt-5" :error="priceError" pattern="\d*" prefix="CHF" type="number" v-model="price" class="mt-2" outlined autofocus :min="1" :max="200" label="Preis" :hint="priceHint"></v-text-field>
+
+      <v-select v-model="edition" :items="editions" v-if="editions.length > 0" outlined label="Auflage"></v-select>
+
+      <v-btn @click="goToConfirmation" :loading="verifyingAccount" v-if="this.price" class="primary full-width mt-2" :disabled="priceError || !editionValid">Für CHF {{ price }}.- verkaufen</v-btn>
+    </div>
+
+  <v-dialog
+      v-model="confirmSaleVisible"
+      scrollable
+      transition="dialog-bottom-transition"
+      width="500">
+    <v-card>
+        <v-card-title>
+          <v-btn icon class="mr-2" @click="confirmSaleVisible = false"><v-icon>mdi-close</v-icon></v-btn>
+          Verkauf bestätigen
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-text class="pa-4">
+          <div v-if="!confirmed">
+            <div v-if="item" class="mt-5 text-main">
+            <v-img class="full-cover small elevation-2 mt-2" :aspect-ratio="item.cover.width/item.cover.height" :src="item.cover.data.thumbnails[5].url"></v-img>
+            <h2 class="item-title">{{ item.title }}</h2>
+            <h3 class="item-authors mb-3">wird verkauft für CHF {{ price }}.-</h3>
+            <h3 class="item-authors mt-6">Du erhältst beim Verkauf von uns:</h3>
+            <h2 class="copy-price-large mt-2">CHF {{ payback }}</h2>
+            </div>
+
+            <v-expansion-panels v-model="expansionPanels">
+            <v-expansion-panel>
+                <v-expansion-panel-header>
+                  <div>
+                    <v-icon class="mr-2">mdi-account</v-icon> Verkaufen als {{ app.user.first_name }} {{ app.user.last_name }}
+                  </div>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <p>Überprüfe deine Kontaktdaten, damit wir dir das Geld nach dem Verkauf auszahlen können. Sie gelten für alle Bücher, die du momentan verkaufst.</p>
+                  <v-text-field type="email" :error="!emailValid" label="E-Mail" hint="Du kannst keine Schul-E-Mail angeben, da du diese beim Austritt verlieren wirst" outlined v-model="user.email"></v-text-field>
+                  <v-text-field type="tel" :error="user.mobile == ''" label="Mobilnummer" outlined v-model="user.mobile"></v-text-field>
+                  <v-text-field label="IBAN" outlined v-model="user.iban"></v-text-field>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+
+            <v-btn class="primary full-width mt-5" @click="confirmSale" :loading="loading" :disabled="!emailValid || user.mobile == ''">Verkaufen</v-btn>
+          </div>
+
+        <transition name="fade">
+          <div v-if="confirmed" class="text-main center">
+            <v-img class="full-cover small elevation-2 mt-2" :aspect-ratio="item.cover.width/item.cover.height" :src="item.cover.data.thumbnails[5].url"></v-img>
+            <h2 class="item-title">{{ item.title }}</h2>
+            <v-icon class="mt-5" large>mdi-check-circle</v-icon>
+            <h2 class="my-5">Dein Exemplar-Code</h2>
+            <p>Abschliessend musst du dein Buch mit folgendem Code kennzeichnen:</p>
+            <div class="copy-uid-large mb-4">{{ copy.uid.substring(0,3) }} {{ copy.uid.substring(3,6) }}</div>
+            <p>Schreibe ihn mit grossen Buchstaben auf einen Zettel und klebe diesen gut sichtbar auf das Buch. Dieses kannst du während den Öffnungszeiten beim Bookstore PickUp vorbeibringen.</p>
+
+            <v-btn @click="goBack" class="primary full-width mt-2">Das Buch ist markiert</v-btn>
+          </div>
+        </transition>
+        </v-card-text>
+  </v-dialog>
+
+  <div class="mb-4"></div>
+</div>
+
+
+<div id="barcode-scanner">
+  <div class="scanner-wrapper">
+  <div ref="scannerContainer"></div>
+  <div class="barcode-overlay"><v-icon dark>mdi-barcode</v-icon></div>
+  </div>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-google-charts/dist/vue-google-charts.browser.js" crossorigin="anonymous"></script>
+    <script src="./js/bookstore-api.js"></script>
+    <script src="https://unpkg.com/@ericblade/quagga2/dist/quagga.min.js" crossorigin="anonymous"></script>
+    <script src="./js/bookstore-components.js"></script>
+    <script src="./js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Bookstore Signage</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&family=Roboto+Mono&display=swap">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+	<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+	<link href="../style.css" rel="stylesheet" type="text/css" />
+	<link href="../bookstore/style.css" rel="stylesheet" type="text/css" />
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  
+	<link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icon/favicon-16x16.png">
+	<link rel="manifest" href="/icon/site.webmanifest">
+	<link rel="mask-icon" href="/icon/safari-pinned-tab.svg" color="#2977ff">
+	<link rel="shortcut icon" href="/icon/favicon.ico">
+	<meta name="msapplication-TileColor" content="#2977ff">
+	<meta name="msapplication-config" content="/icon/browserconfig.xml">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)"  content="#1e1e1e">
+	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+	<meta name="author" content="Léonce Aklin">
+
+	<!-- Matomo -->
+	<script type="text/javascript">
+		var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//analytics.zebrapig.com/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '102']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+
+	</script>
+	<!-- End Matomo Code -->
+
+</head>
+
+<body>
+	<div id="app" style="display: none">
+		<v-app>
+      <transition name="slideUp">
+        <div class="slide slide-1" v-if="slideIndex == 1">
+          <div class="slogan-text">{{ slogan.text_1 }}</div>
+        </div>
+      </transition>
+
+      <transition name="slideUp">
+        <div class="slide slide-2" v-if="slideIndex == 2">
+          <div class="slogan-text">{{ slogan.text_2 }}</div>
+        </div>
+      </transition>
+
+      <transition name="scale">
+        <div class="slide slide-5" v-if="slideIndex == 5">
+          <div class="end-card">
+            <img src="../images/sell.svg"/>
+            <div class="end-title">Der GymLi Bookstore</div>
+            <div class="end-subtitle">Secondhand Bücher <b>kaufen</b> und <b>verkaufen</b>.<br>Ein Angebot der SO Gymnasium Liestal.</div>
+            <div class="end-title mt-4 store-link">schoolhub.ch</div>
+          </div>
+        </div>
+      </transition>
+
+      <transition name="slideUp">
+        <div :class="{slide: true, 'slide-3': slideIndex == 3, 'slide-4': slideIndex == 4}" v-if="slideIndex == 3 || slideIndex == 4">
+          <div class="signage-item-preview">
+            <div class="item-info">
+              <div class="signage-cover-wrapper">
+                <img :src="cover.url" v-if="cover" class="signage-cover elevation-3">
+              </div>
+            <div class="item-title">{{ item.title }}</div>
+            <div class="item-authors">{{ item.authors }}</div>
+            </div>
+
+            <div class="price-info">
+              <template v-if="item.copies.length > 1">{{ item.copies.length }} Exemplare verfügbar ab CHF {{price}}.-</template>
+              <template v-if="item.copies.length == 1">Noch ein Exemplar verfügbar für CHF {{price}}.-</template>
+            </div>
+          </div>
+        </div>
+      </transition>
+    </v-app>
+  </div>
+</div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
+    <script src="../bookstore/api.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
