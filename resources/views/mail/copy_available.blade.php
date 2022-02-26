@@ -16,6 +16,5 @@ Hallo <?php echo $copy->ownedBy->first_name; ?><br>
 <br>
 <img src="https://schoolhub.ch/images/pickup.svg" class="icon" alt="Wie weiter?">
 <div class="icon-side-text"><h2>Wie weiter?</h2>
-  
 Wir werden es für dich nun für CHF <?php echo $copy->price ?>.- verkaufen. Abzüglich einer Provision von <?php echo $copy->commission*100; ?>% erhältst du CHF <?php echo $copy->payback ?> von uns nach dem Verkauf.
 </div>
