@@ -45,6 +45,7 @@ class SalApi{
         $isNewSubject = false;
 
         $subjectIdentifier = $subjectNameTd->childNodes[0];
+        
         if(!empty(trim($subjectIdentifier->nodeValue))){
           $subject = (object) [];
           $isNewSubject = true;
