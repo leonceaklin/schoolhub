@@ -31,7 +31,7 @@ workbox.core.setCacheNameDetails({
 // runtime cache
 workbox.routing.registerRoute(
     new RegExp('\.css$'),
-    workbox.strategies.cacheFirst({
+    workbox.strategies.staleWhileRevalidate({
         cacheName: 'css-cache',
         plugins: [
             new workbox.expiration.Plugin({
