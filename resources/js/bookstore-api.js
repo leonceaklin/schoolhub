@@ -113,12 +113,12 @@ class BookstoreApi{
   }
 
   async postToEndpoint(endpoint, data){
-    var response = await axios.post(this.apiUrl+"/?endpoint="+endpoint, data, this.requestOptions)
+    var response = await axios.post(this.apiUrl+"/"+endpoint, data, this.requestOptions)
     return response
   }
 
   async getFromEndpoint(endpoint, data){
-    var response = await axios.get(this.apiUrl+"/?endpoint="+endpoint, this.requestOptions)
+    var response = await axios.get(this.apiUrl+"/"+endpoint, this.requestOptions)
     return response
   }
 

@@ -10,6 +10,9 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+  const CREATED_AT = 'created_on';
+  const UPDATED_AT = 'updated_on';
+  
     use HasApiTokens, HasFactory, Notifiable;
 
     /**

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Http\Controllers\SalController;
+use App\Http\Controllers\BookstoreController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -22,3 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/sal/{school}/{endpoint?}', [SalController::class, 'process']);
+
+Route::get('/bookstore/{endpoint?}', [BookstoreController::class, 'process']);
+Route::post('/bookstore/{endpoint?}', [BookstoreController::class, 'process']);
