@@ -523,11 +523,6 @@ class SalApi{
     return $this->request("?pageid=21311&output=pdf");
   }
 
-  public function getSchools(){
-    return json_decode(file_get_contents(base_path()."/resources/json/schools.json"));
-  }
-
-
   function login($username, $password, $school = "", $ct = 0){
     $this->username = $username;
     $this->password = $password;
