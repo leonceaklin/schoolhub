@@ -199,7 +199,7 @@ class BookstoreController extends Controller
                  Log::info("Copy available (".$copy->uid.") ".$copy->price." CHF by ".$copy->ownedBy->email);
 
                  if($event == 'updated'){
-                   $this->mailToUser("Dein Buch ist jetzt im GymLi Bookstore verfügbar", view("mail.copy_available", ["copy" => $copy]), $copy->ownedBy;
+                   $this->mailToUser("Dein Buch ist jetzt im GymLi Bookstore verfügbar", view("mail.copy_available", ["copy" => $copy]), $copy->ownedBy);
                  }
              }
          }
