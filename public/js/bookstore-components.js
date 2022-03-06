@@ -33,6 +33,10 @@ Vue.component('subjects-page', {
     }
   },
   async mounted(){
+    if(window.bookstore.page.params.query){
+      this.query = window.bookstore.page.params.query
+    }
+    
     var response = await bookApi.fetch("items/subjects?fields=id,title")
     var subjects = response.data
 
@@ -64,10 +68,6 @@ Vue.component('subjects-page', {
       subject.items = items
     }
     this.subjects = subjects
-
-    if(window.bookstore.page.params.query){
-      this.query = window.bookstore.page.params.query
-    }
   },
   watch: {
     query(val){
