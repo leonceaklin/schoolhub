@@ -117,7 +117,7 @@ class SalApi{
           }
           }
 
-          if(sizeof($grades) > 0){
+          if(!isset($grades) || sizeof($grades) > 0){
             $subject->grades = $grades;
           }
         }
@@ -387,7 +387,7 @@ class SalApi{
       if(!isset($columns[11])){
         continue;
       }
-      
+
       $student = [];
       $student["birth"] = date("Y-m-d", strtotime(trim($columns[11]->nodeValue)));
       if($student["birth"] == "1970-01-01"){
