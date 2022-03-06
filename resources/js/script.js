@@ -26,14 +26,15 @@ const app = new Vue({
         username: null,
         password: null,
         school: '',
-        salt: "e30ede9e86b6694b82e4ea155caa1e0eb7f80e7080ab598b4c2ce6067ec839df64813691c7f0d754592fdd9dcc575b1e9e27789acef3651a3b3894849fbc79c6",
-        apiUrl: "/api/sal",
-        version: "1.0.1",
+        apiUrl: "/api",
+        version: "1.0.2",
         lastVersion: "",
         absencePeriods: [],
         events: [],
         user: {},
         schoolClass: {},
+        credentialsToken: null,
+        auth: null,
 
         birthdayToday: [],
 
@@ -140,6 +141,8 @@ const app = new Vue({
 
       //Migrate old installations
       window.localStorage.removeItem("personalInformation")
+      window.localStorage.removeItem("username")
+      window.localStorage.removeItem("password")
 
       this.fetchData()
       this.checkInstallation()
@@ -299,10 +302,10 @@ const app = new Vue({
         return this.$refs.eventsCalendar.timeToY(this.$refs.eventsCalendar.times.now) + 'px'
       },
       loggedIn(){
-        if(!this.subjects){
+        if(!this.credentialsToken){
           return false
         }
-        return this.subjects.length > 0
+        return true
       }
     },
     methods: {
@@ -365,15 +368,16 @@ const app = new Vue({
         this.password = ""
         this.user = {}
         this.schoolClass = {}
+        this.credentialsToken = null
         this.subjects = []
         this.grades = []
         this.upcomingGrades = []
-        this.acceptConditions = false
         this.absencePeriods = []
+        this.acceptConditions = false
         this.events = []
         this.fetchingData = false
 
-        window.localStorage.setItem('auth', null)
+        window.app.auth = null
       },
 
       calculateBirthday(){
@@ -403,61 +407,80 @@ const app = new Vue({
         this.birthdayToday = birthdayToday
       },
 
-      async fetchData(){
-        if(this.fetchingData){
-          return false
-        }
-        if(!this.username || !this.password || !this.school){
-          return
-        }
-
-        if(!this.acceptConditions){
-          this.subjects = []
-          return
-        }
-
+      async login(){
         this.username = this.username.split("@")[0]
         this.fetchingData = true
         var auth = btoa(this.username+":"+this.password);
 
-        var response = await axios.get(`${this.apiUrl}/${this.school}/subjects`,{headers: {"Authorization": "Basic "+auth}})
+        var response = await axios.get(`${this.apiUrl}/sal/${this.school}/login`,{headers: {"Authorization": "Basic "+auth}})
+        if(response.data.data && response.data.data.token){
+          this.credentialsToken = response.data.data.token
+          this.subjectsDialog = false
+          this.loginError = false
+          this.username = ""
+        }
+        else{
+          this.loginError = true
+        }
+        this.fetchingData = false
+        this.password = ""
+      },
+
+      async fetchData(){
+        if(this.fetchingData){
+          return false
+        }
+        if(!this.school){
+          return
+        }
+
+        if(!this.acceptConditions){
+          this.logout()
+          return
+        }
+
+        if(!this.credentialsToken){
+          await this.login();
+        }
+
+        this.fetchingData = true
+        var auth = this.credentialsToken
+
+        var response = await axios.get(`${this.apiUrl}/sal/${this.school}/subjects`,{headers: {"Authorization": "Bearer "+auth}})
 
         if(response.data.data && response.data.data.subjects){
-          this.loginError = false
           this.subjects = response.data.data.subjects
-          this.subjectsDialog = false
 
           _paq.push(['trackGoal', 1]);
 
           this.setFetchInterval()
 
           //Absences
-          var response = await axios.get(`${this.apiUrl}/${this.school}/absence_information`,{headers: {"Authorization": "Basic "+auth}})
+          var response = await axios.get(`${this.apiUrl}/sal/${this.school}/absence_information`,{headers: {"Authorization": "Bearer "+auth}})
           if(response.data.data && response.data.data.absence_periods){
             this.absencePeriods = response.data.data.absence_periods
           }
 
           //Personal Information
-          var response = await axios.get(`${this.apiUrl}/${this.school}/user`,{headers: {"Authorization": "Basic "+auth}})
+          var response = await axios.get(`${this.apiUrl}/sal/${this.school}/user`,{headers: {"Authorization": "Bearer "+auth}})
           if(response.data.data && response.data.data && this.loggedIn){
             this.user = response.data.data
           }
 
           //School Class
-          var response = await axios.get(`${this.apiUrl}/${this.school}/class`,{headers: {"Authorization": "Basic "+auth}})
+          var response = await axios.get(`${this.apiUrl}/sal/${this.school}/class`,{headers: {"Authorization": "Bearer "+auth}})
           if(response.data.data && response.data.data && this.loggedIn){
             this.schoolClass = response.data.data
           }
 
           //Events
-          var response = await axios.get(`${this.apiUrl}/${this.school}/events`,{headers: {"Authorization": "Basic "+auth}})
+          var response = await axios.get(`${this.apiUrl}/sal/${this.school}/events`,{headers: {"Authorization": "Bearer "+auth}})
           if(response.data.data && response.data.data.events && this.loggedIn){
             this.events = response.data.data.events
           }
         }
         else{
-          this.password = ""
-          this.loginError = true
+          this.logout()
         }
         this.fetchingData = false
       },
@@ -584,19 +607,19 @@ const app = new Vue({
           this.user = JSON.parse(user)
         }
 
+        var auth = window.localStorage.getItem("auth")
+        if(auth){
+          this.auth = auth
+        }
+
+        var credentialsToken = window.localStorage.getItem("credentialsToken")
+        if(credentialsToken){
+          this.credentialsToken = credentialsToken
+        }
+
         var schoolClass = window.localStorage.getItem("schoolClass")
         if(schoolClass){
           this.schoolClass = JSON.parse(schoolClass)
-        }
-
-        var username = window.localStorage.getItem("username")
-        if(username){
-          this.username = this.unhash(username)
-        }
-
-        var password = window.localStorage.getItem("password")
-        if(password){
-          this.password = this.unhash(password)
         }
 
         var acceptConditions = window.localStorage.getItem("acceptConditions")
@@ -658,30 +681,6 @@ const app = new Vue({
         }
         return 'browser';
       },
-      hash(text){
-        var salt = this.salt
-        const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
-        const byteHex = (n) => ("0" + Number(n).toString(16)).substr(-2);
-        const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
-
-        return text
-          .split("")
-          .map(textToChars)
-          .map(applySaltToChar)
-          .map(byteHex)
-          .join("");
-      },
-      unhash(encoded){
-        var salt = this.salt
-        const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
-        const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
-        return encoded
-          .match(/.{1,2}/g)
-          .map((hex) => parseInt(hex, 16))
-          .map(applySaltToChar)
-          .map((charCode) => String.fromCharCode(charCode))
-          .join("");
-      },
     },
     watch: {
       absencesDialog(val){
@@ -706,10 +705,14 @@ const app = new Vue({
         window.localStorage.setItem("grades", JSON.stringify(val))
         if(val.length == 0){
           this.nextWeight = 1
+          window.localStorage.removeItem("grades")
         }
       },
       upcomingGrades(val){
         window.localStorage.setItem("upcomingGrades", JSON.stringify(val))
+        if(val.length == 0){
+          window.localStorage.removeItem("upcomingGrades")
+        }
       },
       aimedAvg(val){
         window.localStorage.setItem("aimedAvg", val)
@@ -721,33 +724,55 @@ const app = new Vue({
         window.localStorage.setItem("school", val)
       },
       subjects(val){
+        window.localStorage.setItem("subjects", JSON.stringify(val))
         if(val.length == 0){
           this.fetchSchools()
+          window.localStorage.removeItem("subjects")
         }
-        window.localStorage.setItem("subjects", JSON.stringify(val))
       },
       absencePeriods(val){
         window.localStorage.setItem("absencePeriods", JSON.stringify(val))
+        if(val.length == 0){
+          window.localStorage.removeItem("absencePeriods")
+        }
       },
       events(val){
         window.localStorage.setItem("events", JSON.stringify(val))
+        if(val.length == 0){
+          window.localStorage.removeItem("events")
+        }
       },
       user(val){
         window.localStorage.setItem("user", JSON.stringify(val))
+        if(JSON.stringify(val) == '{}'){
+          window.localStorage.removeItem("user")
+        }
       },
       schoolClass(val){
         window.localStorage.setItem("schoolClass", JSON.stringify(val))
         this.calculateBirthday()
-      },
-      username(val){
-        this.loginError = false
-        window.localStorage.setItem("username", this.hash(val))
-      },
-      password(val){
-        window.localStorage.setItem("password", this.hash(val))
+        if(JSON.stringify(val) == '{}'){
+          window.localStorage.removeItem("schoolClass")
+        }
       },
       acceptConditions(val){
         window.localStorage.setItem("acceptConditions", val)
+        if(!val){
+          window.localStorage.removeItem("acceptConditions")
+        }
+      },
+      credentialsToken(val){
+        window.localStorage.setItem("credentialsToken", val)
+        if(val == null){
+          window.localStorage.removeItem("credentialsToken")
+        }
+      },
+
+      auth(val){
+        window.localStorage.setItem("auth", val)
+        if(val == null){
+          window.localStorage.removeItem("auth")
+        }
       },
     }
 });

@@ -7,11 +7,11 @@ class BookstoreApi{
 
 
   set authToken(val){
-    return window.localStorage.setItem("auth", val)
+    return window.app.auth = val
   }
 
   get authToken(){
-    return window.localStorage.getItem("auth")
+    return window.app.auth
   }
 
   async fetch(endpoint, data){
@@ -41,14 +41,12 @@ class BookstoreApi{
     var accountExists = await this.checkAccountExistence(window.app.user.username)
     if(accountExists){
       await this.login({
-        username: window.app.username,
-        password: window.app.password
+        credentials_token: window.app.credentialsToken,
       })
     }
     else{
       await this.register({
-        username: window.app.username,
-        password: window.app.password,
+        credentials_token: window.app.credentialsToken,
         first_name: window.app.user.first_name,
         last_name: window.app.user.last_name,
         email: window.app.user.private_email,
@@ -88,7 +86,7 @@ class BookstoreApi{
 
   async submitCopy(data){
     this.loginOrRegister()
-    var response = await this.postToEndpoint('copies:submit', data)
+    var response = await this.postToEndpoint('bookstore:copies', data)
     return response.data.data.copy
   }
 
@@ -137,5 +135,5 @@ class BookstoreApi{
 
 var bookApi = new BookstoreApi({
   catalogUrl: "https://content.zebrapig.com/schoolhub",
-  apiUrl: "/api/bookstore"
+  apiUrl: "/api"
 })

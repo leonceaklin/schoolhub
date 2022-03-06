@@ -19,6 +19,7 @@ return [
     ],
 
     'jwt_secret' => env("JWT_SECRET"),
+    'credentials_secret' => env("CREDENTIALS_SECRET"),
 
     /*
     |--------------------------------------------------------------------------

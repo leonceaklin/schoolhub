@@ -59,7 +59,7 @@
 				{{ username == "e221754" ? "Premium" : "" }}
 				<v-dialog v-model="subjectsDialog" class="select-subject" scrollable transition="dialog-bottom-transition" width="500">
 					<template v-slot:activator="{ on, attrs }">
-						<v-btn primary class="mt-5 mb-5 full-width" v-bind="attrs" v-on="on" color="primary">
+						<v-btn primary class="mt-5 mb-5 full-width" v-bind="attrs" :loading="loggedIn && subjects.length == 0" v-on="on" color="primary">
 							{{ subjects.length > 0 ? "Meine Noten" : "Login" }}
 						</v-btn>
 					</template>

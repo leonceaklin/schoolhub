@@ -22,7 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/schools', [SalController::class, 'getSchools']);
+
 Route::get('/sal/{school}/{endpoint?}', [SalController::class, 'process']);
 
-Route::get('/bookstore/{endpoint?}', [BookstoreController::class, 'process']);
-Route::post('/bookstore/{endpoint?}', [BookstoreController::class, 'process']);
+Route::get('/{endpoint?}', [BookstoreController::class, 'process']);
+Route::post('/{endpoint?}', [BookstoreController::class, 'process']);

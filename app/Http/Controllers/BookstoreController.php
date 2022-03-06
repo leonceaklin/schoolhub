@@ -12,6 +12,7 @@ use App\Classes\SalApi;
 
 use ReallySimpleJWT\Token;
 use Illuminate\Support\Facades\Log;
+use App\Classes\CredentialsManager;
 
 
 
@@ -35,7 +36,7 @@ class BookstoreController extends Controller
 
 
        if($endpoint == 'users:check'){
-         return $this->response(["exists" => $this->checkUser('username', $this->post()->username)]);
+         return $this->response(["exists" => $this->checkUser($this->post())]);
        }
 
        if($endpoint == 'users:me'){
@@ -89,11 +90,46 @@ class BookstoreController extends Controller
        return json_encode($response);
      }
 
-     public function checkUser($a, $b){
-       return User::where($a, $b)->exists();
+     public function checkUser($properties){
+       $credentials = $this->getCredentials($properties);
+
+       return User::where('username', $credentials->username)->exists();
+     }
+
+     public function getCredentials($properties){
+       if(isset($properties->username)){
+         $username = $properties->username;
+       }
+
+       if(isset($properties->password)){
+         $password = $properties->password;
+       }
+
+       if(isset($properties->credentials_token)){
+         $cm = new CredentialsManager();
+         $c = $cm->getCredentials($properties->credentials_token);
+
+         $username = $c->username;
+         $password = $c->password;
+       }
+
+       $cred = (object) [];
+
+       if(isset($username)){
+         $cred->username = $username;
+       }
+
+       if(isset($password)){
+         $cred->password = $password;
+       }
+
+       return $cred;
      }
 
      public function isLoggedIn(){
+       if(empty($this->getBearerToken())){
+         return false;
+       }
        return Token::validate($this->getBearerToken(), $this->secret);
      }
 
@@ -107,9 +143,11 @@ class BookstoreController extends Controller
      }
 
      public function login($properties){
-       if($this->salApi->login($properties->username, $properties->password, "gymli")){
-         $user = User::where('username', $properties->username)->first();
-         $token = Token::create($user->id, $this->secret, time()+3600*24*30, "Bookstore");
+       $credentials = $this->getCredentials($properties);
+
+       if($this->salApi->login($credentials->username, $credentials->password, "gymli")){
+         $user = User::where('username', $credentials->username)->first();
+         $token = Token::create($user->id, $this->secret, time()+3600*24*30, "SchoolHub");
          $this->salApi->logout();
          return $token;
        }
@@ -117,10 +155,12 @@ class BookstoreController extends Controller
      }
 
      public function register($properties){
-       if(!User::where('username', $properties->username)->exists()){
-         if($this->salApi->login($properties->username, $properties->password, "gymli")){
+       $credentials = $this->getCredentials($properties);
+
+       if(!User::where('username', $credentials->username)->exists()){
+         if($this->salApi->login($credentials->username, $credentials->password, "gymli")){
              $user = new User();
-             $user->username = $properties->username;
+             $user->username = $credentials->username;
              $user->email = $properties->email;
              $user->phone = $properties->phone;
              $user->mobile = $properties->mobile;
@@ -129,7 +169,7 @@ class BookstoreController extends Controller
              $user->city = $properties->city;
              $user->zip = $properties->zip;
              $user->save();
-             $token = Token::create($user->id, $this->secret, time()+3600*24*30, "Bookstore");
+             $token = Token::create($user->id, $this->secret, time()+3600*24*30, "SchoolHub");
              $this->salApi->logout();
              return $token;
          }
