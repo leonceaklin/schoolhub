@@ -680,12 +680,14 @@
                   <p>Überprüfe deine Kontaktdaten, damit wir dir das Geld nach dem Verkauf auszahlen können. Sie gelten für alle Bücher, die du momentan verkaufst.</p>
                   <v-text-field type="email" :error="!emailValid" label="E-Mail" hint="Du kannst keine Schul-E-Mail angeben, da du diese beim Austritt verlieren wirst" outlined v-model="user.email"></v-text-field>
                   <v-text-field type="tel" :error="user.mobile == ''" label="Mobilnummer" outlined v-model="user.mobile"></v-text-field>
-                  <v-text-field label="IBAN" outlined v-model="user.iban"></v-text-field>
+                  <v-text-field label="IBAN" :error="user.iban == ''" outlined v-model="user.iban"></v-text-field>
+                  <v-text-field label="PLZ" :error="user.zip == ''" outlined v-model="user.zip"></v-text-field>
+                  <v-text-field label="Wohnort" :error="user.city == ''" outlined v-model="user.city"></v-text-field>
                 </v-expansion-panel-content>
               </v-expansion-panel>
             </v-expansion-panels>
 
-            <v-btn class="primary full-width mt-5" @click="confirmSale" :loading="loading" :disabled="!emailValid || user.mobile == ''">Verkaufen</v-btn>
+            <v-btn class="primary full-width mt-5" @click="confirmSale" :loading="loading" :disabled="!formValid">Verkaufen</v-btn>
           </div>
 
         <transition name="fade">

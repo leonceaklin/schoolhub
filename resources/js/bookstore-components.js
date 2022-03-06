@@ -108,7 +108,7 @@ Vue.component('item-page', {
     mainElement(){
       return this
     },
-    
+
     bookstore(){
       return window.bookstore
     },
@@ -160,9 +160,9 @@ Vue.component('search-results', {
       loading: false,
     }
   },
-  
+
   computed: {
-    
+
   },
 
   watch: {
@@ -200,9 +200,9 @@ Vue.component('copy-selector', {
       conditions: ["Neuwertig", "Kleine Gebrauchsspuren", "Entfernbare Notizen", "Permanente Notizen", "Starke Gebrauchsspuren"]
     }
   },
-  
+
   computed: {
-    
+
   },
 
   watch: {
@@ -237,7 +237,7 @@ Vue.component('confirm-order', {
       orderConfirmed: false,
     }
   },
-  
+
   computed: {
     app(){
       return window.app
@@ -245,7 +245,7 @@ Vue.component('confirm-order', {
   },
 
   watch: {
-    
+
   },
 
   methods: {
@@ -265,7 +265,7 @@ Vue.component('confirm-order', {
   },
 
   async mounted(){
-    
+
   }
 })
 
@@ -279,7 +279,7 @@ Vue.component('cancel-order', {
       showDialog: false
     }
   },
-  
+
   computed: {
     app(){
       return window.app
@@ -344,11 +344,13 @@ Vue.component('sell-item-page', {
       confirmed: false,
       loading: false,
       edition: null,
-      
+
       user: {
         email: null,
         mobile: null,
         iban: null,
+        zip: null,
+        city: null,
       },
 
       copy: null,
@@ -357,7 +359,7 @@ Vue.component('sell-item-page', {
       verifyingAccount: false,
     }
   },
-  
+
   computed: {
     app(){
       return window.app
@@ -418,6 +420,11 @@ Vue.component('sell-item-page', {
       return true
     },
 
+    formValid(){
+      var user = this.user
+      return user.email && user.mobile && user.iban && user.zip && user.city && this.emailValid;
+    },
+
     editionValid(){
       if(!this.item.editions || this.item.editions.length == 0){
         return true
@@ -461,7 +468,7 @@ Vue.component('sell-item-page', {
         return false
       }
       this.user = user
-      if(!user.email || !user.mobile){
+      if(!this.formValid){
         this.expansionPanels = 0
       }
       this.verifyingAccount = false
@@ -473,7 +480,9 @@ Vue.component('sell-item-page', {
       var updateUser = await bookApi.updateUserInfo({
         email: this.user.email,
         mobile: this.user.mobile,
-        iban: this.user.iban
+        iban: this.user.iban,
+        zip: this.user.zip,
+        city: this.user.city,
       })
       if(updateUser == null){
         this.loading = false
@@ -489,7 +498,7 @@ Vue.component('sell-item-page', {
       if(this.copy.id){
         this.confirmed = true
       }
-      
+
       this.loading = false
     },
 
@@ -555,7 +564,7 @@ Vue.component('barcode-scanner', {
       code: null,
     }
   },
-  
+
   beforeDestroy(){
     Quagga.stop()
   },
@@ -598,4 +607,3 @@ Vue.component('barcode-scanner', {
     });
   }
 })
-

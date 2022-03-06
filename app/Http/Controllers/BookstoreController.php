@@ -117,7 +117,7 @@ class BookstoreController extends Controller
      }
 
      public function register($properties){
-       if(!User::exists(['username' => $properties->username])){
+       if(!User::where('username', $properties->username)->exists()){
          if($this->salApi->login($properties->username, $properties->password, "gymli")){
              $user = new User();
              $user->username = $properties->username;
@@ -126,6 +126,8 @@ class BookstoreController extends Controller
              $user->mobile = $properties->mobile;
              $user->first_name = $properties->first_name;
              $user->last_name = $properties->last_name;
+             $user->city = $properties->city;
+             $user->zip = $properties->zip;
              $user->save();
              $token = Token::create($user->id, $this->secret, time()+3600*24*30, "Bookstore");
              $this->salApi->logout();
@@ -275,6 +277,14 @@ class BookstoreController extends Controller
 
        if(isset($data->iban)){
          $user->iban = $data->iban;
+       }
+
+       if(isset($data->city)){
+         $user->city = $data->city;
+       }
+
+       if(isset($data->zip)){
+         $user->zip = $data->zip;
        }
 
        if(isset($data->mobile)){

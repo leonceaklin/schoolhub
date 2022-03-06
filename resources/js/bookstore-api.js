@@ -53,7 +53,9 @@ class BookstoreApi{
         last_name: window.app.user.last_name,
         email: window.app.user.private_email,
         phone: window.app.user.phone,
-        mobile: window.app.user.mobile
+        mobile: window.app.user.mobile,
+        zip: window.app.user.zip,
+        city: window.app.user.city,
       })
     }
   }
