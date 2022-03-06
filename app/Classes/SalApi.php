@@ -47,6 +47,10 @@ class SalApi{
         $isNewSubject = false;
         $subjectNameTd = $subjTr->getElementsByTagName('td')->item(0);
 
+        if(!isset($subjectNameTd)){
+          continue;
+        }
+
         $subjectIdentifier = $subjectNameTd->childNodes->item(0);
 
         if(!empty(trim($subjectIdentifier->nodeValue))){
