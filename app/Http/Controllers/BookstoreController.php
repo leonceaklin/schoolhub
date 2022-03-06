@@ -196,10 +196,10 @@ class BookstoreController extends Controller
              if(!$copy->available_since){
                  $copy->available_since = date("Y-m-d H:i:s");
                  $copy->save();
-                 Log::info("Copy available (".$copy->uid.") ".$copy->price." CHF by ".$copy->ownedBy()->email);
+                 Log::info("Copy available (".$copy->uid.") ".$copy->price." CHF by ".$copy->ownedBy->email);
 
                  if($event == 'updated'){
-                   $this->mailToUser("Dein Buch ist jetzt im GymLi Bookstore verfügbar", view("mail.copy_available", ["copy" => $copy]), $copy->ownedBy());
+                   $this->mailToUser("Dein Buch ist jetzt im GymLi Bookstore verfügbar", view("mail.copy_available", ["copy" => $copy]), $copy->ownedBy;
                  }
              }
          }
@@ -208,7 +208,7 @@ class BookstoreController extends Controller
              if(!$copy->sold_on){
                  $copy->sold_on = date("Y-m-d H:i:s");
                  $copy->save();
-                 Log::info("Copy sold (".$copy->uid.") ".$copy->price." CHF to ".$copy->orderedBy()->email);
+                 Log::info("Copy sold (".$copy->uid.") ".$copy->price." CHF to ".$copy->orderedBy->email);
              }
          }
        }
