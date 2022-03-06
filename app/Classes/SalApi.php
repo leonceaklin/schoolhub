@@ -117,7 +117,7 @@ class SalApi{
           }
           }
 
-          if(!isset($grades) || sizeof($grades) > 0){
+          if(isset($grades) && sizeof($grades) > 0){
             $subject->grades = $grades;
           }
         }
