@@ -43,7 +43,7 @@ class SalApi{
 
     foreach($table->childNodes as $subjTr){
       if($subjTr->nodeName == "tr"){
-      if($subjTrI > 1){
+      if($subjTrI > 0){
         $isNewSubject = false;
         $subjectNameTd = $subjTr->getElementsByTagName('td')->item(0);
 
