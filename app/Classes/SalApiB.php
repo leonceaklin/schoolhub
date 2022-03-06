@@ -23,7 +23,7 @@ class SalApi{
 
   public function getSubjects(){
     $result = $this->request("?pageid=21311");
-    //$result = file_get_contents(__DIR__."/test.txt");
+    // $result = file_get_contents("./test.txt");
     $dom = new DomDocument();
     $dom->loadHTML($result);
 
@@ -39,12 +39,11 @@ class SalApi{
     $subjTrI = 0;
 
     $needsGrades = false;
-    $isNewSubject = false;
 
-    foreach($table->childNodes as $subjTr){
-      if($subjTr->nodeName == "tr"){
-      if($subjTrI > 1){
+    foreach($table->getElementsByTagName('tr') as $subjTr){
+      if($subjTrI > 0){
         $isNewSubject = false;
+
         $subjectNameTd = $subjTr->getElementsByTagName('td')->item(0);
 
         $subjectIdentifier = $subjectNameTd->childNodes->item(0);
@@ -56,7 +55,6 @@ class SalApi{
           $subject->identifier = $subjectIdentifier->nodeValue;
           $subjectNameTd->removeChild($subjectIdentifier);
           $subject->name = $subjectNameTd->nodeValue;
-          $grades = [];
         }
 
         if(!$isNewSubject && $needsGrades && !empty(trim($subjTr->nodeValue))){
@@ -73,53 +71,45 @@ class SalApi{
                 $grade->name = $nameStr;
               }
 
-              $valueElement = $gradeTr->getElementsByTagName("td")[2];
+              $valueElement = $gradeTr->getElementsByTagName("td")[3];
               $valueElI = 0;
-              if($valueElement != null){
-                foreach($valueElement->childNodes as $n){
-                  if($valueElI == 0){
-                    $valueStr = trim($n->nodeValue);
-                  }
-                  $valueElement->removeChild($n);
+              foreach($valueElement->childNodes as $n){
+                if($valueElI == 0){
+                  $valueStr = trim($n->nodeValue);
                 }
-
-                $pointsExplode = explode(":", $valueElement->textContent);
-                if(isset($pointsExplode[1])){
-                  $pointsStr = trim($pointsExplode[1]);
-                }
-
-                if(!empty($valueStr)){
-                  $grade->value = round(floatval($valueStr), 2);
-                }
-
-                if(!empty($pointsStr)){
-                  $grade->points = round(floatval($pointsStr), 2);
-                }
-
-                $weightElement = $gradeTr->getElementsByTagName("td")[3];
-                if(isset($weightElement)){
-                  $weightStr = trim($weightElement->nodeValue);
-                }
-                if(!empty($weightStr)){
-                  $grade->weight = floatval($weightStr);
-                }
-
-                $dateStr = trim($gradeTr->getElementsByTagName("td")[0]->nodeValue);
-                if(!empty($dateStr)){
-                  $pDate = date_parse_from_format("d.m.Y", $dateStr);
-                  $grade->date = date("Y-m-d",strtotime($pDate["year"]."-".$pDate["month"]."-".$pDate["day"]));
-                }
-
-                $grades[] = $grade;
+                $valueElement->removeChild($n);
               }
+
+              $pointsExplode = explode(":", $valueElement->textContent);
+              if(isset($pointsExplode[1])){
+                $pointsStr = trim($pointsExplode[1]);
+              }
+
+              if(!empty($valueStr)){
+                $grade->value = round(floatval($valueStr), 2);
+              }
+
+              if(!empty($pointsStr)){
+                $grade->points = round(floatval($pointsStr), 2);
+              }
+
+              $weightStr = trim($gradeTr->childNodes[6]->nodeValue);
+              if(!empty($weightStr)){
+                $grade->weight = floatval($weightStr);
+              }
+
+              $dateStr = trim($gradeTr->childNodes[0]->nodeValue);
+              if(!empty($dateStr)){
+                $pDate = date_parse_from_format("d.m.Y", $dateStr);
+                $grade->date = date("Y-m-d",strtotime($pDate["year"]."-".$pDate["month"]."-".$pDate["day"]));
+              }
+
+              $grades[] = $grade;
             }
             $gradeTrI++;
           }
-          }
 
-          if(sizeof($grades) > 0){
-            $subject->grades = $grades;
-          }
+          $subject->grades = $grades;
         }
 
         if($isNewSubject){
@@ -149,6 +139,7 @@ class SalApi{
     $absTable->normalize();
     $absences = [];
 
+    $absTrI = 0;
     $absTrs = $absTable->getElementsByTagName("tr");
 
     $absCount = 0;
@@ -205,8 +196,6 @@ class SalApi{
 
 
     //Absences
-    $absTrI = 0;
-
     foreach($absTrs as $absTr){
       $absence = (object)[];
       if($absTrI > 0){
@@ -219,33 +208,24 @@ class SalApi{
           $absence->start = date("Y-m-d",strtotime($pDate["year"]."-".$pDate["month"]."-".$pDate["day"]));
         }
 
-        if(!isset($tds[1])){
-          //This Absence doesn't have an end? Weird…
-          continue;
-        }
-
         $endStr = trim($tds[1]->nodeValue);
         if(!empty($endStr)){
           $pDate = date_parse_from_format("d.m.Y", $endStr);
           $absence->end = date("Y-m-d",strtotime($pDate["year"]."-".$pDate["month"]."-".$pDate["day"]));
         }
 
-        if(isset($tds[2])){
-          $reasonStr = trim($tds[2]->nodeValue);
-          if(!empty($reasonStr)){
-            $absence->reason = $reasonStr;
-          }
+        $reasonStr = trim($tds[2]->nodeValue);
+        if(!empty($reasonStr)){
+          $absence->reason = $reasonStr;
         }
 
 
-        if(isset($tds[3])){
-          $pointsStr = trim($tds[3]->nodeValue);
-          if(!empty($pointsStr)){
-            if(sizeof(explode("*", $pointsStr)) == 1){
-              $inCurrentPeriod = true;
-            }
-            $absence->points = round(floatval($pointsStr), 2);
+        $pointsStr = trim($tds[3]->nodeValue);
+        if(!empty($pointsStr)){
+          if(sizeof(explode("*", $pointsStr)) == 1){
+            $inCurrentPeriod = true;
           }
+          $absence->points = round(floatval($pointsStr), 2);
         }
 
         if($absence->start == "1970-01-01" || $absence->end == "1970-01-01"){
@@ -344,11 +324,6 @@ class SalApi{
     $rows = $table->getElementsByTagName("tr");
     foreach($rows as $row){
       $columns = $row->getElementsByTagName('td');
-
-      if(!isset($columns[1]) || !isset($columns[2])){
-        continue;
-      }
-
       $lname = trim($columns[1]->nodeValue);
       $fname = trim($columns[2]->nodeValue);
 
@@ -382,12 +357,7 @@ class SalApi{
 
     //Remove header rows
     foreach($rows as $row){
-
       $columns = $row->getElementsByTagName('td');
-      if(!isset($columns[11])){
-        continue;
-      }
-      
       $student = [];
       $student["birth"] = date("Y-m-d", strtotime(trim($columns[11]->nodeValue)));
       if($student["birth"] == "1970-01-01"){

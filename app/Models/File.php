@@ -10,7 +10,7 @@ class File extends Model
 
     protected $table = 'directus_files';
     const CREATED_AT = 'created_on';
-    const UPDATED_AT = 'updated_on';
+    const UPDATED_AT = 'modified_on';
 
     public function getThumbnailUrlAttribute(){
       return "https://content.zebrapig.com/schoolhub/assets/".$this->private_hash."?key=directus-large-contain";

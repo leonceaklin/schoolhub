@@ -214,7 +214,7 @@ body{
   text-transform: uppercase;
   font-weight: bold;
   text-align: center;
-  background-image: url("images/bookstore-banner.png");
+  background-image: url("../images/bookstore-banner.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;

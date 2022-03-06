@@ -1,0 +1,2153 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de" translate="no">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link href="https://sal.portal.bl.ch/_framework/43649/font-awesome/css/all.min.css" rel="stylesheet">
+        <script defer src="https://sal.portal.bl.ch/_framework/43649/material-design-lite/dist/material.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://sal.portal.bl.ch/_framework/43649/material-design-lite/dist/material-schulnetz-blue.min.css">
+
+        <link rel="stylesheet" href="https://sal.portal.bl.ch/_framework/43649/javascript/dialog/dialog-polyfill.css">
+    <script src="https://sal.portal.bl.ch/_framework/43649/javascript/dialog/dialog-polyfill.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://sal.portal.bl.ch/_framework/43649/javascript/material-datepicker-1.0.9/dist/material-datepicker.css">
+    <script type="text/javascript" src="https://sal.portal.bl.ch/_framework/43649/javascript/material-datepicker-1.0.9/dist/material-datepicker-with-moment-js.min.js"></script>
+
+        <SCRIPT type="text/javascript" language="JavaScript"  src="https://sal.portal.bl.ch/_framework/43649/javascript/prototype/prototype.js"></script>
+    <SCRIPT type="text/javascript" language="JavaScript"  src="https://sal.portal.bl.ch/_framework/43649/javascript/prototype/scriptaculous/scriptaculous.js"></script>
+
+
+    <script type="text/javascript">
+        eval("var protoAlias = "+$.toString());
+    </script>
+
+    <script src="https://sal.portal.bl.ch/_framework/43649/javascript/JQuery-2.1.1/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script src="https://sal.portal.bl.ch/_framework/43649/javascript/JQuery-2.1.1/jquery.namespace.js" type="text/javascript"></script>
+    <script src="https://sal.portal.bl.ch/_framework/43649/javascript/JQuery-2.1.1/jquery.textcomplete.min.js" type="text/javascript"></script>
+    <script src="https://sal.portal.bl.ch/_framework/43649/javascript/JQuery-2.1.1/jquery.centerboard_textfunctions.js" type="text/javascript"></script>
+    <script src="https://sal.portal.bl.ch/_framework/43649/javascript/JQuery-2.1.1/jquery.centerboard_textcomplete.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        function $(arg){
+            var res;
+            try{
+                var res = protoAlias(arg);
+            }catch(e){
+                res = null;
+            }
+            if(res != null){
+                return res;
+            }
+
+            try{
+                var res = jQuery(arg);
+            }catch(e){
+                res = null;
+            }
+            if(res != null){
+                return res;
+            }
+        }
+
+    </script>
+
+
+
+
+        <link rel="stylesheet" href="https://sal.portal.bl.ch/_schulnetz/43649/css/flat/get_css.php"	type="text/css" media="all" />
+            	<link rel="stylesheet" href="https://sal.portal.bl.ch/_schulnetz/43649/css/flat/print.css" type="text/css" media="print" />
+    	<script type="text/javascript" language="JavaScript" src="https://sal.portal.bl.ch/_framework/43649/javascript/get_js.php"></script>
+    	<script type="text/javascript">var xajaxRequestUri="https://sal.portal.bl.ch/gymli/xajax_js.php?pageid=21311&id=9536803f16603efa&transid=f3e00b";</script>
+	<script type="text/javascript" language="JavaScript" src="https://sal.portal.bl.ch/gymli/xajax_js.php?xajaxjs=xajaxjs&cache_control=https://sal.portal.bl.ch/_framework/43649/javascript/"></script>
+    	<script type="text/javascript" language="JavaScript" src="https://sal.portal.bl.ch/_framework/43649/javascript/toggle.js"></script>
+
+
+
+
+                <script src="https://sal.portal.bl.ch/_framework/43649/javascript/Chart.js/2.7.3/Chart.bundle.min.js" type="text/javascript"></script>
+                <script src="https://sal.portal.bl.ch/_framework/43649/javascript/Chart.js/plugins/verticalLines.js" type="text/javascript"></script>
+        <script src="https://sal.portal.bl.ch/_framework/43649/javascript/Chart.js/plugins/horizontalLines.js" type="text/javascript"></script>
+        <script src="https://sal.portal.bl.ch/_framework/43649/javascript/Chart.js/plugins/drawBarLabels.js" type="text/javascript"></script>
+
+
+
+
+
+
+    <title>schulNetz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="apple-touch-icon" sizes="180x180" href="https://sal.portal.bl.ch/_schulnetz/43649/favicons/sn/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://sal.portal.bl.ch/_schulnetz/43649/favicons/sn/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://sal.portal.bl.ch/_schulnetz/43649/favicons/sn/favicon-16x16.png">
+    <link rel="manifest" href="https://sal.portal.bl.ch/_schulnetz/43649/favicons/sn/site.webmanifest" crossorigin="use-credentials">
+    <link rel="mask-icon" href="https://sal.portal.bl.ch/_schulnetz/43649/favicons/sn/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="https://sal.portal.bl.ch/_schulnetz/43649/favicons/sn/favicon.ico">
+    <meta name="msapplication-TileColor" content="#5bbad5">
+    <meta name="msapplication-config" content="https://sal.portal.bl.ch/_schulnetz/43649/favicons/sn/browserconfig.php?path=https://sal.portal.bl.ch/_schulnetz/43649/favicons/sn/">
+    <meta name="theme-color" content="#ffffff">
+</head>
+
+<body class="layout-md">
+<div id="backgroundBanner"></div>
+<div id="footer"></div>
+<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<div class='mdl-layout mdl-js-layout mdl-layout--fixed-header' id='global-container'><script language="JavaScript" type="text/javascript">
+    let duration = 900;
+    let loginUrl = 'https://sal.portal.bl.ch/gymli/index.php?pageid=21311&id=9536803f16603efa&transid=f3e00b';
+    let saveScrollPos = false;
+    let resetScrollPos = false;
+    let menu_hidden_permissions = false;
+    let menuScrollOffset = 0;
+let maxScrollRight = 0;
+let navListMainShow = false;
+let menuIconsWidth = 0;
+let lastShift = -1;
+
+let iconIndex = 0;
+
+let layoutSizeCookie = 'layout-size';
+
+function toggleNavDrawer() {
+    var drawer = $('nav-drawer');
+
+    if(drawer.hasClassName('is-small-screen')) {
+        drawer.addClassName('mdl-layout--fixed-drawer');
+        drawer.MaterialLayout.toggleDrawer();
+    } else {
+        if(drawer.hasClassName('mdl-layout--fixed-drawer')) {
+            drawer.removeClassName('mdl-layout--fixed-drawer');
+            setCookie("menuHidden","1",10);
+        } else {
+            drawer.addClassName('mdl-layout--fixed-drawer');
+            setCookie("menuHidden","0",10);
+        }
+    }
+}
+
+function showMenuButtonOnSmallScreens(show) {
+    var drawer = $('nav-drawer');
+    let menu_toggle_btn = $('menu-toggle-button');
+
+    if(show && menu_toggle_btn.style.visibility === 'hidden') {
+        menu_toggle_btn.style.visibility = 'visible';
+    } else if(menu_hidden_permissions && !show) {
+        menu_toggle_btn.style.visibility = 'hidden';
+        drawer.removeClassName('mdl-layout--fixed-drawer'); // Falls Menu (links) in kleinem Screen geöffnet wurde, soll Menu (links) wieder geschlossen werden
+    }
+}
+
+function toggleNavListMainList() {
+    let main = document.getElementsByClassName("cls-page--mainnav-small--list");
+    let icon = $('mainnav-small--icon');
+    for (let i = 0; i < main.length; i++) {
+        navListMainShow ? main[i].hide() : main[i].show();
+    }
+
+    if(navListMainShow) {
+        icon.removeClassName('fa-chevron-up');
+        icon.addClassName('fa-chevron-down');
+    } else {
+        icon.removeClassName('fa-chevron-down');
+        icon.addClassName('fa-chevron-up');
+    }
+
+    navListMainShow = !navListMainShow;
+}
+
+function toggleScrollBtnDisabled() {
+    $('menu-scroll-left').disabled = (menuScrollOffset) >= 0;
+    $('menu-scroll-right').disabled = (menuIconsWidth + menuScrollOffset) <= $('nav-main-menu').offsetWidth;
+}
+
+function menuScrollIcon(forward) {
+    const menuElements = $$('.cls-page--mainmenu-element');
+    let iconWidth = menuElements[iconIndex].offsetWidth;
+    if (forward) {
+        let iconWidth = menuElements[iconIndex].offsetWidth;
+        let remainingWidth = menuIconsWidth + menuScrollOffset - $('nav-main-menu').offsetWidth;
+        if(remainingWidth < iconWidth) {
+            menuScroll(-remainingWidth);
+            lastShift = remainingWidth;
+        } else {
+            menuScroll(-iconWidth);
+            iconIndex++;
+        }
+    } else {
+        let iconWidth = menuElements[iconIndex-1].offsetWidth;
+        if(lastShift === -1) {
+            menuScroll(iconWidth);
+            iconIndex--;
+        } else {
+            menuScroll(lastShift);
+            lastShift = -1;
+        }
+    }
+}
+
+function menuScroll(scrollOffset) {
+
+    // falls nach links gescrollt werden soll, das menü aber schon linksbündig ist
+    if(scrollOffset > 0 && menuScrollOffset >= 0) {
+        return;
+    }
+    // falls nach rechts gescrollt werden soll, es aber nicht mehr weiter nach rechts geht
+    if(scrollOffset < 0 && menuIconsWidth + menuScrollOffset <= $('nav-main-menu').offsetWidth) {
+        return;
+    }
+
+    menuScrollOffset += scrollOffset;
+
+    toggleScrollBtnDisabled();
+
+    const menuElements = $$('.cls-page--mainmenu-element');
+    for(let i = 0; i < menuElements.length; i++) {
+        menuElements[i].setStyle({
+            'left':menuScrollOffset+'px'
+        });
+    }
+}
+
+function toggleCard(id) {
+    let content = $(id + '_card_content');
+    let actions = $(id + '_card_actions');
+    let buttonClass = null;
+    if (content.style.display === "none") {
+        content.show();
+        if(actions) {
+            actions.show();
+        }
+        buttonClass = "fa-chevron-up";
+    } else {
+        content.hide();
+        if(actions) {
+            actions.hide();
+        }
+        buttonClass = "fa-chevron-down";
+    }
+
+    $(id + '_toggle_button').innerHTML = "<i class='fas " + buttonClass + " fa-xs'></i>";
+}
+
+function getNavMenuWidth() {
+    const totalWidth = $('header-menu').offsetWidth - 40;
+
+    // Elemente welche immer im Header vorhanden sind
+    let navMenuWidth = totalWidth - $('logo-span').offsetWidth - $('sn-gradient').offsetWidth - $('sn-main-menu').offsetWidth;
+
+    // Elemente welche nur auf gewissen Seiten im Header vorhanden sind
+    // Schulnetz
+    let iconssn = ['nav-semester', 'nav-datumsrange', 'readonly-mode', 'application-type', 'sn-timer', 'sn-bookmarks', 'switch-mode'];
+
+    // tagiNet
+    let iconstn = ['nav-info1month', 'nav-info1date', 'nav-info2dates', 'nav-info1year', 'nav-info2month', 'nav-info1month1date', 'tn-bookmarks','tn-timer','nav-wechselzu'];
+
+    let icons = iconssn.concat(iconstn);
+
+    for(let i = 0; i < icons.length; i++) {
+        let icon = document.getElementById(icons[i]);
+        // Elemente welche nur auf gewissen Seiten im Header vorhanden sind, hier muss jeweils geprüft werden ob vorhanden
+        if(icon != undefined && icon.offsetWidth != undefined) {
+            navMenuWidth -= icon.offsetWidth;
+        }
+    }
+
+    return navMenuWidth;
+}
+
+function resizeHeaderRow() {
+
+    let scrollLeft = $('menu-scroll-left');
+    let navMainMenu = $('nav-main-menu');
+    let navSmallMenu = $('mainnav-small');
+    let scrollRight = $('menu-scroll-right');
+
+    // Breite der eigentlichen Navigationsleiste berechnen
+    let navMenuWidth = getNavMenuWidth();
+
+    // wenn navMenu zu klein, wird's in der Seitenleiste angezeigt
+    if(navMenuWidth < 300) {
+        navMainMenu.hide();
+        scrollLeft.hide();
+        scrollRight.hide();
+        showMenuButtonOnSmallScreens(true);
+        if(navSmallMenu) {
+            navSmallMenu.show();
+        }
+    } else {
+
+        if(navListMainShow) {
+            toggleNavListMainList();
+        }
+
+        showMenuButtonOnSmallScreens(false);
+
+        if(navSmallMenu) {
+            navSmallMenu.hide();
+        }
+
+        // Breite auf Auto zurücksetzen damit mit offsetWidth die genaue Breite ermittelt werden kann
+        navMainMenu.style.display = 'flex';
+        navMainMenu.style.width = 'auto';
+
+        scrollLeft.hide();
+        scrollRight.hide();
+
+        if(navMainMenu.offsetWidth > navMenuWidth) {
+            scrollLeft.show();
+            scrollRight.show();
+
+            navMenuWidth -= scrollLeft.offsetWidth;
+            navMenuWidth -= scrollRight.offsetWidth;
+
+            maxScrollRight = navMainMenu.offsetWidth - navMenuWidth;
+            toggleScrollBtnDisabled();
+        } else {
+            menuScroll(-menuScrollOffset);
+        }
+
+        navMainMenu.style.width = navMenuWidth+'px';
+        navMainMenu.style.overflow = 'hidden';
+    }
+}
+
+function scrollToActiveMenu() {
+
+    menuScroll(-menuScrollOffset);
+    lastShift = -1;
+    iconIndex = 0;
+
+    let activeOffset = 0;
+    const menuElements = $$('.cls-page--mainmenu-element');
+    for(let i = 0; i < menuElements.length; i++) {
+        activeOffset += menuElements[i].offsetWidth;
+        if(menuElements[i].hasClassName('cls-page--mainmenu-active')) {
+            break;
+        }
+    }
+
+    while(activeOffset + menuScrollOffset > $('nav-main-menu').offsetWidth) {
+        // solange das acktive Menu-Icon nicht sichbar ist, weiterblättern
+        menuScrollIcon(true);
+    }
+}
+
+/*
+ * Set layout depending elements
+ */
+function setLayoutSize(layoutSize) {
+    setCookie(layoutSizeCookie, layoutSize, 365);
+    switch(layoutSize) {
+        case 'sm':
+            selElement='layout-sel-sm';
+            break;
+        case 'md':
+            selElement='layout-sel-md';
+            break;
+        default:
+            selElement='layout-sel-lg';
+    }
+
+    document.getElementById('layout-sel-sm').classList.remove('cls-menu--selected-layout');
+    document.getElementById('layout-sel-md').classList.remove('cls-menu--selected-layout');
+    document.getElementById('layout-sel-lg').classList.remove('cls-menu--selected-layout');
+    document.getElementById(selElement).classList.add('cls-menu--selected-layout');
+
+    document.body.classList.remove('layout-sm');
+    document.body.classList.remove('layout-md');
+    document.body.classList.remove('layout-lg');
+    document.body.classList.add('layout-'+layoutSize);
+}
+
+function intersectionStickyCallback(records, observer) {
+    for(let i = 0; i < records.length; i++) {
+        let record = records[i];
+        // Sticky-Element zu diesem Sentinel ermitteln
+        const _target = record.target.parentElement;
+        const _position = record.target.dataset.sentinelPosition;
+        const _stuck = !record.isIntersecting;
+        document.dispatchEvent(new CustomEvent('sticky-change', {detail: {stuck: _stuck, target: _target, position: _position}}));
+    }
+}
+
+window.addEventListener('resize', function(event){
+    resizeHeaderRow();
+    toggleScrollBtnDisabled();
+    scrollToActiveMenu();
+});
+
+window.addEventListener('load', function(event){
+    const menuElements = $$('.cls-page--mainmenu-element');
+    for(let i = 0; i < menuElements.length; i++) {
+        menuIconsWidth += menuElements[i].offsetWidth;
+    }
+
+    resizeHeaderRow();
+    toggleScrollBtnDisabled();
+    scrollToActiveMenu();
+
+    // Textareas kriegen einen length validator
+    let textareas = document.getElementsByClassName('mdl-textarea');
+    for(let i = 0; i < textareas.length; i++) {
+        textareas[i].addEventListener('keyup', function(e){
+            const maxlength = parseInt(this.dataset.maxLength);
+
+            if(isNaN(maxlength)) {
+                return;
+            }
+
+            if(this.value.length > maxlength) {
+                this.parentElement.addClassName('is-invalid');
+                this.setCustomValidity(this.dataset.maxLengthError);
+            } else {
+                this.parentElement.removeClassName('is-invalid');
+                this.setCustomValidity('');
+            }
+        });
+    }
+
+});
+
+
+    // duration = 70;
+    // Zeit ab wann der Timeout beginnt
+    let start = Date.now();
+    // Flag ob die Warnung angezeigt wurde
+    let alert_shown = reload_initiated = false;
+
+    // Diese Funktion wird über AJAX aufgerufen um den Timer neu zu initialisieren
+    function init_timer() {
+        // Falls die Meldung angeziegt wird, muss sie wieder ausgeblendet werden
+        alert_shown = false;
+        // Der Logout-Timer gilt neu ab jetzt
+        start = Date.now();
+        // Tooltip-Hintergrund wieder zurücksetzen
+        $('sn-timer-tooltip').setStyle({'background-color': 'rgba(97, 97, 97, 0.9)'});
+        // Timer-Zirkel wieder zurücksetzen
+        $('circle-progress').style.fill = "none";
+        $('circle-progress').style.stroke = "#e6e6e6";
+        // Timer updaten
+        timer();
+    }
+
+    function setProgressPercent(percent) {
+        let offset = 339.292 * (1 - (percent/100));
+        $('circle-progress').style.strokeDashoffset = offset;
+    }
+
+    // Diese Funktion updated periodisch den Timer
+    function timer() {
+        // Verbelibende Zeit ermitteln
+        let diff = duration - ((Date.now() - start)/1000);
+        diff = Math.floor(diff);
+
+        // Wenn Logout-Zeit abgelaufen ist
+        if(diff < 0) {
+
+            if(reload_initiated)
+                return;
+
+            // formChanged zurücksetzen damit das Alert beim wegnavigieren von einem nicht gespeicherten Formular nicht angezeigt wird
+            formChanged = false;
+            // Auf die Login-Seite weiterleiten
+            setTimeout(function() {
+                window.location = loginUrl;
+            }, 5000);
+
+            reload_initiated = true;
+
+            return;
+        }
+
+        // Falls nur noch eine Minute Login-Zeit bleibt, und die meldung noch nicht angezeigt wurde
+        if(diff < 60 && alert_shown === false) {
+            // Festhalten dass die Meldung angezeigt wurde
+            alert_shown = true;
+
+            $('sn-timer-tooltip').setStyle({'background-color': 'rgba(197, 78, 78, 0.9)'});
+            // Timer-Zirkel wieder zurücksetzen
+            $('circle-progress').style.fill = "rgba(197, 78, 78, 0.6)";
+            $('circle-progress').style.stroke = "rgb(220, 78, 78)";
+
+            // Meldung anzeigen
+            const txt = 'Ihre Sitzung läuft in einer Minute ab. Klicken Sie auf Verlängern oder oben rechts auf die Zeitanzeige um die Sitzung zu verlängern.';
+            showSnackbar({
+                message: txt,
+                actionHandler: function() {
+                    xajax_reset_timeout();
+                    const snackbarContainer = document.querySelector('#mdl-toast');
+                    snackbarContainer.MaterialSnackbar.cleanup_();
+                },
+                actionText: 'Verlängern',
+                timeout: 60000
+            });
+        }
+
+        // Verbleibende Sekunden zu HH:MM:SS umformatieren
+        const days = Math.floor(diff/(24*60*60));
+        let leftSec = diff - days * 24*60*60;
+        const hrs = Math.floor(leftSec/(60*60));
+        leftSec = leftSec - hrs * 60*60;
+        const min = Math.floor(leftSec/(60));
+        const sec = leftSec - min * 60;
+        let time =  pad(hrs, 2) + ":" + pad(min, 2) + ":" + pad(sec, 2);
+
+        // Total Minuten rechnen
+        let minTotal = min + (60 * hrs);
+        if(minTotal > 60) {
+            minTotal = "60+";
+        } else {
+            minTotal = "" + minTotal + "'";
+        }
+
+        // Falls man unter einer Minute ist, wird der Timer rot angezeigt
+        if(alert_shown === true) {
+            $('timer').innerHTML = "" + pad(sec, 2) + "''";
+        } else {
+            $('timer').innerHTML = minTotal;
+        }
+
+        let percent = sec*100/60;
+        setProgressPercent(percent);
+
+        // Timer updaten
+        $('sn-timer-tooltip').innerHTML = time;
+
+    }
+
+    function pad(n, width) {
+        n = n + '';
+        return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+    }
+
+    // Wenn die Seite geladen ist, wird jede 500 milisekunden der Timer aktualisiert
+    window.addEventListener('load', function(){
+        timer();
+        setInterval(timer, 500);
+    });
+
+    // Die Applikation soll nach der Hälfte der Inaktivitätszeit automatisch eine Abfrage zur Verlängerung der
+    // Inaktivitätszeit an den Server schicken, sofern der Benutzer eine Eingabe tätigt
+    window.addEventListener('keydown', function() {
+        checkHalfTimeout();
+    });
+    window.addEventListener('mousedown', function() {
+        checkHalfTimeout();
+    });
+
+    function checkHalfTimeout() {
+        let diff = (Date.now() - start)/1000;
+        // Prüfen ob hälfte der Inaktivitätszeit erreicht wurden, wenn ja wird Inaktivitätszeit verlängert
+        if(diff > (duration / 2)) {
+            console.log(diff + ' seconds passed since timer init, half of timeout reached (' + (duration / 2) + '), reset_timeout() called');
+            xajax_reset_timeout();
+        }
+    }
+</script>
+<header class="titelleiste mdl-layout__header cls-page--header mdl-layout__header--seamed"><div id="mdl-toast" class="mdl-js-snackbar mdl-snackbar"><div class="mdl-snackbar__text"></div><button class="mdl-snackbar__action" type="button"></button></div><div class="mdl-layout__header-row cls-page--header-row header-menu mdl-layout__header--seamed" id="header-menu"><span class="cls-page--header-row--logo-span" id="logo-span"><button  class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon--large mdl-button--colored" onclick="toggleNavDrawer();" id="menu-toggle-button"><i class="far fa-bars fa-xs"></i></button><div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='menu-toggle-button' id='mdl_tooltip_menu-toggle-button'>Menü ein-/ausblenden</div><span class="cls-page--header-row--logo-container"><img class="cls-page--header-row--sn-logo" src="https://sal.portal.bl.ch/_schulnetz/43649/css/flat/images/snlogo-192x192.png"/></span></span><span class="cls-page--header-row--logo-gradient" id="sn-gradient"></span><button id="menu-scroll-left" class="mdl-button mdl-js-button mdl-button--icon" disabled style="display: none;" onclick="menuScrollIcon(false);"><i class="far fa-chevron-left fa-xs"></i></button><nav class="mdl-navigation cls-page--mainmenu" id="nav-main-menu"><a href="index.php?pageid=1&id=9536803f16603efa&amp;transid=f3e00b" class="mdl-navigation__link  cls-page--mainmenu-element cls-page--mainmenu-icon" id="menu1"><i class="fa-home fas fa-lg"></i><div class="cls-page--mainmenu-subtitle no-outline" id="menu_title_1">Start</div></a><a href="index.php?pageid=21311&id=9536803f16603efa&amp;transid=f3e00b" class="mdl-navigation__link cls-page--mainmenu-active cls-page--mainmenu-element cls-page--mainmenu-icon" id="menu21311"><i class="fa-graduation-cap fas fa-lg"></i><div class="cls-page--mainmenu-subtitle no-outline" id="menu_title_21311">Noten</div></a><a href="index.php?pageid=21111&id=9536803f16603efa&amp;transid=f3e00b" class="mdl-navigation__link  cls-page--mainmenu-element cls-page--mainmenu-icon" id="menu21111"><i class="fa-user-check fas fa-lg"></i><div class="cls-page--mainmenu-subtitle no-outline" id="menu_title_21111">Absenzen</div></a><a href="index.php?pageid=21200&id=9536803f16603efa&amp;transid=f3e00b" class="mdl-navigation__link  cls-page--mainmenu-element cls-page--mainmenu-icon" id="menu21200"><i class="fa-calendar-alt far fa-lg"></i><div class="cls-page--mainmenu-subtitle no-outline" id="menu_title_21200">Agenda</div></a><a href="index.php?pageid=21411&id=9536803f16603efa&amp;transid=f3e00b" class="mdl-navigation__link  cls-page--mainmenu-element cls-page--mainmenu-icon" id="menu21411"><i class="fa-balance-scale fas fa-lg"></i><div class="cls-page--mainmenu-subtitle no-outline" id="menu_title_21411">Kontoauszug</div></a><a href="index.php?pageid=22300&id=9536803f16603efa&amp;transid=f3e00b" class="mdl-navigation__link  cls-page--mainmenu-element cls-page--mainmenu-icon" id="menu22300"><i class="fa-envelope far fa-lg"></i><div class="cls-page--mainmenu-subtitle no-outline" id="menu_title_22300">Kommunikation</div></a><a href="index.php?pageid=24030&id=9536803f16603efa&amp;transid=f3e00b" class="mdl-navigation__link  cls-page--mainmenu-element cls-page--mainmenu-icon" id="menu24030"><i class="fa-cloud fas fa-lg"></i><div class="cls-page--mainmenu-subtitle no-outline" id="menu_title_24030">Listen&amp;Dokumente</div></a><a href="index.php?pageid=23118&id=9536803f16603efa&amp;transid=f3e00b" class="mdl-navigation__link  cls-page--mainmenu-element cls-page--mainmenu-icon" id="menu23118"><i class="fa-laptop fas fa-lg"></i><div class="cls-page--mainmenu-subtitle no-outline" id="menu_title_23118">eSchool</div></a></nav><button id="menu-scroll-right" class="mdl-button mdl-js-button mdl-button--icon" style="display: none;" onclick="menuScrollIcon(true);"><i class="far fa-chevron-right fa-xs"></i></button><div class="mdl-layout-spacer"></div>
+
+
+
+
+
+
+
+
+
+<div class="timer-holder" id="sn-timer" style="position: relative; float: left; margin: 0 5px;" onclick="xajax_reset_timeout(); closeSnackbar();">
+    <span id="timer" class="timer-value" style="text-align:center; position: absolute; line-height: 24px; width: 100%; font-size: 10px; z-index: 10;">0</span>
+    <svg width="24" height="24" viewBox="0 0 120 120" style="-webkit-transform: rotate(-90deg); transform: rotate(-90deg);">
+        <circle id="circle-progress" cx="60" cy="60" r="54" fill="none" stroke="#fff" stroke-width="12" stroke-dasharray="339.292"/>
+    </svg>
+</div>
+
+<div class="mdl-tooltip mdl-tooltip--left mdl-tooltip--large" id="sn-timer-tooltip" for="sn-timer">
+    +timeout+
+</div>
+
+
+    <button id="sn-bookmarks" class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="far fa-bookmark fa-xs"></i>
+    </button>
+    <div class="mdl-tooltip mdl-tooltip--left mdl-tooltip--large" for="sn-bookmarks">
+        Ihre Lesezeichen
+    </div>
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="sn-bookmarks">
+                                    <a href="index.php?pageid=21311&id=9536803f16603efa&amp;transid=f3e00b&action=addbookmark" class="mdl-menu__item">Diese Seite hinzufügen</a>
+            </ul>
+<button id="sn-main-menu" class="mdl-button mdl-js-button mdl-button--icon "data-badge="" style="--badge-color: #CD4C44;"><i class="far fa-ellipsis-v fa-xs"></i></button><div class="mdl-tooltip mdl-tooltip--left mdl-tooltip--large" for="sn-main-menu">Menü</div><ul class="mdl-menu mdl-menu--bottom-right mdl-js-cascading-menu" for="sn-main-menu"><li class="supernav__list-item" role="menuitem"><a href="index.php?pageid=9999&id=9536803f16603efa&amp;transid=f3e00b" class="mdl-menu__item"><i class="fal fa-sign-out-alt fa-lg sn-menu-icon"></i> Abmelden</a></li><li class="supernav__list-item" role="menuitem"><button type="button" class="mdl-menu__item mdl-menu-cascade__open-sub" id="mein_schulnetz"><i class="fal fa-chevron-left fa-lg sn-menu-icon"></i> mein schulNetz</button></li><li class="supernav__list-item" role="menuitem"><button type="button" class="mdl-menu__item mdl-menu-cascade__open-sub" id="change_style"><i class="fal fa-chevron-left fa-lg sn-menu-icon"></i> Layout</button></li><li class="supernav__list-item" role="menuitem"><a href="about.php?id=9536803f16603efa&amp;transid=f3e00b" class="mdl-menu__item" onclick="javascript:openpopup('about.php',350,150); return false;" target="_blank"><i class="fal fa-info-circle fa-lg sn-menu-icon"></i> About</a></li></ul><ul class="mdl-menu mdl-js-cascading-menu mdl-menu--bottom-left" for="change_style"><li><button type="button" class="mdl-menu__item mdl-menu__item-noclose " onclick="setLayoutSize('lg')" id="layout-sel-lg">Ausgedehnt</button></li><li><button type="button" class="mdl-menu__item mdl-menu__item-noclose cls-menu--selected-layout" onclick="setLayoutSize('md')" id="layout-sel-md">Standard</button></li><li><button type="button" class="mdl-menu__item mdl-menu__item-noclose " onclick="setLayoutSize('sm')" id="layout-sel-sm">Kompakt</button></li></ul><ul class="mdl-menu mdl-js-cascading-menu mdl-menu--bottom-left" for="mein_schulnetz"><li><a href="index.php?pageid=22500&id=9536803f16603efa&amp;transid=f3e00b" class="mdl-menu__item">Einstellungen</a></li></ul></div></header>
+
+<main class='mdl-layout__content'>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer" id="nav-drawer">
+        <div class="mdl-layout__drawer cls-page--navdrawer" id="nav-drawer-content">
+            <nav class="mdl-navigation cls-page--navlist" id="navigation-list">
+                                    <div class="mdl-navigation__link cls-page--mainnav-small cls-page--leftmenu-active" style="display: none;" id="mainnav-small" onclick="toggleNavListMainList();"><i class="fa-graduation-cap fas fa-lg"></i>&nbsp;&nbsp;Noten<button class="mdl-button mdl-js-button mdl-button--icon cls-page--mainnav-small--button"><i id="mainnav-small--icon" class="fa-chevron-down fas"></i></button>
+                    </div>
+                                                                        <a href="index.php?pageid=1&id=9536803f16603efa&amp;transid=f3e00b" class="mdl-navigation__link cls-page--mainnav-small--list" style="display: none;"><i class="fa-home fas fa-lg"></i>&nbsp;&nbsp;Start</a>
+                                                                                                                                            <a href="index.php?pageid=21111&id=9536803f16603efa&amp;transid=f3e00b" class="mdl-navigation__link cls-page--mainnav-small--list" style="display: none;"><i class="fa-user-check fas fa-lg"></i>&nbsp;&nbsp;Absenzen</a>
+                                                                                                <a href="index.php?pageid=21200&id=9536803f16603efa&amp;transid=f3e00b" class="mdl-navigation__link cls-page--mainnav-small--list" style="display: none;"><i class="fa-calendar-alt far fa-lg"></i>&nbsp;&nbsp;Agenda</a>
+                                                                                                <a href="index.php?pageid=21411&id=9536803f16603efa&amp;transid=f3e00b" class="mdl-navigation__link cls-page--mainnav-small--list" style="display: none;"><i class="fa-balance-scale fas fa-lg"></i>&nbsp;&nbsp;Kontoauszug</a>
+                                                                                                <a href="index.php?pageid=22300&id=9536803f16603efa&amp;transid=f3e00b" class="mdl-navigation__link cls-page--mainnav-small--list" style="display: none;"><i class="fa-envelope far fa-lg"></i>&nbsp;&nbsp;Kommunikation</a>
+                                                                                                <a href="index.php?pageid=24030&id=9536803f16603efa&amp;transid=f3e00b" class="mdl-navigation__link cls-page--mainnav-small--list" style="display: none;"><i class="fa-cloud fas fa-lg"></i>&nbsp;&nbsp;Listen&amp;Dokumente</a>
+                                                                                                <a href="index.php?pageid=23118&id=9536803f16603efa&amp;transid=f3e00b" class="mdl-navigation__link cls-page--mainnav-small--list" style="display: none;"><i class="fa-laptop fas fa-lg"></i>&nbsp;&nbsp;eSchool</a>
+                                                                                                                                                                                                                                                                            <a href="index.php?pageid=24859&id=9536803f16603efa&amp;transid=f3e00b" id="cls_pageid_nav_24859"  class="mdl-navigation__link cls-page--navlist-lvl1 ">Schülerübersicht</a>
+                                                                            <div class="cls-page--navlist-spacer-bottom">&nbsp;</div>
+            </nav>
+            <div id="clsSublist" class="cls-page--navsublist">
+            </div>
+        </div>
+        <main class="mdl-layout__content">
+            <div class='mdl-card mdl-shadow--2dp cls-page--content-card' id="content-card">
+
+                <dialog class="mdl-dialog" id="xajax_dialog" style="max-width: 90%; width: auto;">
+                    <div class="mdl-dialog__content" id="xajax_dialog_content" style="padding-top: 5px; padding-bottom: 2px;">
+                    </div>
+                </dialog>
+
+
+                <script>
+
+                    const xajaxDialog = document.getElementById('xajax_dialog');
+                    if (!xajaxDialog.showModal) {
+                        document.body.appendChild(xajaxDialog);
+                        dialogPolyfill.registerDialog(xajaxDialog);
+                    }
+
+                </script><script type="text/javascript" LANGUAGE="JavaScript">
+
+    let display_iframe = true;
+    let index_old = null;
+    let table = null;
+    let table_old = null;
+
+
+
+    function toggle_notendetails(sIdx, kIdx) {
+        let idx = sIdx+'_'+kIdx;
+        const notendetail = document.getElementsByClassName(idx+'_detailrow');
+        for(let i = 0; i < notendetail.length; i++) {
+            notendetail[i].toggle();
+        }
+    }
+
+    function print_iframe_uebersicht(index,tbl) {
+
+        // sicherstellen, dass iframe angezeigt wird
+        document.getElementById('uebersicht_frame').show();
+
+        // src schreiben
+        // @todo nur mit pdf- (type='application/pdf') oder bild-format
+        document.getElementById('uebersicht_frame').src =
+            'index.php?pageid=10051&id=9536803f16603efa&amp;transid=f3e00b&tblName='+tbl+'&inline=1&listindex='+index;
+
+        // entferne Platzhaltertext srcdoc, da dieser src überschreibt
+        document.getElementById('uebersicht_frame').removeAttribute('srcdoc');
+
+        table = tbl;
+    }
+
+    function toggle_iframe_uebersicht(index, kategorie) {
+
+        if(display_iframe || (index_old !== index || table !== table_old)){
+
+            // iframe anzeigen
+            document.getElementById('uebersicht_bloecke').classList.add('sus-uebersicht--50-50');
+            document.getElementById('iframe_vorschau').show();
+            display_iframe = false;
+
+            // durchgestrichenes Auge für geöffnete Dokumente
+            document.getElementById('eye_id_uebersicht_'+table+index).className = 'far fa-eye-slash';
+            document.getElementById('mdl_tooltip_span_vorschau_'+table+index).textContent = 'Vorschau ausblenden';
+
+            // Icon vom "vergangenen" Dokument überarbeiten
+            if ((index !== index_old && index_old !== null) || (table !== table_old && table_old !== null)){
+                document.getElementById('eye_id_uebersicht_'+table_old+index_old).className = 'far fa-eye';
+                document.getElementById('mdl_tooltip_span_vorschau_'+table_old+index_old).textContent = 'Vorschau anzeigen';
+                xajax_sus_uebersicht_save_kategorie('null',table_old);
+            }
+
+            // Speichere Kategorie des Dokumentes in der Session
+            xajax_sus_uebersicht_save_kategorie(kategorie,table);
+
+        } else {
+
+            // iframe ausblenden
+            document.getElementById('iframe_vorschau').hide();
+            document.getElementById('uebersicht_bloecke').classList.remove('sus-uebersicht--50-50');
+            display_iframe = true;
+
+            // Normales Auge anzeigen
+            document.getElementById('eye_id_uebersicht_'+table+index).className = 'far fa-eye';
+            document.getElementById('mdl_tooltip_span_vorschau_'+table+index_old).textContent = 'Vorschau anzeigen';
+
+            // Speichere Kategorie des Dokumentes in der Session
+            xajax_sus_uebersicht_save_kategorie('null',table);
+        }
+
+        // Speichere Index & Table des Dokumentes (um das Icon beim Ändern zurücksetzen zu können)
+        index_old = index;
+        table_old = table;
+    }
+
+    function pdfLoaded() {
+        $('pdf_loading').style.display = 'none';
+        $('uebersicht_frame').style.display = 'block';
+    }
+
+    function prepare_print() {
+        $('pdf_loading').style.display = 'block';
+        $('uebersicht_frame').style.display = 'none';
+    }
+
+
+</script>
+
+<div style='float: right;' id='page_actions_container'></div><div id='uebersicht_bloecke'><page orientation='P' pageset='new' pagegroup='new'>
+    <h3>Aktuelle Noten - Aklin Léonce (4MW)</h3>
+    <div style="width: 99%;">
+        <table class="mdl-data-table mdl-js-data-table mdl-table--listtable" style="width: 100%; margin-top: 20px;">
+        <tr>
+            <th style="text-align: left; width: 22%;">Kurs</th>
+            <th style="text-align: left; width: 22%;" colspan="2">Notendurchschnitt</th>
+            <th style="text-align: left; width: 22%;">
+                Bestätigt
+                            </th>
+                            <th style="text-align: left; width: 34%;">Mitteilung an Lehrer</th>
+                    </tr>
+
+                    <tr>
+                <td style="border-bottom: 0; padding-top: 2mm;"><b>D-4MW-WeS</b><br>Deutsch</td>
+                <td style="border-bottom: 0; padding-top: 2mm; ">
+                                            5.450
+                                                        </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                            <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" href="#!" onclick="toggle_notendetails(0, 0);" id="einzelpr_btn_0_0">
+                            <i class="far fa-ballot-check fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='einzelpr_btn_0_0' id='mdl_tooltip_einzelpr_btn_0_0'>Einzelprüfungen anzeigen</div>                        <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" onclick="show_notenverlauf(0, 0);" id="notenverlauf_btn_0_0">
+                            <i class="fal fa-analytics fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='notenverlauf_btn_0_0' id='mdl_tooltip_notenverlauf_btn_0_0'>Notenverlauf anzeigen</div>                                    </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                                                        <a href="javascript:decision('Der Bestätigungsvorgang kann nicht rückgängig gemacht werden. Weiterfahren?','index.php?pageid=21311&action=nvw_bestaetigen&id=9536803f16603efa&amp;transid=f3e00b&listindex=0')">bestätigen</a>
+                                                            </td>
+                                    <td style="border-bottom: 0; padding-top: 2mm;">
+                                                    <div id="mail_toggle_0">
+                                <a href="#!" onclick="$('mail_toggle_0').hide(); $('mail_0').show();">Mitteilung verfassen</a>
+                            </div>
+                            <div id="mail_0" style="display: none;">
+                                <form action="index.php?pageid=21311&action=send_email&id=9536803f16603efa&amp;transid=f3e00b" method="post">
+                                    <input type="hidden" value="0" name="index">
+                                    <textarea title="mitteilung" name="emailtext" id="emailtext_0" cols="50" rows="4"></textarea>
+                                    <input type="submit" class="btnsubmit" value="Senden">
+                                    <button class="btnreset" value="Abbrechen" onclick="$('emailtext_0').value = ''; $('mail_toggle_0').show(); $('mail_0').hide(); return false;">Abbrechen</button>
+                                </form>
+                            </div>
+                                            </td>
+                            </tr>
+                        <tr style="display: none;" class="0_0_detailrow">
+                <td colspan="5" style="border-top: 0; border-bottom: 0; padding: 0;">
+                                        <table class="clean" style="margin: 5px 0 0 0; width:100%;">
+                        <tr>
+                            <td style='text-align:left; width: 25%;'><i>Datum</i></td>
+                            <td style='text-align:left; width: 30%;'><i>Thema</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Bewertung</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Gewichtung</i></td>
+                                                    </tr>
+                                                                                                                                    <tr>
+                                <td style='text-align:left; width: 25%;'>06.09.2021</td>
+                                <td style='text-align:left; width: 30%;'>Aufsatz</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.4
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>25.10.2021</td>
+                                <td style='text-align:left; width: 30%;'>Mdl. Prüfung</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.8
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>10.12.2021</td>
+                                <td style='text-align:left; width: 30%;'>Faust</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.4
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>13.12.2021</td>
+                                <td style='text-align:left; width: 30%;'>Prüfung Faust I</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>31.12.2021</td>
+                                <td style='text-align:left; width: 30%;'>Aufsatz</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>16.02.2022</td>
+                                <td style='text-align:left; width: 30%;'>Prüfung: Stil</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.2
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                        <tr>
+                            <td colspan="2" style="text-align: right; padding-bottom: 10px;"><i>Aktueller Durchschnitt:</i></td>
+                            <td colspan="2" style="text-align: left; padding-bottom: 10px;"><i>5.450</i></td>
+                        </tr>
+                                            </table>
+                                    </td>
+            </tr>
+            <tr style="display: none;" id="schueleruebersicht_verlauf_0_0">
+               <td id="schueleruebersicht_verlauf_content_0_0" colspan="5" style="border-top: 0; text-align: center;">
+                                            <canvas id="notenverlauf_0_0" width="500" height="250"></canvas>
+                                   </td>
+            </tr>
+                                <tr>
+                <td style="border-bottom: 0; padding-top: 2mm;"><b>E-4MW-StH</b><br>Englisch</td>
+                <td style="border-bottom: 0; padding-top: 2mm; ">
+                                            5.500
+                                                        </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                            <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" href="#!" onclick="toggle_notendetails(0, 1);" id="einzelpr_btn_0_1">
+                            <i class="far fa-ballot-check fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='einzelpr_btn_0_1' id='mdl_tooltip_einzelpr_btn_0_1'>Einzelprüfungen anzeigen</div>                        <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" onclick="show_notenverlauf(0, 1);" id="notenverlauf_btn_0_1">
+                            <i class="fal fa-analytics fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='notenverlauf_btn_0_1' id='mdl_tooltip_notenverlauf_btn_0_1'>Notenverlauf anzeigen</div>                                    </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                                                        <a href="javascript:decision('Der Bestätigungsvorgang kann nicht rückgängig gemacht werden. Weiterfahren?','index.php?pageid=21311&action=nvw_bestaetigen&id=9536803f16603efa&amp;transid=f3e00b&listindex=1')">bestätigen</a>
+                                                            </td>
+                                    <td style="border-bottom: 0; padding-top: 2mm;">
+                                                    <div id="mail_toggle_1">
+                                <a href="#!" onclick="$('mail_toggle_1').hide(); $('mail_1').show();">Mitteilung verfassen</a>
+                            </div>
+                            <div id="mail_1" style="display: none;">
+                                <form action="index.php?pageid=21311&action=send_email&id=9536803f16603efa&amp;transid=f3e00b" method="post">
+                                    <input type="hidden" value="1" name="index">
+                                    <textarea title="mitteilung" name="emailtext" id="emailtext_1" cols="50" rows="4"></textarea>
+                                    <input type="submit" class="btnsubmit" value="Senden">
+                                    <button class="btnreset" value="Abbrechen" onclick="$('emailtext_1').value = ''; $('mail_toggle_1').show(); $('mail_1').hide(); return false;">Abbrechen</button>
+                                </form>
+                            </div>
+                                            </td>
+                            </tr>
+                        <tr style="display: none;" class="0_1_detailrow">
+                <td colspan="5" style="border-top: 0; border-bottom: 0; padding: 0;">
+                                        <table class="clean" style="margin: 5px 0 0 0; width:100%;">
+                        <tr>
+                            <td style='text-align:left; width: 25%;'><i>Datum</i></td>
+                            <td style='text-align:left; width: 30%;'><i>Thema</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Bewertung</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Gewichtung</i></td>
+                                                    </tr>
+                                                                                                                                    <tr>
+                                <td style='text-align:left; width: 25%;'>01.09.2021</td>
+                                <td style='text-align:left; width: 30%;'>Grammar</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.25
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>06.09.2021</td>
+                                <td style='text-align:left; width: 30%;'>Book review (indiv. dates)</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.75
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>20.09.2021</td>
+                                <td style='text-align:left; width: 30%;'>Essay</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.75
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>27.10.2021</td>
+                                <td style='text-align:left; width: 30%;'>Words in Context</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>0.5</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>06.12.2021</td>
+                                <td style='text-align:left; width: 30%;'>Shakespeare: Lit. test</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.5
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>22.02.2022</td>
+                                <td style='text-align:left; width: 30%;'>Grammar revision</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>16.03.2022</td>
+                                <td style='text-align:left; width: 30%;'>Vocab ch 6,10,17</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>0.5</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>05.04.2022</td>
+                                <td style='text-align:left; width: 30%;'>Reading comprehension</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                        <tr>
+                            <td colspan="2" style="text-align: right; padding-bottom: 10px;"><i>Aktueller Durchschnitt:</i></td>
+                            <td colspan="2" style="text-align: left; padding-bottom: 10px;"><i>5.500</i></td>
+                        </tr>
+                                            </table>
+                                    </td>
+            </tr>
+            <tr style="display: none;" id="schueleruebersicht_verlauf_0_1">
+               <td id="schueleruebersicht_verlauf_content_0_1" colspan="5" style="border-top: 0; text-align: center;">
+                                            <canvas id="notenverlauf_0_1" width="500" height="250"></canvas>
+                                   </td>
+            </tr>
+                                <tr>
+                <td style="border-bottom: 0; padding-top: 2mm;"><b>F-4MW-GeL</b><br>Französisch</td>
+                <td style="border-bottom: 0; padding-top: 2mm; ">
+                                            5.433
+                                                        </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                            <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" href="#!" onclick="toggle_notendetails(0, 2);" id="einzelpr_btn_0_2">
+                            <i class="far fa-ballot-check fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='einzelpr_btn_0_2' id='mdl_tooltip_einzelpr_btn_0_2'>Einzelprüfungen anzeigen</div>                        <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" onclick="show_notenverlauf(0, 2);" id="notenverlauf_btn_0_2">
+                            <i class="fal fa-analytics fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='notenverlauf_btn_0_2' id='mdl_tooltip_notenverlauf_btn_0_2'>Notenverlauf anzeigen</div>                                    </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                                                        <a href="javascript:decision('Der Bestätigungsvorgang kann nicht rückgängig gemacht werden. Weiterfahren?','index.php?pageid=21311&action=nvw_bestaetigen&id=9536803f16603efa&amp;transid=f3e00b&listindex=2')">bestätigen</a>
+                                                            </td>
+                                    <td style="border-bottom: 0; padding-top: 2mm;">
+                                                    <div id="mail_toggle_2">
+                                <a href="#!" onclick="$('mail_toggle_2').hide(); $('mail_2').show();">Mitteilung verfassen</a>
+                            </div>
+                            <div id="mail_2" style="display: none;">
+                                <form action="index.php?pageid=21311&action=send_email&id=9536803f16603efa&amp;transid=f3e00b" method="post">
+                                    <input type="hidden" value="2" name="index">
+                                    <textarea title="mitteilung" name="emailtext" id="emailtext_2" cols="50" rows="4"></textarea>
+                                    <input type="submit" class="btnsubmit" value="Senden">
+                                    <button class="btnreset" value="Abbrechen" onclick="$('emailtext_2').value = ''; $('mail_toggle_2').show(); $('mail_2').hide(); return false;">Abbrechen</button>
+                                </form>
+                            </div>
+                                            </td>
+                            </tr>
+                        <tr style="display: none;" class="0_2_detailrow">
+                <td colspan="5" style="border-top: 0; border-bottom: 0; padding: 0;">
+                                        <table class="clean" style="margin: 5px 0 0 0; width:100%;">
+                        <tr>
+                            <td style='text-align:left; width: 25%;'><i>Datum</i></td>
+                            <td style='text-align:left; width: 30%;'><i>Thema</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Bewertung</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Gewichtung</i></td>
+                                                    </tr>
+                                                                                                                                    <tr>
+                                <td style='text-align:left; width: 25%;'>03.09.2021</td>
+                                <td style='text-align:left; width: 30%;'>Contrôle Verbes Port. 1-2</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    4.5
+                                                                            <span id='62245e2f60319' style='font-size: inherit; line-height: inherit; ' tabindex='100000'><i class='far fa-info-circle'></i></span><div class='mdl-tooltip mdl-tooltip--bottom mdl-tooltip--no-wrap mdl-tooltip--large mdl-tooltip--l-width mdl-tooltip--table' for='62245e2f60319' id='mdl_tooltip_62245e2f60319'><b>Details zur Note</b><br>Punkte: 24</div>                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>0.33</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>14.09.2021</td>
+                                <td style='text-align:left; width: 30%;'>Epreuve 1</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5
+                                                                            <span id='62245e2f60332' style='font-size: inherit; line-height: inherit; ' tabindex='100000'><i class='far fa-info-circle'></i></span><div class='mdl-tooltip mdl-tooltip--bottom mdl-tooltip--no-wrap mdl-tooltip--large mdl-tooltip--l-width mdl-tooltip--table' for='62245e2f60332' id='mdl_tooltip_62245e2f60332'><b>Details zur Note</b><br>Punkte: 73.5</div>                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>30.11.2021</td>
+                                <td style='text-align:left; width: 30%;'>Epreuve 2</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.2
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>07.12.2021</td>
+                                <td style='text-align:left; width: 30%;'>Projet Compréh. orale</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.9
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>10.12.2021</td>
+                                <td style='text-align:left; width: 30%;'>Carmen Compréh. écrite</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.7
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>0.5</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>10.01.2022</td>
+                                <td style='text-align:left; width: 30%;'>Note orale (travail en classe)</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    6
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>0.5</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>24.01.2022</td>
+                                <td style='text-align:left; width: 30%;'>Contrôle Voc en classe</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.7
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>0.33</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>21.03.2022</td>
+                                <td style='text-align:left; width: 30%;'>Epreuve 3</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>01.04.2022</td>
+                                <td style='text-align:left; width: 30%;'>Composition</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                        <tr>
+                            <td colspan="2" style="text-align: right; padding-bottom: 10px;"><i>Aktueller Durchschnitt:</i></td>
+                            <td colspan="2" style="text-align: left; padding-bottom: 10px;"><i>5.433</i></td>
+                        </tr>
+                                            </table>
+                                    </td>
+            </tr>
+            <tr style="display: none;" id="schueleruebersicht_verlauf_0_2">
+               <td id="schueleruebersicht_verlauf_content_0_2" colspan="5" style="border-top: 0; text-align: center;">
+                                            <canvas id="notenverlauf_0_2" width="500" height="250"></canvas>
+                                   </td>
+            </tr>
+                                <tr>
+                <td style="border-bottom: 0; padding-top: 2mm;"><b>fBB (FF)</b><br>Big Band</td>
+                <td style="border-bottom: 0; padding-top: 2mm; ">
+                                            --
+                                                        </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                    </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                            --
+                                    </td>
+                                    <td style="border-bottom: 0; padding-top: 2mm;">
+                                                    --
+                                            </td>
+                            </tr>
+                        <tr style="display: none;" class="0_3_detailrow">
+                <td colspan="5" style="border-top: 0; border-bottom: 0; padding: 0;">
+                                    </td>
+            </tr>
+            <tr style="display: none;" id="schueleruebersicht_verlauf_0_3">
+               <td id="schueleruebersicht_verlauf_content_0_3" colspan="5" style="border-top: 0; text-align: center;">
+                                            <canvas id="notenverlauf_0_3" width="500" height="250"></canvas>
+                                   </td>
+            </tr>
+                                <tr>
+                <td style="border-bottom: 0; padding-top: 2mm;"><b>fCHI9 (FF)</b><br>Chinesisch</td>
+                <td style="border-bottom: 0; padding-top: 2mm; ">
+                                            5.300
+                                                        </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                            <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" href="#!" onclick="toggle_notendetails(0, 4);" id="einzelpr_btn_0_4">
+                            <i class="far fa-ballot-check fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='einzelpr_btn_0_4' id='mdl_tooltip_einzelpr_btn_0_4'>Einzelprüfungen anzeigen</div>                        <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" onclick="show_notenverlauf(0, 4);" id="notenverlauf_btn_0_4">
+                            <i class="fal fa-analytics fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='notenverlauf_btn_0_4' id='mdl_tooltip_notenverlauf_btn_0_4'>Notenverlauf anzeigen</div>                                    </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                                                        <a href="javascript:decision('Der Bestätigungsvorgang kann nicht rückgängig gemacht werden. Weiterfahren?','index.php?pageid=21311&action=nvw_bestaetigen&id=9536803f16603efa&amp;transid=f3e00b&listindex=4')">bestätigen</a>
+                                                            </td>
+                                    <td style="border-bottom: 0; padding-top: 2mm;">
+                                                    <div id="mail_toggle_4">
+                                <a href="#!" onclick="$('mail_toggle_4').hide(); $('mail_4').show();">Mitteilung verfassen</a>
+                            </div>
+                            <div id="mail_4" style="display: none;">
+                                <form action="index.php?pageid=21311&action=send_email&id=9536803f16603efa&amp;transid=f3e00b" method="post">
+                                    <input type="hidden" value="4" name="index">
+                                    <textarea title="mitteilung" name="emailtext" id="emailtext_4" cols="50" rows="4"></textarea>
+                                    <input type="submit" class="btnsubmit" value="Senden">
+                                    <button class="btnreset" value="Abbrechen" onclick="$('emailtext_4').value = ''; $('mail_toggle_4').show(); $('mail_4').hide(); return false;">Abbrechen</button>
+                                </form>
+                            </div>
+                                            </td>
+                            </tr>
+                        <tr style="display: none;" class="0_4_detailrow">
+                <td colspan="5" style="border-top: 0; border-bottom: 0; padding: 0;">
+                                        <table class="clean" style="margin: 5px 0 0 0; width:100%;">
+                        <tr>
+                            <td style='text-align:left; width: 25%;'><i>Datum</i></td>
+                            <td style='text-align:left; width: 30%;'><i>Thema</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Bewertung</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Gewichtung</i></td>
+                                                    </tr>
+                                                                                                                                    <tr>
+                                <td style='text-align:left; width: 25%;'>18.10.2021</td>
+                                <td style='text-align:left; width: 30%;'>Test 1</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>10.01.2022</td>
+                                <td style='text-align:left; width: 30%;'>Test 2</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.6
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>21.03.2022</td>
+                                <td style='text-align:left; width: 30%;'>Test 3</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>02.05.2022</td>
+                                <td style='text-align:left; width: 30%;'>Test 4</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                        <tr>
+                            <td colspan="2" style="text-align: right; padding-bottom: 10px;"><i>Aktueller Durchschnitt:</i></td>
+                            <td colspan="2" style="text-align: left; padding-bottom: 10px;"><i>5.300</i></td>
+                        </tr>
+                                            </table>
+                                    </td>
+            </tr>
+            <tr style="display: none;" id="schueleruebersicht_verlauf_0_4">
+               <td id="schueleruebersicht_verlauf_content_0_4" colspan="5" style="border-top: 0; text-align: center;">
+                                            <canvas id="notenverlauf_0_4" width="500" height="250"></canvas>
+                                   </td>
+            </tr>
+                                <tr>
+                <td style="border-bottom: 0; padding-top: 2mm;"><b>fCS2 (FF)</b><br>Chor</td>
+                <td style="border-bottom: 0; padding-top: 2mm; ">
+                                            --
+                                                        </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                    </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                            --
+                                    </td>
+                                    <td style="border-bottom: 0; padding-top: 2mm;">
+                                                    --
+                                            </td>
+                            </tr>
+                        <tr style="display: none;" class="0_5_detailrow">
+                <td colspan="5" style="border-top: 0; border-bottom: 0; padding: 0;">
+                                    </td>
+            </tr>
+            <tr style="display: none;" id="schueleruebersicht_verlauf_0_5">
+               <td id="schueleruebersicht_verlauf_content_0_5" colspan="5" style="border-top: 0; text-align: center;">
+                                            <canvas id="notenverlauf_0_5" width="500" height="250"></canvas>
+                                   </td>
+            </tr>
+                                <tr>
+                <td style="border-bottom: 0; padding-top: 2mm;"><b>G-4MW-WeS</b><br>Geschichte</td>
+                <td style="border-bottom: 0; padding-top: 2mm; ">
+                                            5.233
+                                                        </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                            <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" href="#!" onclick="toggle_notendetails(0, 6);" id="einzelpr_btn_0_6">
+                            <i class="far fa-ballot-check fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='einzelpr_btn_0_6' id='mdl_tooltip_einzelpr_btn_0_6'>Einzelprüfungen anzeigen</div>                        <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" onclick="show_notenverlauf(0, 6);" id="notenverlauf_btn_0_6">
+                            <i class="fal fa-analytics fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='notenverlauf_btn_0_6' id='mdl_tooltip_notenverlauf_btn_0_6'>Notenverlauf anzeigen</div>                                    </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                                                        <a href="javascript:decision('Der Bestätigungsvorgang kann nicht rückgängig gemacht werden. Weiterfahren?','index.php?pageid=21311&action=nvw_bestaetigen&id=9536803f16603efa&amp;transid=f3e00b&listindex=6')">bestätigen</a>
+                                                            </td>
+                                    <td style="border-bottom: 0; padding-top: 2mm;">
+                                                    <div id="mail_toggle_6">
+                                <a href="#!" onclick="$('mail_toggle_6').hide(); $('mail_6').show();">Mitteilung verfassen</a>
+                            </div>
+                            <div id="mail_6" style="display: none;">
+                                <form action="index.php?pageid=21311&action=send_email&id=9536803f16603efa&amp;transid=f3e00b" method="post">
+                                    <input type="hidden" value="6" name="index">
+                                    <textarea title="mitteilung" name="emailtext" id="emailtext_6" cols="50" rows="4"></textarea>
+                                    <input type="submit" class="btnsubmit" value="Senden">
+                                    <button class="btnreset" value="Abbrechen" onclick="$('emailtext_6').value = ''; $('mail_toggle_6').show(); $('mail_6').hide(); return false;">Abbrechen</button>
+                                </form>
+                            </div>
+                                            </td>
+                            </tr>
+                        <tr style="display: none;" class="0_6_detailrow">
+                <td colspan="5" style="border-top: 0; border-bottom: 0; padding: 0;">
+                                        <table class="clean" style="margin: 5px 0 0 0; width:100%;">
+                        <tr>
+                            <td style='text-align:left; width: 25%;'><i>Datum</i></td>
+                            <td style='text-align:left; width: 30%;'><i>Thema</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Bewertung</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Gewichtung</i></td>
+                                                    </tr>
+                                                                                                                                    <tr>
+                                <td style='text-align:left; width: 25%;'>17.09.2021</td>
+                                <td style='text-align:left; width: 30%;'>Prüfung 1</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    4.8
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>17.12.2021</td>
+                                <td style='text-align:left; width: 30%;'>Produkt Kalter Krieg</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    6
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>24.01.2022</td>
+                                <td style='text-align:left; width: 30%;'>Protokoll</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>07.02.2022</td>
+                                <td style='text-align:left; width: 30%;'>Prüfung 4</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    4.9
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>23.03.2022</td>
+                                <td style='text-align:left; width: 30%;'>Prüfung 5</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                        <tr>
+                            <td colspan="2" style="text-align: right; padding-bottom: 10px;"><i>Aktueller Durchschnitt:</i></td>
+                            <td colspan="2" style="text-align: left; padding-bottom: 10px;"><i>5.233</i></td>
+                        </tr>
+                                            </table>
+                                    </td>
+            </tr>
+            <tr style="display: none;" id="schueleruebersicht_verlauf_0_6">
+               <td id="schueleruebersicht_verlauf_content_0_6" colspan="5" style="border-top: 0; text-align: center;">
+                                            <canvas id="notenverlauf_0_6" width="500" height="250"></canvas>
+                                   </td>
+            </tr>
+                                <tr>
+                <td style="border-bottom: 0; padding-top: 2mm;"><b>M-4MW-BoJ</b><br>Mathematik</td>
+                <td style="border-bottom: 0; padding-top: 2mm; ">
+                                            5.525
+                                                        </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                            <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" href="#!" onclick="toggle_notendetails(0, 7);" id="einzelpr_btn_0_7">
+                            <i class="far fa-ballot-check fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='einzelpr_btn_0_7' id='mdl_tooltip_einzelpr_btn_0_7'>Einzelprüfungen anzeigen</div>                        <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" onclick="show_notenverlauf(0, 7);" id="notenverlauf_btn_0_7">
+                            <i class="fal fa-analytics fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='notenverlauf_btn_0_7' id='mdl_tooltip_notenverlauf_btn_0_7'>Notenverlauf anzeigen</div>                                    </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                                                        <a href="javascript:decision('Der Bestätigungsvorgang kann nicht rückgängig gemacht werden. Weiterfahren?','index.php?pageid=21311&action=nvw_bestaetigen&id=9536803f16603efa&amp;transid=f3e00b&listindex=7')">bestätigen</a>
+                                                            </td>
+                                    <td style="border-bottom: 0; padding-top: 2mm;">
+                                                    <div id="mail_toggle_7">
+                                <a href="#!" onclick="$('mail_toggle_7').hide(); $('mail_7').show();">Mitteilung verfassen</a>
+                            </div>
+                            <div id="mail_7" style="display: none;">
+                                <form action="index.php?pageid=21311&action=send_email&id=9536803f16603efa&amp;transid=f3e00b" method="post">
+                                    <input type="hidden" value="7" name="index">
+                                    <textarea title="mitteilung" name="emailtext" id="emailtext_7" cols="50" rows="4"></textarea>
+                                    <input type="submit" class="btnsubmit" value="Senden">
+                                    <button class="btnreset" value="Abbrechen" onclick="$('emailtext_7').value = ''; $('mail_toggle_7').show(); $('mail_7').hide(); return false;">Abbrechen</button>
+                                </form>
+                            </div>
+                                            </td>
+                            </tr>
+                        <tr style="display: none;" class="0_7_detailrow">
+                <td colspan="5" style="border-top: 0; border-bottom: 0; padding: 0;">
+                                        <table class="clean" style="margin: 5px 0 0 0; width:100%;">
+                        <tr>
+                            <td style='text-align:left; width: 25%;'><i>Datum</i></td>
+                            <td style='text-align:left; width: 30%;'><i>Thema</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Bewertung</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Gewichtung</i></td>
+                                                    </tr>
+                                                                                                                                    <tr>
+                                <td style='text-align:left; width: 25%;'>21.09.2021</td>
+                                <td style='text-align:left; width: 30%;'>Prüfung 1, 45min, Integralrechnung</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.5
+                                                                            <span id='62245e2f60562' style='font-size: inherit; line-height: inherit; ' tabindex='100000'><i class='far fa-info-circle'></i></span><div class='mdl-tooltip mdl-tooltip--bottom mdl-tooltip--no-wrap mdl-tooltip--large mdl-tooltip--l-width mdl-tooltip--table' for='62245e2f60562' id='mdl_tooltip_62245e2f60562'><b>Details zur Note</b><br>Punkte: 12.5</div>                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>25.11.2021</td>
+                                <td style='text-align:left; width: 30%;'>Prüfung 2, 90min, Differential u. Integralrechnung</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.8
+                                                                            <span id='62245e2f6056e' style='font-size: inherit; line-height: inherit; ' tabindex='100000'><i class='far fa-info-circle'></i></span><div class='mdl-tooltip mdl-tooltip--bottom mdl-tooltip--no-wrap mdl-tooltip--large mdl-tooltip--l-width mdl-tooltip--table' for='62245e2f6056e' id='mdl_tooltip_62245e2f6056e'><b>Details zur Note</b><br>Punkte: 19</div>                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>13.01.2022</td>
+                                <td style='text-align:left; width: 30%;'>Prüfung 3, 90min</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.3
+                                                                            <span id='62245e2f60577' style='font-size: inherit; line-height: inherit; ' tabindex='100000'><i class='far fa-info-circle'></i></span><div class='mdl-tooltip mdl-tooltip--bottom mdl-tooltip--no-wrap mdl-tooltip--large mdl-tooltip--l-width mdl-tooltip--table' for='62245e2f60577' id='mdl_tooltip_62245e2f60577'><b>Details zur Note</b><br>Punkte: 15.5</div>                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>24.02.2022</td>
+                                <td style='text-align:left; width: 30%;'>Prüfung 4 (90min)</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.5
+                                                                            <span id='62245e2f60582' style='font-size: inherit; line-height: inherit; ' tabindex='100000'><i class='far fa-info-circle'></i></span><div class='mdl-tooltip mdl-tooltip--bottom mdl-tooltip--no-wrap mdl-tooltip--large mdl-tooltip--l-width mdl-tooltip--table' for='62245e2f60582' id='mdl_tooltip_62245e2f60582'><b>Details zur Note</b><br>Punkte: 13</div>                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>05.05.2022</td>
+                                <td style='text-align:left; width: 30%;'>Prüfung 5 (90min)</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                        <tr>
+                            <td colspan="2" style="text-align: right; padding-bottom: 10px;"><i>Aktueller Durchschnitt:</i></td>
+                            <td colspan="2" style="text-align: left; padding-bottom: 10px;"><i>5.525</i></td>
+                        </tr>
+                                            </table>
+                                    </td>
+            </tr>
+            <tr style="display: none;" id="schueleruebersicht_verlauf_0_7">
+               <td id="schueleruebersicht_verlauf_content_0_7" colspan="5" style="border-top: 0; text-align: center;">
+                                            <canvas id="notenverlauf_0_7" width="500" height="250"></canvas>
+                                   </td>
+            </tr>
+                                <tr>
+                <td style="border-bottom: 0; padding-top: 2mm;"><b>mKLbr (MU)</b><br>Musik Klavier Bryner</td>
+                <td style="border-bottom: 0; padding-top: 2mm; ">
+                                            5.250
+                                                        </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                            <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" href="#!" onclick="toggle_notendetails(0, 8);" id="einzelpr_btn_0_8">
+                            <i class="far fa-ballot-check fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='einzelpr_btn_0_8' id='mdl_tooltip_einzelpr_btn_0_8'>Einzelprüfungen anzeigen</div>                        <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" onclick="show_notenverlauf(0, 8);" id="notenverlauf_btn_0_8">
+                            <i class="fal fa-analytics fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='notenverlauf_btn_0_8' id='mdl_tooltip_notenverlauf_btn_0_8'>Notenverlauf anzeigen</div>                                    </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                                                        <a href="javascript:decision('Der Bestätigungsvorgang kann nicht rückgängig gemacht werden. Weiterfahren?','index.php?pageid=21311&action=nvw_bestaetigen&id=9536803f16603efa&amp;transid=f3e00b&listindex=8')">bestätigen</a>
+                                                            </td>
+                                    <td style="border-bottom: 0; padding-top: 2mm;">
+                                                    <div id="mail_toggle_8">
+                                <a href="#!" onclick="$('mail_toggle_8').hide(); $('mail_8').show();">Mitteilung verfassen</a>
+                            </div>
+                            <div id="mail_8" style="display: none;">
+                                <form action="index.php?pageid=21311&action=send_email&id=9536803f16603efa&amp;transid=f3e00b" method="post">
+                                    <input type="hidden" value="8" name="index">
+                                    <textarea title="mitteilung" name="emailtext" id="emailtext_8" cols="50" rows="4"></textarea>
+                                    <input type="submit" class="btnsubmit" value="Senden">
+                                    <button class="btnreset" value="Abbrechen" onclick="$('emailtext_8').value = ''; $('mail_toggle_8').show(); $('mail_8').hide(); return false;">Abbrechen</button>
+                                </form>
+                            </div>
+                                            </td>
+                            </tr>
+                        <tr style="display: none;" class="0_8_detailrow">
+                <td colspan="5" style="border-top: 0; border-bottom: 0; padding: 0;">
+                                        <table class="clean" style="margin: 5px 0 0 0; width:100%;">
+                        <tr>
+                            <td style='text-align:left; width: 25%;'><i>Datum</i></td>
+                            <td style='text-align:left; width: 30%;'><i>Thema</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Bewertung</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Gewichtung</i></td>
+                                                    </tr>
+                                                                                                                                    <tr>
+                                <td style='text-align:left; width: 25%;'>30.10.2021</td>
+                                <td style='text-align:left; width: 30%;'>Klavier 1</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.25
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>12.01.2022</td>
+                                <td style='text-align:left; width: 30%;'>Klavier 2</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.25
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                        <tr>
+                            <td colspan="2" style="text-align: right; padding-bottom: 10px;"><i>Aktueller Durchschnitt:</i></td>
+                            <td colspan="2" style="text-align: left; padding-bottom: 10px;"><i>5.250</i></td>
+                        </tr>
+                                            </table>
+                                    </td>
+            </tr>
+            <tr style="display: none;" id="schueleruebersicht_verlauf_0_8">
+               <td id="schueleruebersicht_verlauf_content_0_8" colspan="5" style="border-top: 0; text-align: center;">
+                                            <canvas id="notenverlauf_0_8" width="500" height="250"></canvas>
+                                   </td>
+            </tr>
+                                <tr>
+                <td style="border-bottom: 0; padding-top: 2mm;"><b>MS-4MW-BuM</b><br>Musiklehre und Singen</td>
+                <td style="border-bottom: 0; padding-top: 2mm; ">
+                                            5.933
+                                                        </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                            <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" href="#!" onclick="toggle_notendetails(0, 9);" id="einzelpr_btn_0_9">
+                            <i class="far fa-ballot-check fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='einzelpr_btn_0_9' id='mdl_tooltip_einzelpr_btn_0_9'>Einzelprüfungen anzeigen</div>                        <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" onclick="show_notenverlauf(0, 9);" id="notenverlauf_btn_0_9">
+                            <i class="fal fa-analytics fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='notenverlauf_btn_0_9' id='mdl_tooltip_notenverlauf_btn_0_9'>Notenverlauf anzeigen</div>                                    </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                                                        <a href="javascript:decision('Der Bestätigungsvorgang kann nicht rückgängig gemacht werden. Weiterfahren?','index.php?pageid=21311&action=nvw_bestaetigen&id=9536803f16603efa&amp;transid=f3e00b&listindex=9')">bestätigen</a>
+                                                            </td>
+                                    <td style="border-bottom: 0; padding-top: 2mm;">
+                                                    <div id="mail_toggle_9">
+                                <a href="#!" onclick="$('mail_toggle_9').hide(); $('mail_9').show();">Mitteilung verfassen</a>
+                            </div>
+                            <div id="mail_9" style="display: none;">
+                                <form action="index.php?pageid=21311&action=send_email&id=9536803f16603efa&amp;transid=f3e00b" method="post">
+                                    <input type="hidden" value="9" name="index">
+                                    <textarea title="mitteilung" name="emailtext" id="emailtext_9" cols="50" rows="4"></textarea>
+                                    <input type="submit" class="btnsubmit" value="Senden">
+                                    <button class="btnreset" value="Abbrechen" onclick="$('emailtext_9').value = ''; $('mail_toggle_9').show(); $('mail_9').hide(); return false;">Abbrechen</button>
+                                </form>
+                            </div>
+                                            </td>
+                            </tr>
+                        <tr style="display: none;" class="0_9_detailrow">
+                <td colspan="5" style="border-top: 0; border-bottom: 0; padding: 0;">
+                                        <table class="clean" style="margin: 5px 0 0 0; width:100%;">
+                        <tr>
+                            <td style='text-align:left; width: 25%;'><i>Datum</i></td>
+                            <td style='text-align:left; width: 30%;'><i>Thema</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Bewertung</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Gewichtung</i></td>
+                                                    </tr>
+                                                                                                                                    <tr>
+                                <td style='text-align:left; width: 25%;'>04.08.2021</td>
+                                <td style='text-align:left; width: 30%;'>Gespräch über Musik</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>0.5</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>04.08.2021</td>
+                                <td style='text-align:left; width: 30%;'>Musizieren</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>02.09.2021</td>
+                                <td style='text-align:left; width: 30%;'>Gehörbildung</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    6
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>30.09.2021</td>
+                                <td style='text-align:left; width: 30%;'>Rhythmusauftrag</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.8
+                                                                            <span id='62245e2f60680' style='font-size: inherit; line-height: inherit; ' tabindex='100000'><i class='far fa-info-circle'></i></span><div class='mdl-tooltip mdl-tooltip--bottom mdl-tooltip--no-wrap mdl-tooltip--large mdl-tooltip--l-width mdl-tooltip--table' for='62245e2f60680' id='mdl_tooltip_62245e2f60680'><b>Details zur Note</b><br>Punkte: 77</div>                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>11.11.2021</td>
+                                <td style='text-align:left; width: 30%;'>Blattsingen</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    6
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>02.12.2021</td>
+                                <td style='text-align:left; width: 30%;'>Analyse Grundlagen</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>24.03.2022</td>
+                                <td style='text-align:left; width: 30%;'>Vorträge</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>31.03.2022</td>
+                                <td style='text-align:left; width: 30%;'>Vorträge</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>31.03.2022</td>
+                                <td style='text-align:left; width: 30%;'>Funktionsharmonik</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                        <tr>
+                            <td colspan="2" style="text-align: right; padding-bottom: 10px;"><i>Aktueller Durchschnitt:</i></td>
+                            <td colspan="2" style="text-align: left; padding-bottom: 10px;"><i>5.933</i></td>
+                        </tr>
+                                            </table>
+                                    </td>
+            </tr>
+            <tr style="display: none;" id="schueleruebersicht_verlauf_0_9">
+               <td id="schueleruebersicht_verlauf_content_0_9" colspan="5" style="border-top: 0; text-align: center;">
+                                            <canvas id="notenverlauf_0_9" width="500" height="250"></canvas>
+                                   </td>
+            </tr>
+                                <tr>
+                <td style="border-bottom: 0; padding-top: 2mm;"><b>SP-4MW-HaP</b><br>Sport</td>
+                <td style="border-bottom: 0; padding-top: 2mm; ">
+                                            5.743
+                                                        </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                            <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" href="#!" onclick="toggle_notendetails(0, 10);" id="einzelpr_btn_0_10">
+                            <i class="far fa-ballot-check fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='einzelpr_btn_0_10' id='mdl_tooltip_einzelpr_btn_0_10'>Einzelprüfungen anzeigen</div>                        <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" onclick="show_notenverlauf(0, 10);" id="notenverlauf_btn_0_10">
+                            <i class="fal fa-analytics fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='notenverlauf_btn_0_10' id='mdl_tooltip_notenverlauf_btn_0_10'>Notenverlauf anzeigen</div>                                    </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                                                        <a href="javascript:decision('Der Bestätigungsvorgang kann nicht rückgängig gemacht werden. Weiterfahren?','index.php?pageid=21311&action=nvw_bestaetigen&id=9536803f16603efa&amp;transid=f3e00b&listindex=10')">bestätigen</a>
+                                                            </td>
+                                    <td style="border-bottom: 0; padding-top: 2mm;">
+                                                    <div id="mail_toggle_10">
+                                <a href="#!" onclick="$('mail_toggle_10').hide(); $('mail_10').show();">Mitteilung verfassen</a>
+                            </div>
+                            <div id="mail_10" style="display: none;">
+                                <form action="index.php?pageid=21311&action=send_email&id=9536803f16603efa&amp;transid=f3e00b" method="post">
+                                    <input type="hidden" value="10" name="index">
+                                    <textarea title="mitteilung" name="emailtext" id="emailtext_10" cols="50" rows="4"></textarea>
+                                    <input type="submit" class="btnsubmit" value="Senden">
+                                    <button class="btnreset" value="Abbrechen" onclick="$('emailtext_10').value = ''; $('mail_toggle_10').show(); $('mail_10').hide(); return false;">Abbrechen</button>
+                                </form>
+                            </div>
+                                            </td>
+                            </tr>
+                        <tr style="display: none;" class="0_10_detailrow">
+                <td colspan="5" style="border-top: 0; border-bottom: 0; padding: 0;">
+                                        <table class="clean" style="margin: 5px 0 0 0; width:100%;">
+                        <tr>
+                            <td style='text-align:left; width: 25%;'><i>Datum</i></td>
+                            <td style='text-align:left; width: 30%;'><i>Thema</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Bewertung</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Gewichtung</i></td>
+                                                    </tr>
+                                                                                                                                    <tr>
+                                <td style='text-align:left; width: 25%;'>22.11.2021</td>
+                                <td style='text-align:left; width: 30%;'>Kondition 1/60</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    6
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>0.6</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>24.11.2021</td>
+                                <td style='text-align:left; width: 30%;'>Wahl 1</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.75
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>24.11.2021</td>
+                                <td style='text-align:left; width: 30%;'>Kondition 1/40</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    4.7
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>0.4</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>31.01.2022</td>
+                                <td style='text-align:left; width: 30%;'>Wahl 2</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    6
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                        <tr>
+                            <td colspan="2" style="text-align: right; padding-bottom: 10px;"><i>Aktueller Durchschnitt:</i></td>
+                            <td colspan="2" style="text-align: left; padding-bottom: 10px;"><i>5.743</i></td>
+                        </tr>
+                                            </table>
+                                    </td>
+            </tr>
+            <tr style="display: none;" id="schueleruebersicht_verlauf_0_10">
+               <td id="schueleruebersicht_verlauf_content_0_10" colspan="5" style="border-top: 0; text-align: center;">
+                                            <canvas id="notenverlauf_0_10" width="500" height="250"></canvas>
+                                   </td>
+            </tr>
+                                <tr>
+                <td style="border-bottom: 0; padding-top: 2mm;"><b>wBG2 (WK)</b><br>MakerLab</td>
+                <td style="border-bottom: 0; padding-top: 2mm; ">
+                                            5.500
+                                                        </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                            <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" href="#!" onclick="toggle_notendetails(0, 11);" id="einzelpr_btn_0_11">
+                            <i class="far fa-ballot-check fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='einzelpr_btn_0_11' id='mdl_tooltip_einzelpr_btn_0_11'>Einzelprüfungen anzeigen</div>                        <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" onclick="show_notenverlauf(0, 11);" id="notenverlauf_btn_0_11">
+                            <i class="fal fa-analytics fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='notenverlauf_btn_0_11' id='mdl_tooltip_notenverlauf_btn_0_11'>Notenverlauf anzeigen</div>                                    </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                                                        <a href="javascript:decision('Der Bestätigungsvorgang kann nicht rückgängig gemacht werden. Weiterfahren?','index.php?pageid=21311&action=nvw_bestaetigen&id=9536803f16603efa&amp;transid=f3e00b&listindex=11')">bestätigen</a>
+                                                            </td>
+                                    <td style="border-bottom: 0; padding-top: 2mm;">
+                                                    <div id="mail_toggle_11">
+                                <a href="#!" onclick="$('mail_toggle_11').hide(); $('mail_11').show();">Mitteilung verfassen</a>
+                            </div>
+                            <div id="mail_11" style="display: none;">
+                                <form action="index.php?pageid=21311&action=send_email&id=9536803f16603efa&amp;transid=f3e00b" method="post">
+                                    <input type="hidden" value="11" name="index">
+                                    <textarea title="mitteilung" name="emailtext" id="emailtext_11" cols="50" rows="4"></textarea>
+                                    <input type="submit" class="btnsubmit" value="Senden">
+                                    <button class="btnreset" value="Abbrechen" onclick="$('emailtext_11').value = ''; $('mail_toggle_11').show(); $('mail_11').hide(); return false;">Abbrechen</button>
+                                </form>
+                            </div>
+                                            </td>
+                            </tr>
+                        <tr style="display: none;" class="0_11_detailrow">
+                <td colspan="5" style="border-top: 0; border-bottom: 0; padding: 0;">
+                                        <table class="clean" style="margin: 5px 0 0 0; width:100%;">
+                        <tr>
+                            <td style='text-align:left; width: 25%;'><i>Datum</i></td>
+                            <td style='text-align:left; width: 30%;'><i>Thema</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Bewertung</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Gewichtung</i></td>
+                                                    </tr>
+                                                                                                                                    <tr>
+                                <td style='text-align:left; width: 25%;'>01.12.2021</td>
+                                <td style='text-align:left; width: 30%;'>Leben auf dem Mond Gestaltung</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    5.5
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>01.12.2021</td>
+                                <td style='text-align:left; width: 30%;'>technischer Umgang mit SketchUp</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                        <tr>
+                            <td colspan="2" style="text-align: right; padding-bottom: 10px;"><i>Aktueller Durchschnitt:</i></td>
+                            <td colspan="2" style="text-align: left; padding-bottom: 10px;"><i>5.500</i></td>
+                        </tr>
+                                            </table>
+                                    </td>
+            </tr>
+            <tr style="display: none;" id="schueleruebersicht_verlauf_0_11">
+               <td id="schueleruebersicht_verlauf_content_0_11" colspan="5" style="border-top: 0; text-align: center;">
+                                            <canvas id="notenverlauf_0_11" width="500" height="250"></canvas>
+                                   </td>
+            </tr>
+                                <tr>
+                <td style="border-bottom: 0; padding-top: 2mm;"><b>wIN (EF)</b><br>Informatik</td>
+                <td style="border-bottom: 0; padding-top: 2mm; ">
+                                            6.000
+                                                        </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                            <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" href="#!" onclick="toggle_notendetails(0, 12);" id="einzelpr_btn_0_12">
+                            <i class="far fa-ballot-check fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='einzelpr_btn_0_12' id='mdl_tooltip_einzelpr_btn_0_12'>Einzelprüfungen anzeigen</div>                        <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-button--icon-small mdl-button--colored" onclick="show_notenverlauf(0, 12);" id="notenverlauf_btn_0_12">
+                            <i class="fal fa-analytics fa-xs"></i>
+                        </button>
+                        <div class='mdl-tooltip mdl-tooltip--right mdl-tooltip--line-wrap mdl-tooltip--large mdl-tooltip--l-width ' for='notenverlauf_btn_0_12' id='mdl_tooltip_notenverlauf_btn_0_12'>Notenverlauf anzeigen</div>                                    </td>
+                <td style="border-bottom: 0; padding-top: 2mm;">
+                                                                        <a href="javascript:decision('Der Bestätigungsvorgang kann nicht rückgängig gemacht werden. Weiterfahren?','index.php?pageid=21311&action=nvw_bestaetigen&id=9536803f16603efa&amp;transid=f3e00b&listindex=12')">bestätigen</a>
+                                                            </td>
+                                    <td style="border-bottom: 0; padding-top: 2mm;">
+                                                    <div id="mail_toggle_12">
+                                <a href="#!" onclick="$('mail_toggle_12').hide(); $('mail_12').show();">Mitteilung verfassen</a>
+                            </div>
+                            <div id="mail_12" style="display: none;">
+                                <form action="index.php?pageid=21311&action=send_email&id=9536803f16603efa&amp;transid=f3e00b" method="post">
+                                    <input type="hidden" value="12" name="index">
+                                    <textarea title="mitteilung" name="emailtext" id="emailtext_12" cols="50" rows="4"></textarea>
+                                    <input type="submit" class="btnsubmit" value="Senden">
+                                    <button class="btnreset" value="Abbrechen" onclick="$('emailtext_12').value = ''; $('mail_toggle_12').show(); $('mail_12').hide(); return false;">Abbrechen</button>
+                                </form>
+                            </div>
+                                            </td>
+                            </tr>
+                        <tr style="display: none;" class="0_12_detailrow">
+                <td colspan="5" style="border-top: 0; border-bottom: 0; padding: 0;">
+                                        <table class="clean" style="margin: 5px 0 0 0; width:100%;">
+                        <tr>
+                            <td style='text-align:left; width: 25%;'><i>Datum</i></td>
+                            <td style='text-align:left; width: 30%;'><i>Thema</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Bewertung</i></td>
+                            <td style='text-align:left; width: 15%;'><i>Gewichtung</i></td>
+                                                    </tr>
+                                                                                                                                    <tr>
+                                <td style='text-align:left; width: 25%;'>20.08.2021</td>
+                                <td style='text-align:left; width: 30%;'>Vortrag 1</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    6
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>29.11.2021</td>
+                                <td style='text-align:left; width: 30%;'>Vortrag 2</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>17.12.2021</td>
+                                <td style='text-align:left; width: 30%;'>1. Test</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    6
+                                                                            <span id='62245e2f60863' style='font-size: inherit; line-height: inherit; ' tabindex='100000'><i class='far fa-info-circle'></i></span><div class='mdl-tooltip mdl-tooltip--bottom mdl-tooltip--no-wrap mdl-tooltip--large mdl-tooltip--l-width mdl-tooltip--table' for='62245e2f60863' id='mdl_tooltip_62245e2f60863'><b>Details zur Note</b><br>Punkte: 41</div>                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>21.01.2022</td>
+                                <td style='text-align:left; width: 30%;'>Projekt 1</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+                                    6
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>1</td>
+                                                            </tr>
+                                                                                                            <tr>
+                                <td style='text-align:left; width: 25%;'>25.02.2022</td>
+                                <td style='text-align:left; width: 30%;'>2. Test</td>
+                                                                  <td style='text-align:left; width: 15%;'>
+
+                                                                      </td>
+
+                                <td style='text-align:left; width: 15%;'>0.5</td>
+                                                            </tr>
+                                                                        <tr>
+                            <td colspan="2" style="text-align: right; padding-bottom: 10px;"><i>Aktueller Durchschnitt:</i></td>
+                            <td colspan="2" style="text-align: left; padding-bottom: 10px;"><i>6.000</i></td>
+                        </tr>
+                                            </table>
+                                    </td>
+            </tr>
+            <tr style="display: none;" id="schueleruebersicht_verlauf_0_12">
+               <td id="schueleruebersicht_verlauf_content_0_12" colspan="5" style="border-top: 0; text-align: center;">
+                                            <canvas id="notenverlauf_0_12" width="500" height="250"></canvas>
+                                   </td>
+            </tr>
+                        </table>
+
+    <br><br>
+
+            <div style='max-width: 100%' class=''><div class='mdl-card cls-card mdl-shadow--2dp mdl-card--information ' id='62245e2f60893' style=''><div class='mdl-progress mdl-js-progress mdl-progress__indeterminate' style='width: 100%; display: none;' id='62245e2f60893_progress_bar'></div><div class='mdl-card__supporting-text' id='62245e2f60893_card_content' style='display: block; max-height: auto;'>            <ul>
+                <li>Gestrichene Noten erscheinen nicht mehr in der Detailansicht.</li>
+                <li>Die Markierung * bedeutet, dass nicht freigegebene Noten existieren, welche noch nicht im Durchschnitt berücksichtigt sind.</li>
+            </ul>
+        </div></div></div>
+        <script>
+            let kursData_0 = {};
+            let charts_0 = {};
+            let yLabels_0 = [];
+                            kursData_0["0_0"] = {"type":"line","data":{"labels":["06.09.2021","25.10.2021","10.12.2021","13.12.2021","31.12.2021","16.02.2022"],"datasets":[{"label":"Gesamtbewertung","lineTension":0,"fill":false,"borderColor":"rgb(51, 153, 51)","spanGaps":true,"data":[5.4,5.8,5.4,null,null,5.2]},{"label":"Gesamtbewertung-Trend","lineTension":0,"fill":false,"borderColor":"rgb(27, 161, 226)","spanGaps":true,"pointRadius":0,"data":[5.592857142857143,5.521428571428572,5.45,null,null,5.235714285714287]}]},"options":{"elements":{"line":{"skipNull":true,"drawNull":false}},"scales":{"yAxes":[{"ticks":{"min":0.5,"max":6.5},"offset":true}]}}};                 if(kursData_0["0_0"].data !== undefined && kursData_0["0_0"].data.y_labels !== undefined) {
+                    yLabels_0["0_0"] = kursData_0["0_0"].data.y_labels;
+                }
+                            kursData_0["0_1"] = {"type":"line","data":{"labels":["01.09.2021","06.09.2021","20.09.2021","27.10.2021","06.12.2021","22.02.2022","16.03.2022","05.04.2022"],"datasets":[{"label":"Gesamtbewertung","lineTension":0,"fill":false,"borderColor":"rgb(51, 153, 51)","spanGaps":true,"data":[5.25,5.75,5.75,5,5.5,null,null,null]},{"label":"Gesamtbewertung-Trend","lineTension":0,"fill":false,"borderColor":"rgb(27, 161, 226)","spanGaps":true,"pointRadius":0,"data":[5.5,5.475,5.45,5.425,5.4,null,null,null]}]},"options":{"elements":{"line":{"skipNull":true,"drawNull":false}},"scales":{"yAxes":[{"ticks":{"min":0.5,"max":6.5},"offset":true}]}}};                 if(kursData_0["0_1"].data !== undefined && kursData_0["0_1"].data.y_labels !== undefined) {
+                    yLabels_0["0_1"] = kursData_0["0_1"].data.y_labels;
+                }
+                            kursData_0["0_2"] = {"type":"line","data":{"labels":["03.09.2021","14.09.2021","30.11.2021","07.12.2021","10.12.2021","10.01.2022","24.01.2022","21.03.2022","01.04.2022"],"datasets":[{"label":"Gesamtbewertung","lineTension":0,"fill":false,"borderColor":"rgb(51, 153, 51)","spanGaps":true,"data":[4.5,5,5.2,5.9,5.7,6,5.7,null,null]},{"label":"Gesamtbewertung-Trend","lineTension":0,"fill":false,"borderColor":"rgb(27, 161, 226)","spanGaps":true,"pointRadius":0,"data":[4.7749999999999995,4.992857142857143,5.210714285714285,5.428571428571429,5.646428571428572,5.864285714285715,6.082142857142858,null,null]}]},"options":{"elements":{"line":{"skipNull":true,"drawNull":false}},"scales":{"yAxes":[{"ticks":{"min":0.5,"max":6.5},"offset":true}]}}};                 if(kursData_0["0_2"].data !== undefined && kursData_0["0_2"].data.y_labels !== undefined) {
+                    yLabels_0["0_2"] = kursData_0["0_2"].data.y_labels;
+                }
+                            kursData_0["0_3"] = {};                 if(kursData_0["0_3"].data !== undefined && kursData_0["0_3"].data.y_labels !== undefined) {
+                    yLabels_0["0_3"] = kursData_0["0_3"].data.y_labels;
+                }
+                            kursData_0["0_4"] = {"type":"line","data":{"labels":["18.10.2021","10.01.2022","21.03.2022","02.05.2022"],"datasets":[{"label":"Gesamtbewertung","lineTension":0,"fill":false,"borderColor":"rgb(51, 153, 51)","spanGaps":true,"data":[5,5.6,null,null]}]},"options":{"elements":{"line":{"skipNull":true,"drawNull":false}},"scales":{"yAxes":[{"ticks":{"min":0.5,"max":6.5},"offset":true}]}}};                 if(kursData_0["0_4"].data !== undefined && kursData_0["0_4"].data.y_labels !== undefined) {
+                    yLabels_0["0_4"] = kursData_0["0_4"].data.y_labels;
+                }
+                            kursData_0["0_5"] = {};                 if(kursData_0["0_5"].data !== undefined && kursData_0["0_5"].data.y_labels !== undefined) {
+                    yLabels_0["0_5"] = kursData_0["0_5"].data.y_labels;
+                }
+                            kursData_0["0_6"] = {"type":"line","data":{"labels":["17.09.2021","17.12.2021","24.01.2022","07.02.2022","23.03.2022"],"datasets":[{"label":"Gesamtbewertung","lineTension":0,"fill":false,"borderColor":"rgb(51, 153, 51)","spanGaps":true,"data":[4.8,6,null,4.9,null]},{"label":"Gesamtbewertung-Trend","lineTension":0,"fill":false,"borderColor":"rgb(27, 161, 226)","spanGaps":true,"pointRadius":0,"data":[5.3,5.25,null,5.15,null]}]},"options":{"elements":{"line":{"skipNull":true,"drawNull":false}},"scales":{"yAxes":[{"ticks":{"min":0.5,"max":6.5},"offset":true}]}}};                 if(kursData_0["0_6"].data !== undefined && kursData_0["0_6"].data.y_labels !== undefined) {
+                    yLabels_0["0_6"] = kursData_0["0_6"].data.y_labels;
+                }
+                            kursData_0["0_7"] = {"type":"line","data":{"labels":["21.09.2021","25.11.2021","13.01.2022","24.02.2022","05.05.2022"],"datasets":[{"label":"Gesamtbewertung","lineTension":0,"fill":false,"borderColor":"rgb(51, 153, 51)","spanGaps":true,"data":[5.5,5.8,5.3,5.5,null]},{"label":"Gesamtbewertung-Trend","lineTension":0,"fill":false,"borderColor":"rgb(27, 161, 226)","spanGaps":true,"pointRadius":0,"data":[5.600000000000002,5.550000000000001,5.499999999999999,5.449999999999998,null]}]},"options":{"elements":{"line":{"skipNull":true,"drawNull":false}},"scales":{"yAxes":[{"ticks":{"min":0.5,"max":6.5},"offset":true}]}}};                 if(kursData_0["0_7"].data !== undefined && kursData_0["0_7"].data.y_labels !== undefined) {
+                    yLabels_0["0_7"] = kursData_0["0_7"].data.y_labels;
+                }
+                            kursData_0["0_8"] = {"type":"line","data":{"labels":["30.10.2021","12.01.2022"],"datasets":[{"label":"Gesamtbewertung","lineTension":0,"fill":false,"borderColor":"rgb(51, 153, 51)","spanGaps":true,"data":[5.25,5.25]}]},"options":{"elements":{"line":{"skipNull":true,"drawNull":false}},"scales":{"yAxes":[{"ticks":{"min":0.5,"max":6.5},"offset":true}]}}};                 if(kursData_0["0_8"].data !== undefined && kursData_0["0_8"].data.y_labels !== undefined) {
+                    yLabels_0["0_8"] = kursData_0["0_8"].data.y_labels;
+                }
+                            kursData_0["0_9"] = {"type":"line","data":{"labels":["04.08.2021","04.08.2021","02.09.2021","30.09.2021","11.11.2021","02.12.2021","24.03.2022","31.03.2022","31.03.2022"],"datasets":[{"label":"Gesamtbewertung","lineTension":0,"fill":false,"borderColor":"rgb(51, 153, 51)","spanGaps":true,"data":[null,null,6,5.8,6,null,null,null,null]},{"label":"Gesamtbewertung-Trend","lineTension":0,"fill":false,"borderColor":"rgb(27, 161, 226)","spanGaps":true,"pointRadius":0,"data":[null,null,5.933333333333338,5.933333333333334,5.933333333333329,null,null,null,null]}]},"options":{"elements":{"line":{"skipNull":true,"drawNull":false}},"scales":{"yAxes":[{"ticks":{"min":0.5,"max":6.5},"offset":true}]}}};                 if(kursData_0["0_9"].data !== undefined && kursData_0["0_9"].data.y_labels !== undefined) {
+                    yLabels_0["0_9"] = kursData_0["0_9"].data.y_labels;
+                }
+                            kursData_0["0_10"] = {"type":"line","data":{"labels":["22.11.2021","24.11.2021","24.11.2021","31.01.2022"],"datasets":[{"label":"Gesamtbewertung","lineTension":0,"fill":false,"borderColor":"rgb(51, 153, 51)","spanGaps":true,"data":[6,5.75,4.7,6]},{"label":"Gesamtbewertung-Trend","lineTension":0,"fill":false,"borderColor":"rgb(27, 161, 226)","spanGaps":true,"pointRadius":0,"data":[5.77,5.665,5.5600000000000005,5.455]}]},"options":{"elements":{"line":{"skipNull":true,"drawNull":false}},"scales":{"yAxes":[{"ticks":{"min":0.5,"max":6.5},"offset":true}]}}};                 if(kursData_0["0_10"].data !== undefined && kursData_0["0_10"].data.y_labels !== undefined) {
+                    yLabels_0["0_10"] = kursData_0["0_10"].data.y_labels;
+                }
+                            kursData_0["0_11"] = {"type":"line","data":{"labels":["01.12.2021","01.12.2021"],"datasets":[{"label":"Gesamtbewertung","lineTension":0,"fill":false,"borderColor":"rgb(51, 153, 51)","spanGaps":true,"data":[5.5,null]}]},"options":{"elements":{"line":{"skipNull":true,"drawNull":false}},"scales":{"yAxes":[{"ticks":{"min":0.5,"max":6.5},"offset":true}]}}};                 if(kursData_0["0_11"].data !== undefined && kursData_0["0_11"].data.y_labels !== undefined) {
+                    yLabels_0["0_11"] = kursData_0["0_11"].data.y_labels;
+                }
+                            kursData_0["0_12"] = {"type":"line","data":{"labels":["20.08.2021","29.11.2021","17.12.2021","21.01.2022","25.02.2022"],"datasets":[{"label":"Gesamtbewertung","lineTension":0,"fill":false,"borderColor":"rgb(51, 153, 51)","spanGaps":true,"data":[6,null,6,6,null]},{"label":"Gesamtbewertung-Trend","lineTension":0,"fill":false,"borderColor":"rgb(27, 161, 226)","spanGaps":true,"pointRadius":0,"data":[6,null,6,6,null]}]},"options":{"elements":{"line":{"skipNull":true,"drawNull":false}},"scales":{"yAxes":[{"ticks":{"min":0.5,"max":6.5},"offset":true}]}}};                 if(kursData_0["0_12"].data !== undefined && kursData_0["0_12"].data.y_labels !== undefined) {
+                    yLabels_0["0_12"] = kursData_0["0_12"].data.y_labels;
+                }
+
+
+
+            function show_notenverlauf(sIdx, kIdx) {
+                let idx = sIdx+'_'+kIdx;
+                $("schueleruebersicht_verlauf_"+idx).toggle();
+
+                if(charts_0[idx] === undefined) {
+                    const ctx = document.getElementById("notenverlauf_"+idx).getContext("2d");
+                    let config = kursData_0[idx];
+
+                    if(config.data.y_labels !== undefined) {
+                        yLabels_0 = config.data.y_labels;
+                        config.options.scales.yAxes[0].ticks.userCallback = function(label, index) {
+                            return yLabels_0[label];
+                        };
+                    } else {
+                        config.options.scales.yAxes[0].ticks.userCallback = function(label, index) {
+                            if (Math.floor(label) === label) {
+                                return label;
+                            }
+                        };
+                    }
+
+                    config.options.animation = {
+                        onComplete: function(animation) {
+                            const base64 = document.getElementById("notenverlauf_"+idx).toDataURL();
+                            xajax_schueleruebersicht_notenverlauf_chartjs(sIdx, kIdx, base64);
+                        }
+                    };
+
+                    charts_0[idx] = new Chart(ctx, kursData_0[idx]);
+                }
+
+            }
+
+
+
+        </script>
+
+    </div>
+</page></div><div id='iframe_vorschau' class='sus-uebersicht--50-50 sus-uebersicht--iframe-wrapper' style='display:none'><div class='loader-backdrop' id='pdf_loading' style='display: block;'>
+                <div class='mdl-spinner mdl-js-spinner is-active' style='top: calc(50% - 25px); width: 50px; height: 50px;'></div>
+            </div><iframe id='uebersicht_frame' onload='pdfLoaded()' srcdoc='<div style="text-align:center;">Klicken Sie auf das Vorschau-Symbol des gewünschten Dokumentes, um hier die Vorschau zu sehen.</div>'></iframe></div></div></main></div></main></div><dialog class="mdl-dialog" id="transid-invalid-dialog" style="max-width: 900px; width: auto;background-color: #FAE4C6">
+    <div class="mdl-dialog__title" style="text-align: left;">Transaktions-ID abgelaufen</div>
+    <div class="mdl-dialog__content" style="max-height: 480px;">
+        <p>Ihre Transaktions-ID ist abgelaufen, Sie müssen die Seite neu laden.</p>
+        <p><a id="transid-invalid-reload-link" href="#">Seite neu laden</a></p>
+    </div>
+    <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button mdl-js-button mdl-button--small close-btn">Schliessen</button>
+    </div>
+</dialog>
+
+<script type="text/javascript">
+    document.addEventListener('visibilitychange', function(ev) {
+        if(document.visibilityState == 'visible') {
+            xajax_check_transid("21311","f3e00b");
+        }
+    });
+
+
+    const invalidDialog = document.getElementById('transid-invalid-dialog');
+
+    function openInvalidDialog(autoreload, reloadLocation) {
+        if(autoreload) {
+            showToast('Transaktions ID abgelaufen. Automatischer Seitenreload');
+            location.href=reloadLocation;
+        } else {
+            // Dialog öffnen (wenn nicht schon offen)s
+            if(!invalidDialog.open) {
+                if (invalidDialog) {
+                    invalidDialog.querySelector('.close-btn').addEventListener('click', function () {
+                        invalidDialog.close();
+                    });
+                }
+                if (!invalidDialog.showModal) {
+                    document.body.appendChild(invalidDialog);
+                    dialogPolyfill.registerDialog(invalidDialog);
+                }
+                invalidDialog.showModal();
+            }
+        }
+    }
+</script>
+
+
+</div> <!-- Ende MainContent -->
+
+
+
+
+</body>
+</html><div style="display: none;" id="snPageActions">
+
+
+                        <a href="index.php?pageid=21311&amp;id=9536803f16603efa&amp;transid=f3e00b&amp;output=pdf" target="_blank" type="button" id="page_action_0"
+       class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl--link-button mdl-button--red ">
+                    <i class="far fa-file-pdf fa-xs"></i>
+            </a>
+                    <div class="mdl-tooltip mdl-tooltip--left mdl-tooltip--large mdl-tooltip--line-wrap" for="page_action_0" id="page_action_0_tooltip">
+        Pdf-Export
+            </div>
+    </div>
+
+<script type="text/javascript">
+
+
+    let actionContainer = document.getElementById('page_actions_container');
+    if(!actionContainer) {
+        // Falls es den container noch nicht gibt, wird dieser erstellt
+        actionContainer = createActionContainer();
+    }
+
+    actionContainer.innerHTML = $('snPageActions').innerHTML;
+
+    function createActionContainer() {
+        // Falls es noch keinen Container gibt, wird versucht diesen in den ersten Titel auf der Seite zu platzieren
+        let title = document.querySelector('h1, h2, h3');
+
+        if(title === null) {
+            // Falls kein Titel gefunden wurde, wird der container oben rechts absolut positioniert
+            const container = document.createElement('div');
+            container.id = 'page_actions_container';
+            container.style.position = 'absolute';
+            container.style.top = '10px';
+            container.style.right = '10px';
+
+            document.getElementById('content-card').appendChild(container);
+
+            return container;
+        } else {
+            // Sonst wird der Titel durch ein header-for-page-actions div ersetzt
+            const pageActionsHeader = document.createElement('div');
+            pageActionsHeader.classList.add('header-for-page-actions');
+
+            const newTitle = title.cloneNode(false);
+            newTitle.innerHTML = title.innerHTML;
+            pageActionsHeader.appendChild(newTitle);
+
+            const spacer = document.createElement('div');
+            spacer.classList.add('mdl-layout-spacer');
+            pageActionsHeader.appendChild(spacer);
+
+            const container = document.createElement('div');
+            container.id = 'page_actions_container';
+            pageActionsHeader.appendChild(container);
+
+            title.parentNode.replaceChild(pageActionsHeader, title);
+
+            return container;
+        }
+    }
+
+    function showInfoDialog(id) {
+        const dialog = document.getElementById(id);
+        if (dialog) {
+            dialog.querySelector('.close-btn').addEventListener('click', function () {
+                // Prüfen ob Animation-Event abgefangen werden kann, nur dann wird die docking-anmimation angezeigt
+                if(isEventSupported('webkitAnimationEnd')) {
+                    dockingAnimation(dialog, 'webkitAnimationEnd');
+                } else if(isEventSupported('animationend')) {
+                    dockingAnimation(dialog, 'animationend');
+                } else {
+                    dialog.close();
+                }
+            });
+        } else {
+            return;
+        }
+        if (!dialog.showModal) {
+            document.body.appendChild(dialog);
+            dialogPolyfill.registerDialog(dialog);
+        }
+        dialog.showModal();
+    }
+
+    function dockingAnimation(dialog, eventType) {
+        dialog.classList.add('docking-dialog');
+        dialog.addEventListener(eventType, function() {
+            dialog.close();
+            dialog.classList.remove('docking-dialog');
+            dialog.removeEventListener(eventType,  arguments.callee, false);
+        }, false);
+    }
+</script>
+
+
+
+
+<dialog class="mdl-dialog" id="active_workflow_steps" style="max-width: 800px; width: auto;">
+    <b class="mdl-dialog__title" style="text-align: left;">Pendente Workflow-Schritte zu dieser Seite</b>
+    <div class="mdl-dialog__content" style="max-height: 300px; text-align: left;">
+        Folgende Workflows befinden sich in einem Schritt, welcher eine Aktion auf dieser Seite verlangt:<br><br>
+            </div>
+    <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button mdl-js-button mdl-button--small close-btn">Schliessen</button>
+    </div>
+</dialog>
+
+<script>
+    function show_active_wfsteps() {
+        const dialog = document.getElementById('active_workflow_steps');
+        if (dialog) {
+            dialog.querySelector('.close-btn').addEventListener('click', function () {
+                dialog.close();
+            });
+        }
+        if (!dialog.showModal) {
+            document.body.appendChild(dialog);
+            dialogPolyfill.registerDialog(dialog);
+        }
+        dialog.showModal();
+    }
+</script>
+<dialog class="mdl-dialog" id="initiate_workflow" style="max-width: 800px; width: auto;">
+    <b class="mdl-dialog__title">Workflow starten</b>
+    <div class="mdl-dialog__content" style="max-height: 300px;">
+        Folgende Workflows können Sie von dieser Seite aus starten:<br><br>
+            </div>
+    <div class="mdl-dialog__actions">
+        <button type="button" id="schliessenBtn" class="mdl-button mdl-js-button mdl-button--small close-btn">Schliessen</button>
+    </div>
+</dialog>
+
+<script>
+    function show_initiate_wfs(icol, tblName) {
+        const dialog = document.getElementById('initiate_workflow');
+        if (dialog) {
+            dialog.querySelector('.close-btn').addEventListener('click', function () {
+                dialog.close();
+            });
+        }
+        if (!dialog.showModal) {
+            document.body.appendChild(dialog);
+            dialogPolyfill.registerDialog(dialog);
+        }
+        dialog.showModal();
+
+        xajax_wfl_initiate_workflow_filldialog(icol, tblName);
+    }
+
+</script>

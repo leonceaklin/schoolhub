@@ -179,8 +179,8 @@
   </head>
   <body>
     <div class="container">
-      <a href="https://schoolhub.ch" class="logo">
-        <img src="https://schoolhub.ch/images/logo.svg" alt="Logo">Bookstore
+      <a href="{{ url('/') }}" class="logo">
+        <img src="{{ url('/images/logo.svg') }}" alt="Logo">Bookstore
       </a>
       @yield('body')
     </div>

@@ -10,6 +10,11 @@ use App\Models\Edition;
 use App\Models\File;
 use App\Classes\SalApi;
 
+use ReallySimpleJWT\Token;
+use Illuminate\Support\Facades\Log;
+
+
+
 class BookstoreController extends Controller
 {
     /**
@@ -23,11 +28,14 @@ class BookstoreController extends Controller
 
      public function __construct(){
        $this->salApi = new SalApi();
+       $this->secret = config("auth.jwt_secret");
      }
 
      public function process($endpoint){
+
+
        if($endpoint == 'users:check'){
-         return $this->response(["exists" => $this->checkUser(['username' => $this->post()->username])]);
+         return $this->response(["exists" => $this->checkUser('username', $this->post()->username)]);
        }
 
        if($endpoint == 'users:me'){
@@ -70,6 +78,7 @@ class BookstoreController extends Controller
        if($endpoint == 'copies:created'){
          return $this->processCopyWebhook('created');
        }
+
      }
 
      public function response($data, $error = null){
@@ -80,8 +89,8 @@ class BookstoreController extends Controller
        return json_encode($response);
      }
 
-     public function checkUser($properties){
-       return User::exists($properties);
+     public function checkUser($a, $b){
+       return User::where($a, $b)->exists();
      }
 
      public function isLoggedIn(){
@@ -99,7 +108,7 @@ class BookstoreController extends Controller
 
      public function login($properties){
        if($this->salApi->login($properties->username, $properties->password, "gymli")){
-         $user = User::find(['username' => $properties->username]);
+         $user = User::where('username', $properties->username)->first();
          $token = Token::create($user->id, $this->secret, time()+3600*24*30, "Bookstore");
          $this->salApi->logout();
          return $token;
@@ -156,7 +165,7 @@ class BookstoreController extends Controller
      }
 
      public function cancelOrder($data){
-       $copy = Copy::find(['order_hash' => $data->order_hash]);
+       $copy = Copy::where('order_hash', $data->order_hash)->first();
 
        if($copy->status != 'ordered' && $copy->status != 'submitted'){
          return null;
@@ -178,17 +187,16 @@ class BookstoreController extends Controller
      }
 
      public function processCopyWebhook($event){
-       $newlyAvailableCopies = Copy::query(['available_since' => null, 'status' => 'available']);
-       $recentlySoldCopies = Copy::query(['sold_on' => null, 'status' => 'sold']);
-
-       $copies = array_merge($newlyAvailableCopies, $recentlySoldCopies);
+       $copies = Copy::where('sold_on', null)->where('status', 'sold')->orWhere(function($query){
+         $query->where('available_since', null)->where('status', 'available');
+       })->get();
 
        foreach($copies as $copy){
          if($copy->status == "available"){
              if(!$copy->available_since){
                  $copy->available_since = date("Y-m-d H:i:s");
                  $copy->save();
-                 $this->log->info("Copy available (".$copy->uid.") ".$copy->price." CHF by ".$copy->ownedBy()->email);
+                 Log::info("Copy available (".$copy->uid.") ".$copy->price." CHF by ".$copy->ownedBy()->email);
 
                  if($event == 'updated'){
                    $this->mailToUser("Dein Buch ist jetzt im GymLi Bookstore verfügbar", view("mail.copy_available", ["copy" => $copy]), $copy->ownedBy());
@@ -200,7 +208,7 @@ class BookstoreController extends Controller
              if(!$copy->sold_on){
                  $copy->sold_on = date("Y-m-d H:i:s");
                  $copy->save();
-                 $this->log->info("Copy sold (".$copy->uid.") ".$copy->price." CHF to ".$copy->orderedBy()->email);
+                 Log::info("Copy sold (".$copy->uid.") ".$copy->price." CHF to ".$copy->orderedBy()->email);
              }
          }
        }
@@ -226,7 +234,7 @@ class BookstoreController extends Controller
        }
        $copy->item = $data->item;
 
-       $editions = $item->editions();
+       $editions = $item->editions;
        if(sizeof($editions) != 0){
          if(!isset($data->edition)){
            return null;

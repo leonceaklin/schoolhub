@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Edition;
-use App\User;
-use App\Item;
+use App\Models\Edition;
+use App\Models\User;
+use App\Models\Item;
 
 class Copy extends Model
 {
     const CREATED_AT = 'created_on';
-    const UPDATED_AT = 'updated_on';
+    const UPDATED_AT = 'modified_on';
 
-    public static $table = 'copies';
     public $commission = 0.15;
 
     public function __construct(){
@@ -22,7 +21,7 @@ class Copy extends Model
       $this->generateOrderHash();
     }
 
-    public function item(){
+    public function _item(){
       return $this->belongsTo(Item::class, 'item');
     }
 
@@ -34,7 +33,7 @@ class Copy extends Model
       return $this->belongsTo(User::class, 'owned_by');
     }
 
-    public function edition(){
+    public function _edition(){
       return $this->belongsTo(Edition::class, 'edition');
     }
 
@@ -58,6 +57,7 @@ class Copy extends Model
     }
 
     private static function randomKey($length) {
+      $key = "";
       $pool = array_merge(range(0,9), range('a', 'z'),range('A', 'Z'));
 
       for($i=0; $i < $length; $i++) {

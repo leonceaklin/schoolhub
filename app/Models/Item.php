@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Copy;
-use App\File;
-use App\Edition;
+use App\Models\Copy;
+use App\Models\File;
+use App\Models\Edition;
 
 class Item extends Model
 {
     use HasFactory;
 
     const CREATED_AT = 'created_on';
-    const UPDATED_AT = 'updated_on';
+    const UPDATED_AT = 'modified_on';
 
-    public function cover(){
+    public function _cover(){
       return $this->belongsTo(File::class, 'cover');
     }
 
@@ -26,5 +26,9 @@ class Item extends Model
 
     public function editions(){
       return $this->hasMany(Edition::class, 'item');
+    }
+
+    public function hasEdition($id){
+      return Edition::where('id', $id)->where('item', $this->id)->exists();
     }
 }

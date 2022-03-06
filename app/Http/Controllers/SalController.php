@@ -50,7 +50,7 @@ class SalController extends Controller
 
         //Endpoints with login
         else if(!empty($username) && !empty($password) && !empty($school)){
-          if($api->login($username, $password, $school)){
+        if($api->login($username, $password, $school)){
             if($endpoint == "subjects"){
               return response()->json(["data" => ["subjects" => $api->getSubjects()]]);
             }
