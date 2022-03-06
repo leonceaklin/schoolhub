@@ -1,5 +1,7 @@
-@php $item = $copy->_item @endphp
+@extends('mail.base')
 
+@section('body')
+@php $item = $copy->_item @endphp
 <img class="item-cover" src="{{ $item->_cover->thumbnailUrl }}" alt="{{ $item->title }}">
 <h2 class="item-title">{{ $item->title }}</h2>
 <h3 class="item-authors">{{ $item->authors }}</h3>
@@ -26,3 +28,4 @@ Wir werden es für dich für CHF {{ $copy->price }}.- verkaufen. Abzüglich eine
 <h2>Stornierung</h2>
 Möchtest du das Buch doch nicht verkaufen? Dann storniere bitte deine Einreichung.
 <a class="button" href="{{ url('/?cancelorder='.$copy->order_hash) }}">Verkauf stornieren</a>
+@endsection

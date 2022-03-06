@@ -1,5 +1,7 @@
-@php $item = $copy->_item @endphp
+@extends('mail.base')
 
+@section('body')
+@php $item = $copy->_item @endphp
 <img class="item-cover" src="{{ $item->_cover->thumbnailUrl }}" alt="{{ $item->title }}">
 <h2 class="item-title">{{ $item->title }}</h2>
 <h3 class="item-authors">{{ $item->authors }}</h3>
@@ -24,3 +26,4 @@ Abholen und bezahlen kannst du deine Bestellung beim Bookstore PickUp neben dem 
 <h2>Stornierung</h2>
 Hast du etwas falsches bestellt? Du kannst die Bestellung hier stornieren. Es fallen keine Gebühren an.
 <a class="button" href="{{ url('/?cancelorder='.$copy->order_hash) }}">Bestellung stornieren</a>
+@endsection
