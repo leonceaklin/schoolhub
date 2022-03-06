@@ -33,9 +33,38 @@ Vue.component('subjects-page', {
     }
   },
   async mounted(){
-    var response = await bookApi.fetch("items/subjects?fields=title,items.*,items.cover.*")
-    this.subjects = response.data
-    console.log('fetched', this.subjects)
+    var response = await bookApi.fetch("items/subjects?fields=id,title")
+    var subjects = response.data
+
+    var accountSubjects = []
+    var relSubjects = []
+    for(var subject of window.app.subjects){
+      accountSubjects.push(subject.name)
+    }
+
+    for(var subject of subjects){
+      if(accountSubjects.includes(subject.title)){
+        relSubjects.push(subject)
+      }
+    }
+
+
+    subjects = relSubjects
+
+    for(var subject of subjects){
+      var response = await bookApi.fetch("items/items?fields=*.*&limit=10&sort=-created_on&&filter[copies][nnull]=&filter[subject]="+subject.id)
+      var itms = response.data
+      var items = []
+      for(var item of itms){
+        if(item.copies != null && item.copies.length > 0){
+          items.push(item)
+        }
+      }
+
+      subject.items = items
+    }
+    this.subjects = subjects
+
     if(window.bookstore.page.params.query){
       this.query = window.bookstore.page.params.query
     }
@@ -47,21 +76,7 @@ Vue.component('subjects-page', {
   },
   computed: {
     relevantSubjects(){
-      var accountSubjects = []
-      var relSubjects = []
-      for(var subject of window.app.subjects){
-        accountSubjects.push(subject.name)
-      }
-
-      for(var subject of this.subjects){
-        if(accountSubjects.includes(subject.title)){
-          if(subject.items.length > 0){
-            relSubjects.push(subject)
-          }
-        }
-      }
-
-      return relSubjects
+      return this.subjects
     }
   },
   methods: {
@@ -176,8 +191,16 @@ Vue.component('search-results', {
   methods: {
     async fetchResults(){
       this.loading = true
-      this.results = (await bookApi.fetch("items/items?fields=*.*&sort=-year&q="+this.query)).data
+      var res = (await bookApi.fetch("items/items?fields=*.*&limit=50&sort=-year&q="+this.query)).data
 
+      var results = []
+      for(var item of res){
+        if(item.copies != null && item.copies.length > 0){
+          results.push(item)
+        }
+      }
+
+      this.results = results
       console.log("Results:", this.results)
       this.loading = false
     },
