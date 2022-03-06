@@ -20,7 +20,8 @@ const app = new Vue({
         slogan: null,
         subject: null,
         unavailableSlogans: [],
-        
+        storeId: 1,
+
         slideIndex: 0,
         currentVersion: null,
       }
@@ -79,7 +80,7 @@ const app = new Vue({
 
       async prepareSlogan(){
         await this.versionCheck()
-        var data = await bookApi.fetch('items/signage_slogans?fields=id,subject.id,item.id')
+        var data = await bookApi.fetch('items/signage_slogans?fields=id,subject.id,item.id&filter[store]='+this.storeId)
         var slogans = data.data
         var sloganId = null
 
@@ -90,7 +91,7 @@ const app = new Vue({
 
         if(slogan.item != null){
           this.subject = null
-          var data = await bookApi.fetch('items/signage_slogans/'+sloganId+'?fields=id,text_1,text_2,item.cover.data,item.copies.price,item.title,item.authors')
+          var data = await bookApi.fetch('items/signage_slogans/'+sloganId+'?fields=id,text_1,text_2,item.cover.data,item.copies.price,item.title,item.authors&filter[store]='+this.storeId)
           var slogan = data.data
           var item = slogan.item
 
@@ -101,10 +102,10 @@ const app = new Vue({
         }
         else{
           var item = null
-          var data = await bookApi.fetch('items/signage_slogans/'+sloganId+'?fields=id,text_1,text_2,subject.items.copies.id,subject.items.id')
+          var data = await bookApi.fetch('items/signage_slogans/'+sloganId+'?fields=id,text_1,text_2,subject.items.copies.id,subject.items.id&filter[store]='+this.storeId)
           var slogan = data.data
           var subject = slogan.subject
-          
+
           //Select item
           var itemIds = []
           for(item of subject.items){
@@ -138,7 +139,7 @@ const app = new Vue({
 
       async versionCheck(){
         try{
-          var data = await bookApi.fetch('items/settings/1?fields=version')
+          var data = await bookApi.fetch('items/stores/'+this.storeId+'?fields=version')
           var version = data.data.version
           if(this.currentVersion != null && version != this.currentVersion){
             window.location.reload()
@@ -149,7 +150,7 @@ const app = new Vue({
         }catch(e){
           window.location.reload()
         }
-        
+
       },
 
       sleep(ms){
@@ -160,7 +161,7 @@ const app = new Vue({
         })
       },
 
-      
+
     },
     watch: {
 

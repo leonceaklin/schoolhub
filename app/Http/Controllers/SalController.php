@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Classes\SalApi;
 use App\Classes\CredentialsManager;
+use App\Models\School;
 
 class SalController extends Controller
 {
@@ -17,8 +18,8 @@ class SalController extends Controller
      */
 
     public function getSchools(){
-      $api = new SalApi();
-      return response()->json(["data" => ["schools" => $api->getSchools()]]);
+      $schools = School::get();
+      return response()->json(["data" => ["schools" => $schools]]);
     }
 
     public function process($school, $endpoint = null)
