@@ -1,5 +1,7 @@
 const mix = require('laravel-mix');
 
+require('vuetifyjs-mix-extension')
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -11,12 +13,15 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .vue()
-    .sass('resources/sass/app.scss', 'public/css');
-
 mix.copy('resources/icon', 'public/icon');
-mix.copy('resources/js', 'public/js');
+mix.copy('resources/js/bookstore-signage.js', 'public/js');
 mix.copy('resources/css', 'public/css');
 mix.copy('resources/sw', 'public');
 mix.copy('resources/images', 'public/images');
+
+mix.js('resources/js/app.js', 'public/js')
+    .vuetify()
+    .vue()
+
+mix.sass('resources/sass/app.scss', 'public/css');
+mix.sass('resources/sass/bookstore-signage.scss', 'public/css');

@@ -13,10 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
 
 Route::get('/bookstore-signage', function () {
     return view('bookstore-signage');
 });
+
+Route::get('/{route?}', function () {
+    return view('app');
+})->where('route', '(.*)');

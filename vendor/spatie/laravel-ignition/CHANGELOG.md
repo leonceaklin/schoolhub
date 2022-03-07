@@ -2,6 +2,26 @@
 
 All notable changes to `laravel-ignition` will be documented in this file
 
+## 1.0.5 - 2022-02-13
+
+## What's Changed
+
+- Fixed: The last compiled paths cannot be found. by @mertasan in https://github.com/spatie/laravel-ignition/pull/42
+
+## New Contributors
+
+- @mertasan made their first contribution in https://github.com/spatie/laravel-ignition/pull/42
+
+**Full Changelog**: https://github.com/spatie/laravel-ignition/compare/1.0.4...1.0.5
+
+## 1.0.4 - 2022-02-10
+
+- allow any `Illuminate\Contracts\View\Engine` to be used
+
+## 1.0.3 - 2022-02-04
+
+- Add support for censoring headers
+
 ## 1.0.2 - 2022-01-20
 
 - `enable_runnable_solutions` now defaults to the `APP_DEBUG` value

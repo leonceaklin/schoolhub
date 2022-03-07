@@ -522,20 +522,7 @@ const app = new Vue({
           this.schools = response.data.data.schools
         }
       },
-      getChartData(grades){
-        var chartData = [
-          ["Name", "Wert"]
-        ]
-        for(var grade of grades){
-          if(grade.value){
-            chartData.push([
-              grade.name, grade.value
-            ])
-          }
-        }
-
-        return chartData
-      },
+      
       relativeTimeDays(value, locale) {
         const date = new Date(value);
         const deltaDays = (date.getTime() - Date.now()) / (1000 * 3600 * 24);

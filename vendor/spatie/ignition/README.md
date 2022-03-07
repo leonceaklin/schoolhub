@@ -51,7 +51,11 @@ on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
 ## Installation
 
-You can install the package via composer:
+For Laravel apps, head over to [laravel-ignition](https://github.com/spatie/laravel-ignition).
+
+For Symfony apps, go to [symfony-ignition-bundle](https://github.com/spatie/symfony-ignition-bundle).
+
+For all other PHP projects, install the package via composer:
 
 ```bash
 composer require spatie/ignition
@@ -78,7 +82,7 @@ more cleaner.
 
 ### Using dark mode
 
-By default, Ignition uses a nice white based them. If this is too bright for your eyes, you can use dark mode.
+By default, Ignition uses a nice white based theme. If this is too bright for your eyes, you can use dark mode.
 
 ```php
 \Spatie\Ignition\Ignition::make()
@@ -118,7 +122,7 @@ the exception gets thrown.
 use Spatie\Ignition\Contracts\Solution;
 use Spatie\Ignition\Contracts\ProvidesSolution;
 
-class CustomException implements ProvidesSolution
+class CustomException extends Exception implements ProvidesSolution
 {
     public function getSolution(): Solution
     {
@@ -175,7 +179,7 @@ interface HasSolutionsForThrowable
 {
     public function canSolve(Throwable $throwable): bool;
 
-    /** \Facade\Ignition\Contracts\Solution[] */
+    /** @return \Spatie\Ignition\Contracts\Solution[] */
     public function getSolutions(Throwable $throwable): array;
 }
 ```

@@ -19,7 +19,8 @@
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
         "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.0"
+        "spatie/laravel-ignition": "^1.0",
+        "leonceaklin/laravel-vue-i18n-generator": "master"
     },
     "autoload": {
         "psr-4": {
@@ -61,6 +62,13 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
+    "repositories": [
+        {
+          "name": "leonceaklin/laravel-vue-i18n-generator",
+          "type": "vcs",
+          "url": "https://github.com/leonceaklin/laravel-vue-i18n-generator"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }

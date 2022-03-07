@@ -2,15 +2,14 @@
 
 namespace Illuminate\Validation\Concerns;
 
-use Countable;
 use DateTime;
 use DateTimeInterface;
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\DNSCheckValidation;
+use Egulias\EmailValidator\Validation\Extra\SpoofCheckValidation;
 use Egulias\EmailValidator\Validation\MultipleValidationWithAnd;
 use Egulias\EmailValidator\Validation\NoRFCWarningsValidation;
 use Egulias\EmailValidator\Validation\RFCValidation;
-use Egulias\EmailValidator\Validation\SpoofCheckValidation;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -866,7 +865,7 @@ trait ValidatesAttributes
      */
     protected function getUniqueIds($idColumn, $parameters)
     {
-        $idColumn = $idColumn ?? $parameters[3] ?? 'id';
+        $idColumn ??= $parameters[3] ?? 'id';
 
         return [$idColumn, $this->prepareUniqueId($parameters[2])];
     }
@@ -923,7 +922,7 @@ trait ValidatesAttributes
             $model = new $table;
 
             $table = $model->getTable();
-            $connection = $connection ?? $model->getConnectionName();
+            $connection ??= $model->getConnectionName();
 
             if (str_contains($table, '.') && Str::startsWith($table, $connection)) {
                 $connection = null;
@@ -1518,7 +1517,7 @@ trait ValidatesAttributes
             return false;
         } elseif (is_string($value) && trim($value) === '') {
             return false;
-        } elseif ((is_array($value) || $value instanceof Countable) && count($value) < 1) {
+        } elseif (is_countable($value) && count($value) < 1) {
             return false;
         } elseif ($value instanceof File) {
             return (string) $value->getPath() !== '';

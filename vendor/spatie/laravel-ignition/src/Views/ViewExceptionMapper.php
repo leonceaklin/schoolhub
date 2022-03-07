@@ -3,12 +3,13 @@
 namespace Spatie\LaravelIgnition\Views;
 
 use Exception;
+use Illuminate\Contracts\View\Engine;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\View\Engines\CompilerEngine;
 use Illuminate\View\Engines\PhpEngine;
 use Illuminate\View\ViewException;
+use ReflectionClass;
 use ReflectionProperty;
 use Spatie\Ignition\Contracts\ProvidesSolution;
 use Spatie\LaravelIgnition\Exceptions\ViewException as IgnitionViewException;
@@ -17,7 +18,7 @@ use Throwable;
 
 class ViewExceptionMapper
 {
-    protected CompilerEngine $compilerEngine;
+    protected Engine $compilerEngine;
     protected BladeSourceMapCompiler $bladeSourceMapCompiler;
     protected array $knownPaths;
 
@@ -118,9 +119,20 @@ class ViewExceptionMapper
 
     protected function getKnownPaths(): array
     {
-        $lastCompiled = new ReflectionProperty($this->compilerEngine, 'lastCompiled');
-        $lastCompiled->setAccessible(true);
-        $lastCompiled = $lastCompiled->getValue($this->compilerEngine);
+        $compilerEngineReflection = new ReflectionClass($this->compilerEngine);
+
+        if (! $compilerEngineReflection->hasProperty('lastCompiled') && $compilerEngineReflection->hasProperty('engine')) {
+            $compilerEngine = $compilerEngineReflection->getProperty('engine');
+            $compilerEngine->setAccessible(true);
+            $compilerEngine = $compilerEngine->getValue($this->compilerEngine);
+            $lastCompiled = new ReflectionProperty($compilerEngine, 'lastCompiled');
+            $lastCompiled->setAccessible(true);
+            $lastCompiled = $lastCompiled->getValue($compilerEngine);
+        } else {
+            $lastCompiled = $compilerEngineReflection->getProperty('lastCompiled');
+            $lastCompiled->setAccessible(true);
+            $lastCompiled = $lastCompiled->getValue($this->compilerEngine);
+        }
 
         $knownPaths = [];
         foreach ($lastCompiled as $lastCompiledPath) {

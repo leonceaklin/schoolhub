@@ -8,13 +8,16 @@ use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\HandlerStack;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Client\Events\ConnectionFailed;
 use Illuminate\Http\Client\Events\RequestSending;
 use Illuminate\Http\Client\Events\ResponseReceived;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Conditionable;
 use Illuminate\Support\Traits\Macroable;
+use JsonSerializable;
 use Psr\Http\Message\MessageInterface;
 use Symfony\Component\VarDumper\VarDumper;
 
@@ -156,6 +159,20 @@ class PendingRequest
     protected $request;
 
     /**
+     * The Guzzle request options that are mergable via array_merge_recursive.
+     *
+     * @var array
+     */
+    protected $mergableOptions = [
+        'cookies',
+        'form_params',
+        'headers',
+        'json',
+        'multipart',
+        'query',
+    ];
+
+    /**
      * Create a new HTTP Client instance.
      *
      * @param  \Illuminate\Http\Client\Factory|null  $factory
@@ -282,7 +299,7 @@ class PendingRequest
      */
     public function bodyFormat(string $format)
     {
-        return tap($this, function ($request) use ($format) {
+        return tap($this, function () use ($format) {
             $this->bodyFormat = $format;
         });
     }
@@ -327,8 +344,8 @@ class PendingRequest
      */
     public function withHeaders(array $headers)
     {
-        return tap($this, function ($request) use ($headers) {
-            return $this->options = array_merge_recursive($this->options, [
+        return tap($this, function () use ($headers) {
+            $this->options = array_merge_recursive($this->options, [
                 'headers' => $headers,
             ]);
         });
@@ -343,8 +360,8 @@ class PendingRequest
      */
     public function withBasicAuth(string $username, string $password)
     {
-        return tap($this, function ($request) use ($username, $password) {
-            return $this->options['auth'] = [$username, $password];
+        return tap($this, function () use ($username, $password) {
+            $this->options['auth'] = [$username, $password];
         });
     }
 
@@ -357,8 +374,8 @@ class PendingRequest
      */
     public function withDigestAuth($username, $password)
     {
-        return tap($this, function ($request) use ($username, $password) {
-            return $this->options['auth'] = [$username, $password, 'digest'];
+        return tap($this, function () use ($username, $password) {
+            $this->options['auth'] = [$username, $password, 'digest'];
         });
     }
 
@@ -371,8 +388,8 @@ class PendingRequest
      */
     public function withToken($token, $type = 'Bearer')
     {
-        return tap($this, function ($request) use ($token, $type) {
-            return $this->options['headers']['Authorization'] = trim($type.' '.$token);
+        return tap($this, function () use ($token, $type) {
+            $this->options['headers']['Authorization'] = trim($type.' '.$token);
         });
     }
 
@@ -384,8 +401,8 @@ class PendingRequest
      */
     public function withUserAgent($userAgent)
     {
-        return tap($this, function ($request) use ($userAgent) {
-            return $this->options['headers']['User-Agent'] = trim($userAgent);
+        return tap($this, function () use ($userAgent) {
+            $this->options['headers']['User-Agent'] = trim($userAgent);
         });
     }
 
@@ -398,8 +415,8 @@ class PendingRequest
      */
     public function withCookies(array $cookies, string $domain)
     {
-        return tap($this, function ($request) use ($cookies, $domain) {
-            return $this->options = array_merge_recursive($this->options, [
+        return tap($this, function () use ($cookies, $domain) {
+            $this->options = array_merge_recursive($this->options, [
                 'cookies' => CookieJar::fromArray($cookies, $domain),
             ]);
         });
@@ -412,8 +429,8 @@ class PendingRequest
      */
     public function withoutRedirecting()
     {
-        return tap($this, function ($request) {
-            return $this->options['allow_redirects'] = false;
+        return tap($this, function () {
+            $this->options['allow_redirects'] = false;
         });
     }
 
@@ -424,8 +441,8 @@ class PendingRequest
      */
     public function withoutVerifying()
     {
-        return tap($this, function ($request) {
-            return $this->options['verify'] = false;
+        return tap($this, function () {
+            $this->options['verify'] = false;
         });
     }
 
@@ -437,8 +454,8 @@ class PendingRequest
      */
     public function sink($to)
     {
-        return tap($this, function ($request) use ($to) {
-            return $this->options['sink'] = $to;
+        return tap($this, function () use ($to) {
+            $this->options['sink'] = $to;
         });
     }
 
@@ -488,15 +505,18 @@ class PendingRequest
     }
 
     /**
-     * Merge new options into the client.
+     * Replace the specified options on the request.
      *
      * @param  array  $options
      * @return $this
      */
     public function withOptions(array $options)
     {
-        return tap($this, function ($request) use ($options) {
-            return $this->options = array_merge_recursive($this->options, $options);
+        return tap($this, function () use ($options) {
+            $this->options = array_replace_recursive(
+                array_merge_recursive($this->options, Arr::only($options, $this->mergableOptions)),
+                $options
+            );
         });
     }
 
@@ -675,7 +695,9 @@ class PendingRequest
      */
     public function send(string $method, string $url, array $options = [])
     {
-        $url = ltrim(rtrim($this->baseUrl, '/').'/'.ltrim($url, '/'), '/');
+        if (! Str::startsWith($url, ['http://', 'https://'])) {
+            $url = ltrim(rtrim($this->baseUrl, '/').'/'.ltrim($url, '/'), '/');
+        }
 
         $options = $this->parseHttpOptions($options);
 
@@ -728,7 +750,13 @@ class PendingRequest
             $options[$this->bodyFormat] = $this->pendingBody;
         }
 
-        return collect($options)->toArray();
+        return collect($options)->map(function ($value, $key) {
+            if ($key === 'json' && $value instanceof JsonSerializable) {
+                return $value;
+            }
+
+            return $value instanceof Arrayable ? $value->toArray() : $value;
+        })->all();
     }
 
     /**
@@ -814,7 +842,11 @@ class PendingRequest
             $laravelData = is_array($parsedData) ? $parsedData : [];
         }
 
-        return $laravelData;
+        if ($laravelData instanceof JsonSerializable) {
+            $laravelData = $laravelData->jsonSerialize();
+        }
+
+        return is_array($laravelData) ? $laravelData : [];
     }
 
     /**
@@ -1018,14 +1050,17 @@ class PendingRequest
     }
 
     /**
-     * Merge the given options with the current request options.
+     * Replace the given options with the current request options.
      *
      * @param  array  $options
      * @return array
      */
     public function mergeOptions(...$options)
     {
-        return array_merge_recursive($this->options, ...$options);
+        return array_replace_recursive(
+            array_merge_recursive($this->options, Arr::only($options, $this->mergableOptions)),
+            ...$options
+        );
     }
 
     /**
@@ -1130,5 +1165,15 @@ class PendingRequest
         );
 
         return $this;
+    }
+
+    /**
+     * Get the pending request options.
+     *
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
     }
 }
