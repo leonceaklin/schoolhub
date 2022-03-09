@@ -1,7 +1,7 @@
 <template>
   <v-tabs v-model="eventsTab" grow>
-    <v-tab>Übersicht</v-tab>
-    <v-tab>Kalender</v-tab>
+    <v-tab>{{ $t('events.overview') }}</v-tab>
+    <v-tab>{{ $t('events.calendar') }}</v-tab>
   </v-tabs>
   <v-divider></v-divider>
   <v-card-text class="pa-0">

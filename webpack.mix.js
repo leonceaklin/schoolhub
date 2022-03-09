@@ -22,6 +22,7 @@ mix.copy('resources/images', 'public/images');
 mix.js('resources/js/app.js', 'public/js')
     .vuetify()
     .vue()
+    .sourceMaps()
 
 mix.sass('resources/sass/app.scss', 'public/css');
 mix.sass('resources/sass/bookstore-signage.scss', 'public/css');

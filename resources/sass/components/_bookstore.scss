@@ -29,6 +29,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--text-color);
 }
 
 .item-authors-preview{
@@ -38,6 +39,7 @@
   width: 90%;
   margin-top: 8px;
   margin-left: 2.5%;
+  color: var(--text-color);
 }
 
 .item-preview{
@@ -51,6 +53,7 @@
   scroll-snap-align: start;
   vertical-align: top;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .item-preview:active .preview-cover{

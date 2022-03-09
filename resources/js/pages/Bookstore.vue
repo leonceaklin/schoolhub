@@ -1,5 +1,7 @@
 <template>
-
+  <div class="bookstore nav-bar-padding">
+    <router-view/>
+  </div>
 </template>
 
 <script>

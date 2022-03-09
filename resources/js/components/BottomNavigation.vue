@@ -1,7 +1,7 @@
 <template>
   <v-bottom-navigation
-      v-model="value"
       shift
+      class="bottom-navigation elevation-0"
       color="primary"
     >
       <v-btn :to="{name: 'events'}">

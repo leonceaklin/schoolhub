@@ -8,6 +8,12 @@
 
   --text-color: black;
   --background-color: white;
+  --border-color: #dddddd;
+}
+
+.v-application a{
+  text-decoration: none;
+  color: var(--text-color);
 }
 
 .main-content{
@@ -15,6 +21,37 @@
   max-width: 100%;
   margin: auto;
   position: relative;
+  height: 90vh;
+}
+
+.main-content-scroll-wrapper{
+  overflow: scroll;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.nav-bar-padding, .v-application .nav-bar-padding{
+  padding-bottom: 56px  !important;
+}
+
+.events-content{
+  height: calc(100% - 56px - 63px);
+}
+
+.page-title{
+  font-weight: bold;
+  padding: 15px 20px;
+  font-size: 22px;
+}
+
+.bottom-navigation{
+  position: absolute;
+  bottom: 0px;
+  z-index: 5;
+  border-top: 1px var(--border-color) solid;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
 
 .text-main{
@@ -243,6 +280,20 @@ body{
     box-shadow: none !important;
     width: 100%;
     margin: 0px;
+    height: auto;
+    overflow: visible;
+  }
+
+  .bottom-navigation{
+    position: fixed;
+    bottom: 0;
+    border-radius: 0 !important;
+  }
+
+  .main-content-scroll-wrapper{
+    position: relative;
+    overflow: visible;
+    height: auto;
   }
 
   .full-width{
@@ -275,6 +326,7 @@ body{
   :root{
     --text-color: white;
     --background-color: #121212;
+    --border-color: hsla(0,0%,100%,.12);
   }
 }
 

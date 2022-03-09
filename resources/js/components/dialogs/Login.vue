@@ -14,7 +14,7 @@
       </v-card-title>
       <v-divider></v-divider>
       <v-card-text>
-
+        <login @success="afterLogin"/>
       </v-card-text>
     </v-card>
   </v-dialog>
@@ -34,7 +34,14 @@ export default {
   },
   computed: {
     isLoggedIn(){
-      return this.$store.getters.isLoggedIn
+      return this.$store.getters.schoolSystemLoggedIn
+    }
+  },
+  methods: {
+    afterLogin(){
+      this.showDialog = false
+      this.$store.dispatch("fetchSchoolSystemData")
+      this.$store.dispatch("startSchoolSystemFetchInterval")
     }
   }
 }

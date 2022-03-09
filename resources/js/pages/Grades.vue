@@ -1,13 +1,17 @@
 <template>
-  <div class="ma-5">
-  <v-card class="latest-grades my-5 primary" dark>
+  <div>
+    <div class="page-title">
+      {{ $t('grades.my_grades') }}
+    </div>
+  <div class="ma-5 mt-0 nav-bar-padding">
+  <v-card class="latest-grades mb-5 primary" dark>
     <svg style="display: none">
       <linearGradient id="chart-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stop-color="#ffffff" />
         <stop offset="100%" stop-color="#ffffff00" />
       </linearGradient>
     </svg>
-    <v-card-title>Neuste</v-card-title>
+    <v-card-title>{{ $t('grades.latest') }}</v-card-title>
     <div class="pa-5 pt-0">
       <div ripple v-for="(grade, key) in gradesSortedByDate.slice(0,4)">
         <v-row class="my-1">
@@ -40,7 +44,7 @@
     {{ Math.round(getAvg(subject.grades)*100)/100 }}
   </v-chip>
   <v-btn icon @click.stop="subjectsDialog = false; getGradesFromSubject(subject)">
-    <v-icon>mdi-plus</v-icon>
+    <v-icon>mdi-calculator</v-icon>
   </v-btn>
 </template>
 </v-expansion-panel-header>
@@ -62,11 +66,16 @@
 </v-expansion-panels>
 <p>Eingeloggt als {{ user.name }} ({{ user.username }})</p>
 <v-btn class="full-width" @click="logout">Logout</v-btn>
-</div>
+</div></div>
 </template>
 
 <script>
+import { GChart } from 'vue-google-charts'
+import gradesMixin from '../mixins/grades'
+
 export default {
+  mixins: [gradesMixin],
+  components: {GChart},
   data(){
     return {
       chartOptions: {
@@ -102,13 +111,49 @@ export default {
     }
   },
 
+  computed: {
+    subjects(){
+      return this.$store.state.subjects
+    },
+    user(){
+      return this.$store.state.user
+    },
+    gradesSortedByDate(){
+      var grades = []
+      for(var subject of this.subjects){
+        if(subject.grades){
+          for(var grade of subject.grades){
+            if(grade.value && grade.date){
+              var g = {
+                subject: subject,
+                ... grade
+              }
+              grades.push(g)
+            }
+          }
+        }
+      }
+      grades = grades.sort((a, b) => {
+        if(new Date(a.date) > new Date(b.date)){
+          return -1
+        }
+        else if(new Date(a.date) < new Date(b.date)){
+          return 1
+        }
+        return 0
+      })
+
+      return grades
+    },
+  },
+
   methods: {
     onChartReady(chart){
       let observer = new MutationObserver((e) => {
         var svg = chart.container.getElementsByTagName('svg')[0]
         if(svg){
-          checkGradient = svg.getElementById("chart-gradient")
-          if(checkGradient){
+          var checkGradient = svg.getElementById("chart-gradient")
+          if(checkGradient != undefined){
             return;
           }
 
@@ -137,6 +182,40 @@ export default {
 
       return chartData
     },
+
+    getGradesFromSubject(subject){
+      var grades = []
+      var upcomingGrades = []
+      for(var grade of subject.grades){
+        var date = new Date(grade.date)
+        if(grade.value && grade.weight){
+          grades.push({
+            date: date.toLocaleDateString("de-DE"),
+            name: grade.name,
+            value: grade.value,
+            weight: grade.weight,
+            uid: Math.floor(Math.random()*1000000)
+          })
+        }
+        else if(grade.weight && date > new Date()){
+          upcomingGrades.push({
+            date: date.toLocaleDateString("de-DE"),
+            name: grade.name,
+            value: grade.value,
+            weight: grade.weight,
+            uid: Math.floor(Math.random()*1000000)
+          })
+        }
+      }
+
+      this.$store.dispatch('setGrades', grades)
+      this.$store.dispatch('setUpcomingGrades', upcomingGrades)
+      this.$router.push({name: 'calculator'})
+    },
+
+    logout(){
+      this.$store.dispatch('logout')
+    }
   }
 }
 </script>

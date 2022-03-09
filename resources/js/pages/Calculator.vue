@@ -1,5 +1,10 @@
 <template>
-  <div class="ma-5">
+  <div>
+  <div class="page-title">
+    {{ $t('calculator.grades_calculator') }}
+  </div>
+  <div class="ma-5 mt-0 nav-bar-padding">
+    <v-btn class="mb-3 full-width primary" :to="{name: 'grades'}">{{ $t('grades.my_grades') }}</v-btn>
     <div class="elevation-2 mb-5">
         <v-data-table class="mb-3" v-if="grades.length > 0" :items="grades" hide-default-footer :mobile-breakpoint="0" :headers="mainGradeHeaders">
           <template v-slot:item.uid="{ item }">
@@ -49,12 +54,20 @@
             <h1 class="rainbow">{{ Math.round(nextGrade*100)/100 }}</h1>
           </v-col>
         </v-row>
+
+
+        <share/>
   </div>
+</div>
 </template>
 
 <script>
+import gradesMixin from "../mixins/grades"
+import share from "../components/Share"
 
 export default {
+  mixins: [gradesMixin],
+  components: {share},
   data(){
     return {
       newGradeValue: null,
@@ -81,6 +94,10 @@ export default {
     }
   },
 
+  mounted(){
+    console.log("GRADES:", this.grades)
+  },
+
   methods: {
     addGrade(){
       if(!this.newGradeValue){
@@ -101,26 +118,12 @@ export default {
         return gr.uid != uid
       })
     },
-    getCount(grades){
-      var count = 0
-      for(var grade of grades){
-        if(grade.value){
-          count+=(1.0*grade.weight)
-        }
-      }
-      return count
-    },
-    getSum(grades){
+    setWeightToUpcomingGradesSum(){
       var sum = 0
-      for(var grade of grades){
-        if(grade.value){
-          sum+=(grade.value*grade.weight)
-        }
+      for(var grade of this.upcomingGrades){
+        sum += grade.weight
       }
-      return sum
-    },
-    getAvg(grades){
-      return this.getSum(grades)/this.getCount(grades)
+      this.nextWeight = sum
     },
   },
 
@@ -148,6 +151,9 @@ export default {
       }
       return (((this.aimedAvg*1.0-0.25)*(this.count + this.nextWeight*1.0)) - this.sum*1.0)/this.nextWeight*1.0
     },
+    canShowGrades(){
+      return this.$store.getters.schoolSystemLoggedIn
+    }
   },
 
   watch: {

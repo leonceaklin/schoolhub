@@ -7,7 +7,7 @@
 	<title>SchoolHub</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&family=Roboto+Mono&display=swap" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css" crossorigin="anonymous">
-	<link href="css/app.css" rel="stylesheet" type="text/css" />
+	<link href="{{ url('/css/app.css') }}" rel="stylesheet" type="text/css" />
 
 	<link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
@@ -50,6 +50,6 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-google-charts/dist/vue-google-charts.browser.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/@ericblade/quagga2/dist/quagga.min.js" crossorigin="anonymous"></script>
-    <script src="./js/app.js"></script>
+    <script src="{{ url("/js/app.js") }}"></script>
   </body>
 </html>

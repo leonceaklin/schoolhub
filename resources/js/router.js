@@ -7,6 +7,10 @@ import Bookstore from './pages/Bookstore'
 import Contacts from './pages/Contacts'
 import Absences from './pages/Absences'
 
+import Subjects from './pages/bookstore/Subjects'
+import SellItem from './pages/bookstore/SellItem'
+import Item from './pages/bookstore/Item'
+
 export default new VueRouter({
     mode: 'history',
     routes: [
@@ -26,11 +30,6 @@ export default new VueRouter({
         component: Calculator,
       },
       {
-        path: '/bookstore',
-        name: 'bookstore',
-        component: Bookstore,
-      },
-      {
         path: '/contacts',
         name: 'contacts',
         component: Contacts,
@@ -39,6 +38,27 @@ export default new VueRouter({
         path: '/absences',
         name: 'absences',
         component: Absences,
-      }
+      },
+      {
+        path: '/bookstore',
+        component: Bookstore,
+        children: [
+          {
+            path: '',
+            name: 'bookstore',
+            component: Subjects
+          },
+          {
+            path: 'sell',
+            name: 'bookstore.sell',
+            component: SellItem
+          },
+          {
+            path: ':item_id',
+            name: 'bookstore.item',
+            component: Item
+          }
+        ]
+      },
     ],
 });

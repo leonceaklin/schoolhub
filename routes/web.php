@@ -18,6 +18,6 @@ Route::get('/bookstore-signage', function () {
     return view('bookstore-signage');
 });
 
-Route::get('/{route?}', function () {
+Route::get('{route?}', function () {
     return view('app');
 })->where('route', '(.*)');

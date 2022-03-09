@@ -2,6 +2,7 @@
 
 return [
   "calculator" => "Rechner",
+  "grades_calculator" => "Notenrechner",
   "upcoming_grades_chosen" => "Kommende Prüfungen im gewählten Fach",
   "remove" => "Entfernen",
   "grade_value" => "Notenwert",
