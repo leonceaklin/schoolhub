@@ -20,7 +20,7 @@
 
         <v-col>
           <v-row class="pa-3">
-            <v-text-field type="number" ref="valueInput" min="1" autofocus max="6" v-model="newGradeValue" :label="$t('calculator.grade_value')" class="mr-2" @keydown.enter="addGrade"></v-text-field>
+            <v-text-field type="number" ref="valueInput" min="1" :autofocus="$vuetify.breakpoint.width > 1200" max="6" v-model="newGradeValue" :label="$t('calculator.grade_value')" class="mr-2" @keydown.enter="addGrade"></v-text-field>
             <v-text-field @keydown.enter="addGrade" type="number" min="0" max="1" v-model="newGradeWeight" :label="$t('grades.weight')"></v-text-field>
             <v-btn class="ml-2 mt-2" fab color="primary" small @click="addGrade"><v-icon color="white">mdi-plus</v-icon></v-btn>
           </v-row>
