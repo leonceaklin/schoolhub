@@ -28,7 +28,11 @@
         <div class="signage-item-preview">
           <div class="item-info">
             <div class="signage-cover-wrapper">
-              <img :src="cover.url" v-if="cover" class="signage-cover elevation-3">
+              <div class="cover-effect-wrapper">
+                <div class="cover-effect">
+                  <img :src="cover.url" v-if="cover" class="signage-cover"/>
+                </div>
+              </div>
             </div>
           <div class="item-title">{{ item.title }}</div>
           <div class="item-authors">{{ item.authors }}</div>

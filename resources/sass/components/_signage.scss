@@ -58,9 +58,11 @@ body{
 }
 
 .signage-cover{
+  position: relative;
   animation: cover-fadein 0.5s ease;
   width: auto;
   height: 40vh;
+  margin-bottom: 0;
 }
 
 .signage-cover-wrapper{

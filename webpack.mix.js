@@ -29,3 +29,4 @@ mix.js('resources/js/bookstore-signage.js', 'public/js')
 
 mix.sass('resources/sass/app.scss', 'public/css');
 mix.sass('resources/sass/bookstore-signage.scss', 'public/css');
+mix.sass('resources/sass/mail.scss', 'public/css');

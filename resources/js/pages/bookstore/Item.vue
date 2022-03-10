@@ -9,7 +9,7 @@
     <div class="scroll-content">
     <div class="mx-5 nav-padding">
     <div v-if="item && item.copies">
-    <v-img class="full-cover elevation-2" v-if="item.cover" :aspect-ratio="item.cover.width/item.cover.height" :src="item.cover.data.thumbnails[5].url"></v-img>
+    <v-img class="full-cover" v-if="item.cover" :aspect-ratio="item.cover.width/item.cover.height" :src="item.cover.data.thumbnails[5].url"></v-img>
     <h2 class="item-title">{{ item.title }}</h2>
     <h3 class="item-authors mb-5">{{ item.authors }}</h3>
 

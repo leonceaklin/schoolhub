@@ -2,7 +2,11 @@
 
 @section('body')
 @php $item = $copy->_item @endphp
+<div class="cover-effect-wrapper">
+<div class="cover-effect">
 <img class="item-cover" src="{{ $item->_cover->thumbnailUrl }}" alt="{{ $item->title }}">
+</div>
+</div>
 <h2 class="item-title">{{ $item->title }}</h2>
 <h3 class="item-authors">{{ $item->authors }}</h3>
 
