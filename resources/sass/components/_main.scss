@@ -8,9 +8,16 @@
 
   --text-color: black;
   --background-color: white;
+  --background-color-semi-transparent: rgba(255,255,255,0.9);
   --border-color: #dddddd;
 
   --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-left: env(safe-area-inset-left);
+  --safe-area-inset-right: env(safe-area-inset-right);
+
+  --nav-background-color: var(--background-color-semi-transparent);
+  --nav-backdrop-filter: blur(30px) saturate(1.5);
 }
 
 .v-application a{
@@ -25,6 +32,8 @@
   position: relative;
   height: 90vh;
   font-size: 14px;
+  padding-left: var(--safe-area-inset-left);
+  padding-right: var(--safe-area-inset-right);
 }
 
 .scroll-content{
@@ -42,11 +51,16 @@
 
 .nav-padding, .v-application .nav-padding{
   padding-bottom: calc(56px + var(--safe-area-inset-bottom))  !important;
-  padding-top: 68px !important;
+  padding-top: calc(68px + var(--safe-area-inset-top)) !important;
 }
 
 .v-item-group.v-bottom-navigation .v-btn{
   min-width: 75px !important;
+  background-color: transparent !important;
+
+  &:before{
+    display: none;
+  }
 }
 
 .events-content{
@@ -56,6 +70,7 @@
 .page-title{
   font-weight: bold;
   padding: 15px 20px;
+  padding-top: calc(15px + var(--safe-area-inset-top));
   font-size: 22px;
   display: flex;
   border-bottom: 1px solid transparent;
@@ -63,12 +78,15 @@
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 
+  background-color: var(--nav-background-color);
+  backdrop-filter: var(--nav-backdrop-filter);
+  --webkit-backdrop-filter: var(--nav-backdrop-filter);
+
   &:not(.no-fix){
     position: absolute;
     top: 0;
     width: 100%;
     z-index: 10;
-    background-color: var(--background-color);
   }
 }
 
@@ -84,7 +102,10 @@
   color: var(--text-color);
 }
 
-.bottom-navigation{
+.v-application .bottom-navigation{
+  background-color: var(--nav-background-color) !important;
+  backdrop-filter: var(--nav-backdrop-filter);
+  --webkit-backdrop-filter: var(--nav-backdrop-filter);
   position: absolute;
   bottom: 0px;
   z-index: 5;
@@ -339,13 +360,12 @@ body{
   }
 
   .page-title:not(.no-fix){
-    background-color: var(--background-color);
     width: 100%;
     position: fixed;
     z-index: 10;
   }
 
-  .bottom-navigation{
+  .v-application .bottom-navigation{
     position: fixed;
     bottom: 0;
     border-radius: 0 !important;
@@ -396,6 +416,7 @@ body{
   :root{
     --text-color: white;
     --background-color: #1e1e1e;
+    --background-color-semi-transparent: rgba(30,30,30,0.9);
     --border-color: hsla(0,0%,100%,.12);
   }
 }

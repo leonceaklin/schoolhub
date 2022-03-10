@@ -14,7 +14,6 @@ require('vuetifyjs-mix-extension')
  */
 
 mix.copy('resources/icon', 'public/icon');
-mix.copy('resources/css', 'public/css');
 mix.copy('resources/sw', 'public');
 mix.copy('resources/images', 'public/images');
 
