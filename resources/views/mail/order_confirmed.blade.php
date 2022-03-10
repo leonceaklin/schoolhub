@@ -25,5 +25,5 @@ Abholen und bezahlen kannst du deine Bestellung beim Bookstore PickUp neben dem 
 <br><br>
 <h2>Stornierung</h2>
 Hast du etwas falsches bestellt? Du kannst die Bestellung hier stornieren. Es fallen keine Gebühren an.
-<a class="button" href="{{ url('/?cancelorder='.$copy->order_hash) }}">Bestellung stornieren</a>
+<a class="button" href="{{ url('bookstore/cancel/'.$copy->order_hash) }}">Bestellung stornieren</a>
 @endsection

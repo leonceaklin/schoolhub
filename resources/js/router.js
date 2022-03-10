@@ -12,6 +12,7 @@ import Absences from './pages/Absences'
 import Subjects from './pages/bookstore/Subjects'
 import SellItem from './pages/bookstore/SellItem'
 import Item from './pages/bookstore/Item'
+import CancelOrder from './pages/bookstore/CancelOrder'
 
 const router = new VueRouter({
     mode: 'history',
@@ -54,6 +55,11 @@ const router = new VueRouter({
             path: 'sell',
             name: 'bookstore.sell',
             component: SellItem
+          },
+          {
+            path: 'cancel/:order_hash',
+            name: 'bookstore.cancelorder',
+            component: CancelOrder
           },
           {
             path: ':item_id/:copy_uid?',

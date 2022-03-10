@@ -9,5 +9,6 @@ return [
 
   "order_now" => "Jetzt bestellen",
   "book" => "Buch",
-  "sell_item" => "Verkaufen"
+  "sell_item" => "Verkaufen",
+  "cancellation" => "Stornierung"
 ];

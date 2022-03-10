@@ -24,7 +24,8 @@ export default {
             "isbn_hint": "Lass die Bindestriche weg. Gib nur die Zahlen ein.",
             "order_now": "Jetzt bestellen",
             "book": "Buch",
-            "sell_item": "Verkaufen"
+            "sell_item": "Verkaufen",
+            "cancellation": "Stornierung"
         },
         "grades": {
             "grades": "Noten",

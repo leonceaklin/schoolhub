@@ -27,5 +27,5 @@ Wir werden es für dich für CHF {{ $copy->price }}.- verkaufen. Abzüglich eine
 <br><br>
 <h2>Stornierung</h2>
 Möchtest du das Buch doch nicht verkaufen? Dann storniere bitte deine Einreichung.
-<a class="button" href="{{ url('/?cancelorder='.$copy->order_hash) }}">Verkauf stornieren</a>
+<a class="button" href="{{ url('/bookstore/cancel/'.$copy->order_hash) }}">Verkauf stornieren</a>
 @endsection
