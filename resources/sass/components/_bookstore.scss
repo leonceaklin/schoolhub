@@ -5,7 +5,14 @@
 .items-slider{
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
-  display: block;
+  display: flex;
+}
+
+.items-grid{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .items-grid .item-preview{
@@ -19,9 +26,6 @@
 .item-title-preview{
   font-size: 16px;
   font-weight: bold;
-  width: 90%;
-  margin-left: 2.5%;
-  margin-top: 8px;
   line-height: 18px;
   max-height: 36px;
   display: -webkit-box;
@@ -30,25 +34,20 @@
   overflow: hidden;
   text-overflow: ellipsis;
   color: var(--text-color);
+  margin-top: 10px;
 }
 
 .item-authors-preview{
   font-size: 12px;
   opacity: 0.8;
   line-height: 12px;
-  width: 90%;
-  margin-top: 8px;
-  margin-left: 2.5%;
   color: var(--text-color);
 }
 
 .item-preview{
-  max-width: 170px;
-  width: 170px;
-  min-width: 170px;
+  flex: 0 0 150px;
   height: 300px;
-  margin: 0px;
-  display: table-cell;
+  margin: 5px;
   overflow: hidden;
   scroll-snap-align: start;
   vertical-align: top;
@@ -68,11 +67,7 @@
 
 .preview-cover{
   transition: transform .2s ease;
-  width: 90%;
-  margin-top: 10px;
-  height: 68%;
-  margin-left: 2.5%;
-  object-fit: contain;
+  height: 220px;
 }
 
 .preview-cover.shadow{
