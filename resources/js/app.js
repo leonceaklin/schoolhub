@@ -92,10 +92,10 @@ export const app = new Vue({
 var darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
 
-this.$vuetify.theme.dark = darkModeQuery.matches
+app.$vuetify.theme.dark = darkModeQuery.matches
 
 darkModeQuery.addEventListener( "change", (e) => {
-    this.$vuetify.theme.dark = e.matches
+    app.$vuetify.theme.dark = e.matches
 })
 
 window.app = app
