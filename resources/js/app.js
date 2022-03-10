@@ -50,8 +50,6 @@ export const app = new Vue({
     },
     async mounted(){
       this.installServiceWorker()
-      this.startDarkModeWatcher()
-
       this.checkVersion()
       this.startFetchIntervals()
       this.localStorageMigrations()
@@ -88,19 +86,16 @@ export const app = new Vue({
         }
       },
 
-      startDarkModeWatcher(){
-        var darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-
-        this.$vuetify.theme.dark = darkModeQuery.matches
-
-        darkModeQuery.addEventListener( "change", (e) => {
-            this.$vuetify.theme.dark = e.matches
-        })
-      }
-
-
     }
 });
+
+var darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+
+this.$vuetify.theme.dark = darkModeQuery.matches
+
+darkModeQuery.addEventListener( "change", (e) => {
+    this.$vuetify.theme.dark = e.matches
+})
 
 window.app = app
