@@ -62,6 +62,8 @@
   display: flex;
   border-bottom: 1px solid transparent;
   transition: border .2s ease;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 
   &:not(.no-fix){
     position: absolute;
@@ -324,6 +326,10 @@ body{
     overflow: visible;
   }
 
+  .page-title{
+    border-radius: 0;
+  }
+
   .page-title:not(.no-fix){
     background-color: var(--background-color);
     width: 100%;
@@ -381,7 +387,7 @@ body{
 @media(prefers-color-scheme: dark){
   :root{
     --text-color: white;
-    --background-color: #121212;
+    --background-color: #1e1e1e;
     --border-color: hsla(0,0%,100%,.12);
   }
 }
