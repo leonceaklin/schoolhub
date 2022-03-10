@@ -1,9 +1,12 @@
 <template>
   <div>
-    <div class="page-title no-border">
+    <page-title>
       {{ $t('absences.absences') }}
-    </div>
-    <div class="mx-5 nav-bar-padding">
+      <v-spacer/>
+      <user-dialog/>
+    </page-title>
+    <div class="scroll-content">
+    <div class="mx-5 nav-padding">
     <div v-for="period in absencePeriods">
       <v-card class="primary pa-3 mb-5 rounded-lg" dark v-if="period.initial_quota && period.remaining_quota">
           <b>{{ $t('absences.quota') }}</b>
@@ -29,11 +32,20 @@
       </v-data-table>
     </div>
   </div>
+</div>
   </div>
 </template>
 
 <script>
+import pageTitle from "../components/PageTitle"
+import userDialog from "../components/dialogs/UserInfo"
+
+
 export default {
+  components: {
+    pageTitle,
+    userDialog
+  },
   data(){
     return {
       absenceHeaders: [

@@ -3,8 +3,11 @@
   <p class="mb-6 mt-4">
     {{ $t('auth.login_info')}}</p>
     <v-autocomplete outlined :items="schools" item-text="name" item-value="identifier" label="Schule" v-model="school"></v-autocomplete>
-    <v-text-field outlined v-model="username" label="E-Nummer" autocomplete="username" :error="loginError"></v-text-field>
-    <v-text-field outlined v-model="password" type="password" autocomplete="password" label="Passwort" :error="loginError"></v-text-field>
+    <div v-if="school">
+      <p>{{ $t('auth.school_system_info', {system_name: systemName, credentials_name: systemCredentials}) }}</p>
+      <v-text-field outlined v-model="username" :label="systemUsername" autocomplete="username" :error="loginError"></v-text-field>
+      <v-text-field outlined v-model="password" type="password" autocomplete="password" label="Passwort" :error="loginError"></v-text-field>
+    </div>
     <p>{{ $t('auth.login_disclamer') }}</p>
     <v-checkbox :label="$t('auth.accept_conditions')" v-model="acceptConditions"></v-checkbox>
 
@@ -33,13 +36,30 @@ export default {
 
       credentialsToken: this.$store.state.credentialsToken,
       school: this.$store.state.school,
+      selectedSchool: null,
 
       schools: [],
       acceptConditions: this.$store.state.acceptConditions,
+
+      systems: {
+        sal: {
+          credentials: "SAL",
+          username: this.$t('school_systems.e_number'),
+          name: "SAL (SchulNetz)"
+        }
+      }
     }
   },
   async mounted(){
     await this.fetchSchools()
+
+    if(this.school){
+      for(var school of this.schools){
+        if(school.identifier == this.school){
+          this.selectedSchool = JSON.parse(JSON.stringify(school))
+        }
+      }
+    }
   },
   methods: {
     async login(){
@@ -74,12 +94,44 @@ export default {
     },
   },
 
+  computed: {
+    systemId(){
+      if(this.selectedSchool){
+        return this.selectedSchool.system
+      }
+      return null
+    },
+
+    systemName(){
+      if(this.systemId){
+        return this.systems[this.systemId].name
+      }
+    },
+
+    systemUsername(){
+      if(this.systemId){
+        return this.systems[this.systemId].username
+      }
+    },
+
+    systemCredentials(){
+      if(this.systemId){
+        return this.systems[this.systemId].credentials
+      }
+    },
+  },
+
   watch: {
     credentialsToken(val){
       this.$store.dispatch("setCredentialsToken", val)
     },
     school(val){
       this.$store.dispatch("setSchool", val)
+      for(var school of this.schools){
+        if(school.identifier == this.school){
+          this.selectedSchool = JSON.parse(JSON.stringify(school))
+        }
+      }
     },
     acceptConditions(val){
       this.$store.dispatch("setAcceptConditions", val)

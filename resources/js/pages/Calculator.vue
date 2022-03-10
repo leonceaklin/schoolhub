@@ -1,10 +1,15 @@
 <template>
   <div>
-  <div class="page-title">
+  <page-title>
     {{ $t('calculator.grades_calculator') }}
-  </div>
-  <div class="ma-5 mt-0 nav-bar-padding">
-    <v-btn class="mb-3 full-width primary" :to="{name: 'grades'}">{{ $t('grades.my_grades') }}</v-btn>
+    <v-spacer/>
+    <user-dialog/>
+  </page-title>
+  <div class="scroll-content">
+  <div class="ma-5 mt-0 nav-padding">
+    <login-dialog/>
+    <v-btn v-if="hasCustomGrades" class="mb-3 full-width primary" :to="{name: 'grades'}">{{ $t('grades.my_grades') }}</v-btn>
+    <birthday-banner/>
     <div class="elevation-2 mb-5">
         <v-data-table class="mb-3" v-if="grades.length > 0" :items="grades" hide-default-footer :mobile-breakpoint="0" :headers="mainGradeHeaders">
           <template v-slot:item.uid="{ item }">
@@ -58,16 +63,27 @@
 
         <share/>
   </div>
-</div>
+</div></div>
 </template>
 
 <script>
 import gradesMixin from "../mixins/grades"
 import share from "../components/Share"
+import birthdayBanner from "../components/BirthdayBanner"
+import loginDialog from "../components/dialogs/Login"
+import userDialog from "../components/dialogs/UserInfo"
+
+import pageTitle from "../components/PageTitle"
 
 export default {
   mixins: [gradesMixin],
-  components: {share},
+  components: {
+    share,
+    birthdayBanner,
+    loginDialog,
+    userDialog,
+    pageTitle
+  },
   data(){
     return {
       newGradeValue: null,
@@ -95,7 +111,6 @@ export default {
   },
 
   mounted(){
-    console.log("GRADES:", this.grades)
   },
 
   methods: {
@@ -136,6 +151,10 @@ export default {
     },
     count(){
       return this.getCount(this.grades)
+    },
+    hasCustomGrades(){
+      var subjects = this.$store.state.subjects
+      return subjects.length > 0
     },
     mainGradeHeaders(){
       if(this.grades[0].name){

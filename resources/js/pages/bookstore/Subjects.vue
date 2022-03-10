@@ -1,9 +1,12 @@
 <template>
   <div>
-    <div class="page-title">
+    <page-title>
       {{ $t('bookstore.bookstore') }}
-    </div>
-  <div class="subjects-page mx-5">
+      <v-spacer/>
+      <user-dialog/>
+    </page-title>
+    <div class="scroll-content">
+  <div class="subjects-page mx-5 nav-padding">
     <v-btn class="full-width mt-2 mb-2" :to="{name: 'bookstore.sell'}">Etwas verkaufen <v-icon right dark>mdi-chevron-right</v-icon></v-btn>
     <v-text-field outlined label="Finden" class="mt-1" append-icon="mdi-magnify" v-model="query" clearable></v-text-field>
     <search-results v-if="query != '' && query != null" :query="query"></search-results>
@@ -14,16 +17,23 @@
       </items-display>
     </div>
   </div></div>
+</div>
 </template>
 
 <script>
 import api from "../../business/api"
 
 import itemsDisplay from "../../components/bookstore/ItemsDisplay"
+import searchResults from "../../components/bookstore/SearchResults"
+import pageTitle from "../../components/PageTitle"
+import userDialog from "../../components/dialogs/UserInfo"
 
 export default {
   components: {
-    itemsDisplay
+    itemsDisplay,
+    searchResults,
+    pageTitle,
+    userDialog
   },
   data(){
     return {
@@ -33,8 +43,12 @@ export default {
     }
   },
   async mounted(){
-    if(this.$route.params.query){
-      this.query = this.$route.params.query
+    if(this.$store.state.bookstoreSubjects){
+      this.subjects = this.$store.state.bookstoreSubjects
+    }
+
+    if(this.$route.query.q){
+      this.query = this.$route.query.q
     }
 
     var response = await api.fetch("items/subjects?fields=id,title")
@@ -70,10 +84,16 @@ export default {
       subject.items = items
     }
     this.subjects = subjects
+    this.$store.dispatch("setBookstoreSubjects", subjects)
   },
   watch: {
     query(val){
-      window.bookstore.page.params.query = val
+      if(val == null){
+        this.$router.replace({query: null})
+      }
+      else{
+        this.$router.replace({query: {q: val}})
+      }
     },
   },
   computed: {

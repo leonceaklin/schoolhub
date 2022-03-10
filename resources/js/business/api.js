@@ -101,22 +101,23 @@ class SchoolHubApi{
     if(await this.isLoggedIn()){
       return false
     }
-    var accountExists = await this.checkAccountExistence(window.app.user.username)
+    var user = store.state.user
+    var accountExists = await this.checkAccountExistence(user.username)
     if(accountExists){
       await this.login({
-        credentials_token: window.app.credentialsToken,
+        credentials_token: this.credentialsToken,
       })
     }
     else{
       await this.register({
-        credentials_token: window.app.credentialsToken,
-        first_name: window.app.user.first_name,
-        last_name: window.app.user.last_name,
-        email: window.app.user.private_email,
-        phone: window.app.user.phone,
-        mobile: window.app.user.mobile,
-        zip: window.app.user.zip,
-        city: window.app.user.city,
+        credentials_token: this.credentialsToken,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.private_email,
+        phone: user.phone,
+        mobile: user.mobile,
+        zip: user.zip,
+        city: user.city,
       })
     }
   }
@@ -149,7 +150,7 @@ class SchoolHubApi{
 
   async submitCopy(data){
     this.loginOrRegister()
-    var response = await this.postToEndpoint('bookstore:copies', data)
+    var response = await this.postToEndpoint('copies:submit', data)
     return response.data.data.copy
   }
 
@@ -208,5 +209,5 @@ class SchoolHubApi{
 
 export default new SchoolHubApi({
   catalogUrl: "https://content.zebrapig.com/schoolhub",
-  apiUrl: "http:/127.0.0.1:8000/api"
+  apiUrl: window.baseUrl+"/api"
 })

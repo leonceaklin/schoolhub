@@ -2,13 +2,29 @@ export default {
     "de": {
         "auth": {
             "login": "Login",
-            "login_info": "Logge dich mit deinen SAL-Zugangsdaten ein, um alle Funktionen zu nutzen.",
+            "login_info": "Logge dich ein, um alle Funktionen zu nutzen.",
+            "select_school_info": "An welche Schule gehst du?",
             "login_disclamer": "Angaben zu Noten, Terminen und Absenzen ohne Gewähr. Nutzung auf eigene Verantwortung. Zugangsdaten werden verschlüsselt und ausschliesslich auf deinem Gerät gespeichert.",
-            "accept_conditions": "Damit bin ich einverstanden"
+            "accept_conditions": "Damit bin ich einverstanden",
+            "school_system_info": "Deine Schule verwendet {system_name}. Logge dich mit deinen {credentials_name}-Zugangsdaten ein.",
+            "me": "Ich",
+            "my_info": "Meine Info",
+            "email": "E-Mail",
+            "email_hint": "Du kannst keine Schul-E-Mail angeben, da du diese nach deinem Abschluss verlieren wirst",
+            "iban": "IBAN",
+            "mobile": "Mobilnummer",
+            "zip": "PLZ",
+            "city": "Ort",
+            "sell_as": "Sell as {name}"
         },
         "bookstore": {
             "bookstore": "Bookstore",
-            "your_copy_code": "Dein Exemplar-Code"
+            "your_copy_code": "Dein Exemplar-Code",
+            "order_thanks": "Danke für deine Bestellung!",
+            "isbn_hint": "Lass die Bindestriche weg. Gib nur die Zahlen ein.",
+            "order_now": "Jetzt bestellen",
+            "book": "Buch",
+            "sell_item": "Verkaufen"
         },
         "grades": {
             "grades": "Noten",
@@ -23,6 +39,8 @@ export default {
             "events": "Termine",
             "overview": "Übersicht",
             "calendar": "Kalender",
+            "today": "Heute",
+            "show": "Anzeigen",
             "day": "Tag",
             "week": "Woche",
             "month": "Monat",
@@ -46,6 +64,9 @@ export default {
             "count": "Anzahl",
             "required_avg": "Benötigter Schnitt",
             "required_avg_help": "Du erhältst den benötigten Schnitt der kommenden Prüfungen, indem die Gewichtung der \"nächsten Note\" auf die Summe der bevorstehenden Prüfungen gesetzt wird."
+        },
+        "school_systems": {
+            "e_number": "E-Nummer"
         },
         "contacts": {
             "contacts": "Kontakte"

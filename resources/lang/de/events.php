@@ -4,7 +4,8 @@ return [
   "events" => "Termine",
   "overview" => "Übersicht",
   "calendar" => "Kalender",
-  "today" => "Today",
+  "today" => "Heute",
+  "show" => "Anzeigen",
 
   "day" => "Tag",
   "week" => "Woche",

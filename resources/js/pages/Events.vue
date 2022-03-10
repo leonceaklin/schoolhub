@@ -1,8 +1,10 @@
 <template>
   <div class="events-content">
-  <div class="page-title no-border">
-    {{ $t('events.events') }}
-  </div>
+    <page-title no-fix>
+      {{ $t('events.events') }}
+      <v-spacer/>
+      <user-dialog/>
+    </page-title>
   <v-tabs v-model="eventsTab" grow>
     <v-tab>{{ $t('events.overview') }}</v-tab>
     <v-tab>{{ $t('events.calendar') }}</v-tab>
@@ -10,7 +12,7 @@
   <v-divider></v-divider>
   <v-tabs-items v-model="eventsTab" style="height: 100%; overflow: auto;">
   <v-tab-item>
-    <div class="pa-5 nav-bar-padding">
+    <div class="pa-5 nav-padding-bottom">
     <v-card class="elevation-2 pa-4 mb-4" v-if="nextEvent">
       <b>{{ $t('events.upcoming') }}</b>
       <p class="mt-2 mb-0">{{ (new Date(nextEvent.start.replaceAll("-", "/"))).toLocaleDateString("de-DE", {weekday: 'short', day: 'numeric', month: 'numeric', year:'numeric', hour:'numeric', minute: 'numeric'}) }}</p>
@@ -59,16 +61,16 @@
         <!--<v-btn-toggle v-model="eventsCalendarMode" group mandatory>
           <v-btn :value="mode.value" v-for="mode in eventsCalendarModes" small>{{mode.text}}</v-btn>
         </v-btn-toggle>!-->
-          <v-select class="d-inline-block calendar-select" label="Anzeigen" dense v-model="eventsCalendarMode" :items="eventsCalendarModes"></v-select>
-          <h2 class="ml-4 mt-2">{{ (new Date(eventsCalendarDate)).toLocaleDateString("de-DE", {month: 'long'}) }}</h2>
+          <v-select class="d-inline-block calendar-select" :label="$t('events.show')" dense v-model="eventsCalendarMode" :items="eventsCalendarModes"></v-select>
+          <h2 class="ml-4 mt-2">{{ (new Date(eventsCalendar)).toLocaleDateString("de-DE", {month: 'long'}) }}</h2>
           <v-spacer></v-spacer>
           <v-btn @click="$refs.eventsCalendar.prev()" icon><v-icon>mdi-chevron-left</v-icon></v-btn>
-          <v-btn text @click="eventsCalendarDate = new Date()" dense>{{ $t('events.today') }}</v-btn>
+          <v-btn text @click="eventsCalendar = new Date()" dense>{{ $t('events.today') }}</v-btn>
           <v-btn @click="$refs.eventsCalendar.next()" icon><v-icon>mdi-chevron-right</v-icon></v-btn>
       </div>
 
-      <v-calendar locale="de-DE" ref="eventsCalendar" class="calendar" v-model="eventsCalendarDate"
-      :type="eventsCalendarMode" :weekdays="[1, 2, 3, 4, 5]" :now="new Date()"
+      <v-calendar locale="de-DE" ref="eventsCalendar" class="calendar" v-model="eventsCalendar"
+      :type="eventsCalendarMode" :weekdays="[1, 2, 3, 4, 5]" :now="now"
       :events="calendarEvents" first-time="07:00" @click:event="onEventClick"
       event-overlap-mode="column">
          <template v-slot:day-body="{ date, week }">
@@ -108,12 +110,20 @@
 </template>
 
 <script>
+import pageTitle from "../components/PageTitle"
+import userDialog from "../components/dialogs/UserInfo"
+
 export default {
+  components: {
+    pageTitle,
+    userDialog
+  },
   data(){
     return {
       eventsCalendarMode: "day",
 
-      now: new Date(),
+      now: (new Date),
+      nowString: null,
 
       eventDetailDialog: false,
       focusedEvent: null,
@@ -124,7 +134,7 @@ export default {
         {text: this.$t('events.month'), value: "month"},
       ],
 
-      eventsCalendarDate: (new Date()).toString("Y-m-d"),
+      eventsCalendar: new Date(),
       eventsTab: 0,
       timesInterval: null,
 
@@ -132,6 +142,8 @@ export default {
     }
   },
   mounted(){
+    this.setNow()
+    this.eventsCalendarDate = this.formatDateString(new Date())
     _paq.push(['trackGoal', 2]);
 
     this.timesInterval = setInterval(() => {
@@ -140,7 +152,34 @@ export default {
       this.$refs.eventsCalendar.updateTimes()
     }, 60 * 1000)
   },
+
+  beforeDestroy(){
+    clearInterval(this.timesInterval)
+  },
+
   methods: {
+    setNow(){
+      var date = new Date()
+      this.now = date
+      var nowString = this.formatDateString(date)
+      this.nowString = nowString
+    },
+    formatDateString(date){
+      var now = ""
+      now += date.getFullYear() + "-"
+      now += date.getMonth()+1 > 9 ? '' : '0'
+      now += date.getMonth()+1 + "-"
+
+      now += date.getDate() > 9 ? '' : '0'
+      now += date.getDate() + " "
+
+      now += date.getHours() > 9 ? '' : '0'
+      now += date.getHours() + ":"
+      now += date.getMinutes() > 9 ? '' : '0'
+      now += date.getMinutes()
+      console.log(now)
+      return now
+    },
     relativeTimeDays(value, locale) {
       const date = new Date(value);
       const deltaDays = (date.getTime() - Date.now()) / (1000 * 3600 * 24);
@@ -167,7 +206,7 @@ export default {
       return this.$refs.eventsCalendar.timeToY(this.$refs.eventsCalendar.times.now) + 'px'
     },
     upcomingEvents(){
-      var now = this.now
+      var now = new Date()
       var filtered = this.events.filter((e) => {
         return new Date(e.start.replaceAll("-", "/")) >= now
       })

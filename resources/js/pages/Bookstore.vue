@@ -1,5 +1,5 @@
 <template>
-  <div class="bookstore nav-bar-padding">
+  <div class="bookstore">
     <router-view/>
   </div>
 </template>

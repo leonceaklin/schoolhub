@@ -1,10 +1,14 @@
 <template>
   <div>
-    <div class="my-2">
-    <v-btn icon class="mr-2 mt-2" :to="{name: 'bookstore'}">
-      <v-icon>mdi-arrow-left</v-icon>
-    </v-btn>
-    <img v-if="!item" src="images/sell.svg" class="sell-icon">
+    <page-title>
+      <v-btn icon :exact-path="true" :to="{name: 'bookstore'}">
+        <v-icon>mdi-arrow-left</v-icon>
+      </v-btn>
+      <div class="ml-2">{{ $t('bookstore.sell_item') }}</div>
+    </page-title>
+    <div class="scroll-content">
+    <div class="my-2 mx-5 nav-padding">
+    <img v-if="!item" :src="baseUrl+'/images/sell.svg'" class="sell-icon">
     <h2 class="center">Verkaufe ein Buch</h2>
 
       <div v-if="!this.item">
@@ -13,7 +17,7 @@
           <barcode-scanner v-if="showScanner" @scan="checkIsbn" @error="showScanner = false; showManually = true"></barcode-scanner>
 
           <v-btn class="full-width mt-3" v-if="!this.showManually" @click="showManually = true; showScanner = false">ISBN manuell eingeben</v-btn>
-          <v-text-field autofocus @keydown="checkIsbnInput" v-if="showManually" type="text" hint="Lass die Bindestriche weg. Gib nur die Zahlen ein." v-model="isbnInput" class="mt-4" outlined label="ISBN" pattern="\d*"></v-text-field>
+          <v-text-field autofocus @keydown="checkIsbnInput" v-if="showManually" type="text" :hint="$t('bookstore.isbn_hint')" v-model="isbnInput" class="mt-4" outlined label="ISBN" pattern="\d*"></v-text-field>
 
           <div v-if="notFound" class="text--secondary">Wir haben nichts gefunden. Du kannst eine Aufnahme des Buchs beantragen:<br>
               <v-btn class="btn primary mt-2 full-width" :href="'mailto:GymLi Bookstore Support<'+'buecher'+'gymli'+'estal'+'@'+'gma'+'il.c'+'om?subject=['+isbn+'] Bitte nehmt dieses Buch in den Bookstore auf&body=ISBN: '+isbn+'%0D%0AMein Name: '+user.name+' ('+user.username+')%0D%0ADas Buch heisst: %0D%0AWird in folgendem Fach verwendet: %0D%0A'"><v-icon dark left>mdi-book</v-icon>Aufnahme beantragen</v-btn>
@@ -24,7 +28,7 @@
         <h2 class="item-title">{{ item.title }}</h2>
         <h3 class="item-authors">{{ item.authors }}</h3>
 
-        <v-text-field @blur="validatePrice" @keydown="checkPriceInput" class="mt-5" :error="priceError" pattern="\d*" prefix="CHF" type="number" v-model="price" class="mt-2" outlined autofocus :min="1" :max="200" label="Preis" :hint="priceHint"></v-text-field>
+        <v-text-field @blur="validatePrice" @keydown="checkPriceInput" class="mt-5" :error="priceError" pattern="\d*" prefix="CHF" type="number" v-model="price" outlined autofocus :min="1" :max="200" label="Preis" :hint="priceHint"></v-text-field>
 
         <v-select v-model="edition" :items="editions" v-if="editions.length > 0" outlined label="Auflage"></v-select>
 
@@ -61,11 +65,11 @@
                   </v-expansion-panel-header>
                   <v-expansion-panel-content>
                     <p>Überprüfe deine Kontaktdaten, damit wir dir das Geld nach dem Verkauf auszahlen können. Sie gelten für alle Bücher, die du momentan verkaufst.</p>
-                    <v-text-field type="email" :error="!emailValid" label="E-Mail" hint="Du kannst keine Schul-E-Mail angeben, da du diese beim Austritt verlieren wirst" outlined v-model="user.email"></v-text-field>
-                    <v-text-field type="tel" :error="user.mobile == ''" label="Mobilnummer" outlined v-model="user.mobile"></v-text-field>
-                    <v-text-field label="IBAN" :error="user.iban == ''" outlined v-model="user.iban"></v-text-field>
-                    <v-text-field label="PLZ" :error="user.zip == ''" outlined v-model="user.zip"></v-text-field>
-                    <v-text-field label="Wohnort" :error="user.city == ''" outlined v-model="user.city"></v-text-field>
+                    <v-text-field type="email" :error="!emailValid" :label="$t('auth.email')" :hint="$t('auth.email_hint')" outlined v-model="user.email"></v-text-field>
+                    <v-text-field type="tel" :error="user.mobile == ''" :label="$t('auth.mobile')" outlined v-model="user.mobile"></v-text-field>
+                    <v-text-field :label="$t('auth.iban')" :error="user.iban == ''" outlined v-model="user.iban"></v-text-field>
+                    <v-text-field :label="$t('auth.zip')" :error="user.zip == ''" outlined v-model="user.zip"></v-text-field>
+                    <v-text-field :label="$t('auth.city')" :error="user.city == ''" outlined v-model="user.city"></v-text-field>
                   </v-expansion-panel-content>
                 </v-expansion-panel>
               </v-expansion-panels>
@@ -83,20 +87,29 @@
               <div class="copy-uid-large mb-4">{{ copy.uid.substring(0,3) }} {{ copy.uid.substring(3,6) }}</div>
               <p>Schreibe ihn mit grossen Buchstaben auf einen Zettel und klebe diesen gut sichtbar auf das Buch. Dieses kannst du während den Öffnungszeiten beim Bookstore PickUp vorbeibringen.</p>
 
-              <v-btn @click="goBack" class="primary full-width mt-2">Das Buch ist markiert</v-btn>
+              <v-btn @click="$router.replace({name: 'bookstore'})" class="primary full-width mt-2">Das Buch ist markiert</v-btn>
             </div>
           </transition>
           </v-card-text>
+        </v-card>
     </v-dialog>
 
     <div class="mb-4"></div>
-  </div></div>
+  </div></div></div>
 </template>
 
 <script>
 import api from "../../business/api.js"
 
+import barcodeScanner from "../../components/bookstore/BarcodeScanner"
+
+import pageTitle from "../../components/PageTitle"
+
 export default {
+  components: {
+    barcodeScanner,
+    pageTitle
+  },
   data(){
     return {
       loading: false,
@@ -118,12 +131,14 @@ export default {
 
       expansionPanels: null,
       verifyingAccount: false,
+
+      user: this.$store.state.user
     }
   },
 
   computed: {
-    user(){
-      return this.$store.state.user
+    baseUrl(){
+      return window.baseUrl
     },
     editions(){
       if(!this.item){
@@ -304,13 +319,9 @@ export default {
         return false
       }
     },
-    goBack(){
-      window.bookstore.goBack();
-    }
   },
 
   mounted(){
-
   }
 }
 </script>

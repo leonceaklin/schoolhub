@@ -47,6 +47,7 @@
 	<div id="app">
 		<index/>
   </div>
+	<script>window.baseUrl = "{{ url("/") }}"</script>
     <script src="https://unpkg.com/axios/dist/axios.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-google-charts/dist/vue-google-charts.browser.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/@ericblade/quagga2/dist/quagga.min.js" crossorigin="anonymous"></script>

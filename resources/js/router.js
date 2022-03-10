@@ -1,5 +1,7 @@
 import VueRouter from 'vue-router'
 
+import store from "./plugins/store.js"
+
 import Events from './pages/Events'
 import Grades from './pages/Grades'
 import Calculator from './pages/Calculator'
@@ -11,7 +13,7 @@ import Subjects from './pages/bookstore/Subjects'
 import SellItem from './pages/bookstore/SellItem'
 import Item from './pages/bookstore/Item'
 
-export default new VueRouter({
+const router = new VueRouter({
     mode: 'history',
     routes: [
       {
@@ -25,7 +27,7 @@ export default new VueRouter({
         component: Grades,
       },
       {
-        path: '/calculator',
+        path: '/',
         name: 'calculator',
         component: Calculator,
       },
@@ -54,7 +56,7 @@ export default new VueRouter({
             component: SellItem
           },
           {
-            path: ':item_id',
+            path: ':item_id/:copy_uid?',
             name: 'bookstore.item',
             component: Item
           }
@@ -62,3 +64,33 @@ export default new VueRouter({
       },
     ],
 });
+
+router.beforeEach(async (to, from, next) => {
+  if(to.name == "grades"){
+    if(store.state.subjects.length == 0){
+      next({name: "calculator"})
+    }
+  }
+
+  if(to.name == "absences"){
+    if(store.state.absencePeriods.length == 0){
+      next({name: "calculator"})
+    }
+  }
+
+  if(to.name == "events"){
+    if(store.state.events.length == 0){
+      next({name: "calculator"})
+    }
+  }
+
+  if(to.name == "contacts"){
+    if(store.state.class.name == undefined){
+      next({name: "calculator"})
+    }
+  }
+
+  next()
+})
+
+export default router

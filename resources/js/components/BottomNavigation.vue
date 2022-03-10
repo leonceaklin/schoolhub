@@ -4,22 +4,22 @@
       class="bottom-navigation elevation-0"
       color="primary"
     >
-      <v-btn :to="{name: 'events'}">
+      <v-btn :to="{name: 'events'}" :disabled="$store.state.events.length == 0">
         <span>{{ $t('events.events') }}</span>
         <v-icon>mdi-calendar</v-icon>
       </v-btn>
 
-      <v-btn :to="{name: 'grades'}">
+      <v-btn :to="{name: 'grades'}" :disabled="$store.state.subjects.length == 0">
         <span>{{ $t('grades.grades') }}</span>
         <v-icon>mdi-school</v-icon>
       </v-btn>
 
-      <v-btn :to="{name: 'calculator'}">
+      <v-btn :to="{name: 'calculator'}" :exact-path="true">
         <span>{{ $t('calculator.calculator') }}</span>
         <v-icon>mdi-calculator</v-icon>
       </v-btn>
 
-      <v-btn :to="{name: 'absences'}">
+      <v-btn :to="{name: 'absences'}" :disabled="$store.state.absencePeriods.length == 0">
         <span>{{ $t('absences.absences') }}</span>
         <v-icon>mdi-clock</v-icon>
       </v-btn>

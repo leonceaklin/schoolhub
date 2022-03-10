@@ -9,6 +9,15 @@
   display: none;
 }
 
+::-moz-selection {
+	color: inherit;
+	background-color: transparent;
+	}
+::selection {
+	color: inherit;
+	background-color: transparent;
+	}
+
 body{
   font-size: 30px;
   overflow: hidden;
@@ -131,7 +140,7 @@ body{
 
 .store-link{
   display: inline-block;
-  background: 
+  background:
     linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
     linear-gradient(to right, var(--primary-color), var(--primary-color));
   background-size: 100% 0.15em, 0 0.15em;
@@ -147,7 +156,7 @@ body{
     background-position: 100% 100%, 0% 100%;
     background-size: 100% 0.15em, 0 0.15em;
   }
-  
+
   49.9%{
     background-position: 100% 100%, 0% 100%;
     background-size: 0 0.15em, 100% 0.15em;

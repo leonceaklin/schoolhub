@@ -38,6 +38,8 @@ var localStorageValues = {
   auth: null,
   credentialsToken: null,
   version: null,
+
+  bookstoreSubjects: []
 }
 
 var hydratedValues = {}
@@ -90,7 +92,7 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    logout({dispatch}){
+    logout({dispatch, commit}){
         dispatch('setUser', {})
         dispatch('setSchoolClass', {})
         dispatch('setCredentialsToken', null)
@@ -100,7 +102,10 @@ export default new Vuex.Store({
         dispatch('setAbsencePeriods', [])
         dispatch('setAcceptConditions', false)
         dispatch('setEvents', [])
+        dispatch('setBookstoreSubjects', [])
         dispatch('setAuth', null)
+        commit('fetchingStopped')
+
     },
 
     startSchoolSystemFetchInterval({state, commit, dispatch, getters}){
@@ -114,42 +119,45 @@ export default new Vuex.Store({
     },
 
     async fetchSchoolSystemData({state, commit, dispatch, getters}){
-        return
-        if(state.fetchingData){
+        if(state.fetchingData == true){
           return false
         }
+
         commit('fetchingData')
 
+
         if(!state.school){
+          commit('fetchingStopped')
           return
         }
 
         dispatch('setAcceptConditions', true)
 
         if(!state.credentialsToken){
+          commit('fetchingStopped')
           dispatch('logout');
           return
         }
 
+        //User
+        var response = await api.fetchSchoolSystemUser()
 
-        var response = await api.fetchSchoolSystemSubjects()
+        if(response.data && getters.schoolSystemLoggedIn){
 
-        if(response.data && response.data.subjects && getters.schoolSystemLoggedIn){
-
-          dispatch('setSubjects', response.data.subjects)
+          dispatch('setUser', response.data)
 
           _paq.push(['trackGoal', 1]);
+
+          //Subjects
+          var response = await api.fetchSchoolSystemSubjects()
+          if(response.data && response.data.subjects && getters.schoolSystemLoggedIn){
+            dispatch('setSubjects', response.data.subjects)
+          }
 
           //Absences
           var response = await api.fetchSchoolSystemAbsenceInformation()
           if(response.data && response.data.absence_periods && getters.schoolSystemLoggedIn){
             dispatch('setAbsencePeriods', response.data.absence_periods)
-          }
-
-          //User
-          var response = await api.fetchSchoolSystemUser()
-          if(response.data && getters.schoolSystemLoggedIn){
-            dispatch('setUser', response.data)
           }
 
           //School Class

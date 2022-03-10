@@ -1,9 +1,10 @@
 <template>
+  <div>
+  <v-btn primary class="mb-5 full-width" v-if="!isLoggedIn" @click="showDialog = true" color="primary">
+    {{ $t('auth.login') }}
+  </v-btn>
   <v-dialog v-model="showDialog" class="select-subject" scrollable transition="dialog-bottom-transition" width="500">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn primary class="mt-5 mb-5 full-width" v-if="!isLoggedIn" v-bind="attrs" v-on="on" color="primary">
-        {{ $t('auth.login') }}
-      </v-btn>
     </template>
     <v-card>
       <v-card-title>
@@ -18,6 +19,7 @@
       </v-card-text>
     </v-card>
   </v-dialog>
+</div>
 </template>
 
 <script>

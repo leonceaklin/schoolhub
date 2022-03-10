@@ -1,9 +1,12 @@
 <template>
   <div>
-    <div class="page-title">
+    <page-title>
       {{ $t('grades.my_grades') }}
-    </div>
-  <div class="ma-5 mt-0 nav-bar-padding">
+      <v-spacer/>
+      <user-dialog/>
+    </page-title>
+    <div class="scroll-content">
+  <div class="ma-5 mt-0 nav-padding">
   <v-card class="latest-grades mb-5 primary" dark>
     <svg style="display: none">
       <linearGradient id="chart-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -64,18 +67,19 @@
 </v-expansion-panel-content>
 </v-expansion-panel>
 </v-expansion-panels>
-<p>Eingeloggt als {{ user.name }} ({{ user.username }})</p>
-<v-btn class="full-width" @click="logout">Logout</v-btn>
-</div></div>
+</div></div></div>
 </template>
 
 <script>
 import { GChart } from 'vue-google-charts'
 import gradesMixin from '../mixins/grades'
 
+import pageTitle from "../components/PageTitle"
+import userDialog from "../components/dialogs/UserInfo"
+
 export default {
   mixins: [gradesMixin],
-  components: {GChart},
+  components: {GChart, pageTitle, userDialog},
   data(){
     return {
       chartOptions: {
@@ -212,10 +216,6 @@ export default {
       this.$store.dispatch('setUpcomingGrades', upcomingGrades)
       this.$router.push({name: 'calculator'})
     },
-
-    logout(){
-      this.$store.dispatch('logout')
-    }
   }
 }
 </script>

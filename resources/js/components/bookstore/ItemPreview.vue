@@ -1,6 +1,6 @@
 <template>
 <div class="item-preview">
-  <router-link :to="{name: 'bookstore.item', params: {item_id: item.id}}">
+  <router-link :to="{name: 'bookstore.item', params: {item_id: item.id, item: item}}">
   <div class="preview-container">
     <v-img class="preview-cover elevation-2" :src="item.cover.data.thumbnails[3].url"></v-img>
     <div class="item-title-preview">{{ item.title }}</div>

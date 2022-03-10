@@ -1,5 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/bookstore-signage.js": "/js/bookstore-signage.js",
     "/css/bookstore-signage.css": "/css/bookstore-signage.css",
     "/css/app.css": "/css/app.css",
     "/icon/android-chrome-192x192.png": "/icon/android-chrome-192x192.png",
@@ -16,7 +17,6 @@
     "/icon/mstile-70x70.png": "/icon/mstile-70x70.png",
     "/icon/safari-pinned-tab.svg": "/icon/safari-pinned-tab.svg",
     "/icon/site.webmanifest": "/icon/site.webmanifest",
-    "/js/bookstore-signage.js": "/js/bookstore-signage.js",
     "/css/bookstore.css": "/css/bookstore.css",
     "/css/style.css": "/css/style.css",
     "/sw.js": "/sw.js",

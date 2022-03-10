@@ -6,7 +6,6 @@
 
 window.Vue = require('vue').default;
 
-
 import VueRouter from 'vue-router'
 import router from './router'
 
@@ -50,128 +49,58 @@ export const app = new Vue({
       }
     },
     async mounted(){
-      if(this.version != this.latestVersion){
-        this.$store.dispatch('logout')
-        this.$store.dispatch('setVersion', this.latestVersion)
-      }
-      await this.$store.dispatch('fetchSchoolSystemData');
+      this.installServiceWorker()
+      this.startDarkModeWatcher()
 
-      this.$store.dispatch('startSchoolSystemFetchInterval');
-
-      //Migrate old installations
-      window.localStorage.removeItem("personalInformation")
-      window.localStorage.removeItem("username")
-      window.localStorage.removeItem("password")
+      this.checkVersion()
+      this.startFetchIntervals()
+      this.localStorageMigrations()
     },
-    computed: {
 
-    },
     methods: {
-      setNow(){
-        this.now = new Date()
+      async startFetchIntervals(){
+        await this.$store.dispatch('fetchSchoolSystemData');
+        this.$store.dispatch('startSchoolSystemFetchInterval');
       },
 
-      calculateBirthday(){
-        if(this.schoolClass == null){
-          this.birthdayToday = [];
-          return false;
-        }
-
-        var students = this.schoolClass.students
-        var today = new Date();
-
-        var birthdayToday = [];
-
-        if(!students){
-          this.birthdayToday = [];
-          return false;
-        }
-
-        for(var student of students){
-          var birth = new Date(student.birth.replaceAll("-", "/"))
-          if(birth.getDate() == today.getDate() && birth.getMonth() == today.getMonth()){
-            var age = today.getYear() - birth.getYear()
-            birthdayToday.push({age: age, ...student})
-          }
-        }
-
-        this.birthdayToday = birthdayToday
-      },
-      getGradesFromSubject(subject){
-        this.grades = []
-        this.upcomingGrades = []
-        for(var grade of subject.grades){
-          var date = new Date(grade.date)
-          if(grade.value && grade.weight){
-            this.grades.push({
-              date: date.toLocaleDateString("de-DE"),
-              name: grade.name,
-              value: grade.value,
-              weight: grade.weight,
-              uid: Math.floor(Math.random()*1000000)
-            })
-          }
-          else if(grade.weight && date > new Date()){
-            this.upcomingGrades.push({
-              date: date.toLocaleDateString("de-DE"),
-              name: grade.name,
-              value: grade.value,
-              weight: grade.weight,
-              uid: Math.floor(Math.random()*1000000)
-            })
-          }
+      checkVersion(){
+        //Version Check
+        if(this.version != this.latestVersion){
+          this.$store.dispatch('logout')
+          this.$store.dispatch('setVersion', this.latestVersion)
         }
       },
-      checkInstallation(){
-        if(this.getDisplayMode() != "browser"){
-          return;
-        }
 
-        window.addEventListener('beforeinstallprompt', (e) => {
-          e.preventDefault();
-          this.installationPrompt = e;
-          this.installationBanner = true
-        });
+      localStorageMigrations(){
+        //Migrate old installations
+        window.localStorage.removeItem("personalInformation")
+        window.localStorage.removeItem("username")
+        window.localStorage.removeItem("password")
+      },
 
-        if(navigator.userAgent.indexOf("iPhone") !== -1 || navigator.userAgent.indexOf("iPad") !== -1 || (navigator.userAgent.match(/Mac/) && navigator.maxTouchPoints && navigator.maxTouchPoints > 2)){
-          setTimeout(() => {
-            this.installationBanner = true
-          }, 10000)
+      installServiceWorker(){
+        if("serviceWorker" in navigator){
+          navigator.serviceWorker.register("sw.js").then(function(registration){
+            console.log("Service Worker registriert");
+          }).catch(function(error){
+            console.log("Service Worker nicht registriert. Fehler: ",error);
+          });
         }
       },
-      installApp(){
-        this.installationPrompt.prompt();
-        this.installationBanner = false;
-      },
-      getDisplayMode(){
-        const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-        if(document.referrer.startsWith('android-app://')) {
-          return 'twa';
-        }
-        else if (navigator.standalone || isStandalone) {
-          return 'standalone';
-        }
-        return 'browser';
-      },
-    },
+
+      startDarkModeWatcher(){
+        var darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+
+        this.$vuetify.theme.dark = darkModeQuery.matches
+
+        darkModeQuery.addEventListener( "change", (e) => {
+            this.$vuetify.theme.dark = e.matches
+        })
+      }
+
+
+    }
 });
-
-if("serviceWorker" in navigator){
-  navigator.serviceWorker.register("sw.js").then(function(registration){
-    console.log("Service Worker registriert");
-  }).catch(function(error){
-    console.log("Service Worker nicht registriert. Fehler: ",error);
-  });
-}
-
-
-var darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-
-app.$vuetify.theme.dark = darkModeQuery.matches
-
-darkModeQuery.addEventListener( "change", (e) => {
-    app.$vuetify.theme.dark = e.matches
-})
 
 window.app = app

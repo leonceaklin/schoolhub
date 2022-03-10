@@ -1,12 +1,7 @@
 <template>
   <v-app>
     <v-card class="main-content">
-      <div class="main-content-scroll-wrapper">
-        <div class="px-5">
-          <login-dialog/>
-        </div>
         <router-view></router-view>
-      </div>
       <bottom-navigation/>
       <installation-banner/>
     </v-card>

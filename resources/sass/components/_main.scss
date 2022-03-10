@@ -22,17 +22,33 @@
   margin: auto;
   position: relative;
   height: 90vh;
+  font-size: 14px;
 }
 
-.main-content-scroll-wrapper{
+.scroll-content{
   overflow: scroll;
   position: absolute;
-  height: 100%;
+  bottom: 0px;
+  top: 0px;
   width: 100%;
 }
 
-.nav-bar-padding, .v-application .nav-bar-padding{
+.nav-padding-bottom, .v-application .nav-padding-bottom{
   padding-bottom: 56px  !important;
+}
+
+
+.nav-padding, .v-application .nav-padding{
+  padding-bottom: 56px  !important;
+  padding-top: 68px !important;
+}
+
+.v-item-group.v-bottom-navigation .v-btn{
+  min-width: 75px !important;
+}
+
+.v-application .bottom-navigation .v-btn.v-btn--disabled{
+  background-color: transparent !important;
 }
 
 .events-content{
@@ -43,6 +59,29 @@
   font-weight: bold;
   padding: 15px 20px;
   font-size: 22px;
+  display: flex;
+  border-bottom: 1px solid transparent;
+  transition: border .2s ease;
+
+  &:not(.no-fix){
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    background-color: var(--background-color);
+  }
+}
+
+.page-title-wrapper{
+  width: 100%;
+}
+
+.page-title.scrolled{
+  border-bottom-color: var(--border-color);
+}
+
+.user-info{
+  color: var(--text-color);
 }
 
 .bottom-navigation{
@@ -66,6 +105,7 @@
 
 body{
   background: var(--background-color);
+  height: 100%;
 }
 
 *{
@@ -284,13 +324,25 @@ body{
     overflow: visible;
   }
 
+  .page-title:not(.no-fix){
+    background-color: var(--background-color);
+    width: 100%;
+    position: fixed;
+    z-index: 10;
+  }
+
   .bottom-navigation{
     position: fixed;
     bottom: 0;
     border-radius: 0 !important;
   }
 
-  .main-content-scroll-wrapper{
+  .nav-padding{
+    padding-top: auto;
+  }
+
+
+  .scroll-content{
     position: relative;
     overflow: visible;
     height: auto;
@@ -319,6 +371,10 @@ body{
     overflow: scroll;
     width: 100vw;
     border-radius: 0px !important;
+  }
+
+  .events-content{
+    height: calc(100vh - 56px - 63px);
   }
 }
 

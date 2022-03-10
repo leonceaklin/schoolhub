@@ -12,8 +12,14 @@
 </template>
 
 <script>
+import api from "../../business/api.js"
+import itemPreview from "./ItemPreview"
+
 export default {
   props: ['query'],
+  components: {
+    itemPreview
+  },
   data(){
     return {
       loading: false,
@@ -35,7 +41,7 @@ export default {
   methods: {
     async fetchResults(){
       this.loading = true
-      var res = (await bookApi.fetch("items/items?fields=*.*&limit=50&sort=-year&q="+this.query)).data
+      var res = (await api.fetch("items/items?fields=*.*&limit=50&sort=-year&q="+this.query)).data
 
       var results = []
       for(var item of res){
