@@ -8,11 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Edition;
 use App\Models\User;
 use App\Models\Item;
+use App\Models\TransferOrder;
 
 class Copy extends Model
 {
     const CREATED_AT = 'created_on';
     const UPDATED_AT = 'modified_on';
+
+    protected $dates = [
+        'created_on',
+        'modified_on',
+        'sold_on',
+        'available_since'
+    ];
 
     public $commission = 0.15;
 
@@ -23,6 +31,10 @@ class Copy extends Model
 
     public function _item(){
       return $this->belongsTo(Item::class, 'item');
+    }
+
+    public function _transfer_order(){
+      return $this->belongsTo(TransferOrder::class, 'transfer_order');
     }
 
     public function orderedBy(){

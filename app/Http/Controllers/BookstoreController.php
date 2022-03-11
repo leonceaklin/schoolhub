@@ -249,7 +249,7 @@ class BookstoreController extends Controller
             $copy->order_hash = null;
 
              if(!$copy->available_since){
-                 $copy->available_since = date("Y-m-d H:i:s");
+                 $copy->available_since = date();
                  $copy->save();
                  $copySaved = true;
                  Log::info("Copy available (".$copy->uid.") ".$copy->price." CHF by ".$copy->ownedBy->email);
@@ -266,7 +266,7 @@ class BookstoreController extends Controller
 
          if($copy->status == "sold"){
              if(!$copy->sold_on){
-                 $copy->sold_on = date("Y-m-d H:i:s");
+                 $copy->sold_on = date();
                  $copy->save();
                  Log::info("Copy sold (".$copy->uid.") ".$copy->price." CHF to ".$copy->orderedBy->email);
              }

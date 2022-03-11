@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Models\TransferOrder;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,10 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\TransferOrderController;
+
 
 Route::get('/bookstore-signage', function () {
     return view('bookstore-signage');
 });
+
 
 Route::get('{route?}', function () {
     return view('app');

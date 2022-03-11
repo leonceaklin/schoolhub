@@ -11,6 +11,7 @@
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
+        "phpoffice/phpspreadsheet": "^1.22",
         "rbdwllr/reallysimplejwt": "^4.0"
     },
     "require-dev": {

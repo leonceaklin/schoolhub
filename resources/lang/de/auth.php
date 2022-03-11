@@ -17,4 +17,6 @@ return [
   "zip" => "PLZ",
   "city" => "Ort",
   "sell_as" => "Sell as :name",
+  "first_name" => "Vorname",
+  "last_name" => "Nachname"
 ];
