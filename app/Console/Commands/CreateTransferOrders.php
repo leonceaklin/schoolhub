@@ -62,7 +62,7 @@ class CreateTransferOrders extends Command
           }
 
 
-          Mail::to("leonceaklin@icloud.com")->send(new TransferOrderCreated($transferOrder));
+          Mail::to($store->contact_email)->send(new TransferOrderCreated($transferOrder));
         }
       }
 
