@@ -37,3 +37,18 @@
   display: flex;
   justify-content: center;
 }
+
+.cover-fade-in-wrapper{
+  transform-origin: center left;
+  animation: cover-fadein 0.5s ease;
+}
+
+@keyframes cover-fadein{
+  from{
+    transform: scale(0.8) rotateY(80deg);
+  }
+
+  to{
+    transform: scale(1) rotateY(0deg);
+  }
+}

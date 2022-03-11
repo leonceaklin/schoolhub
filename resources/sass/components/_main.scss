@@ -78,10 +78,6 @@
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 
-  background-color: var(--nav-background-color);
-  backdrop-filter: var(--nav-backdrop-filter);
-  --webkit-backdrop-filter: var(--nav-backdrop-filter);
-
   &:not(.no-fix){
     position: absolute;
     top: 0;
@@ -96,6 +92,9 @@
 
 .page-title.scrolled{
   border-bottom-color: var(--border-color);
+  background-color: var(--nav-background-color);
+  backdrop-filter: var(--nav-backdrop-filter);
+  --webkit-backdrop-filter: var(--nav-backdrop-filter);
 }
 
 .user-info{

@@ -1,6 +1,8 @@
 <template>
   <div class="bookstore">
-    <router-view/>
+    <transition name="fade">
+      <router-view/>
+    </transition>
   </div>
 </template>
 

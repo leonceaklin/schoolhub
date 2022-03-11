@@ -8,14 +8,14 @@
     </page-title>
     <div class="scroll-content">
     <div class="mx-5 nav-padding">
-    <div v-if="item && item.copies">
-    <v-img class="full-cover" v-if="item.cover" :aspect-ratio="item.cover.width/item.cover.height" :src="item.cover.data.thumbnails[5].url"></v-img>
+    <div v-if="item">
+    <v-img class="full-cover" v-if="item.cover" ref="coverEl" :data-image-url="item.cover.data.thumbnails[5].url"  :aspect-ratio="item.cover.width/item.cover.height" :src="item.cover.data.thumbnails[5].url"></v-img>
     <h2 class="item-title">{{ item.title }}</h2>
     <h3 class="item-authors mb-5">{{ item.authors }}</h3>
 
-    <copy-selector v-if="copiesVisible" @select="selectCopy" :copies="item.copies"></copy-selector>
+    <copy-selector v-if="copiesVisible && item.copies" @select="selectCopy" :copies="item.copies"></copy-selector>
 
-    <v-btn class="primary full-width" v-if="item.copies.length > 0" @click="viewCopies()">{{ mainButtonText }}</v-btn>
+    <v-btn class="primary full-width" v-if="item.copies && item.copies.length > 0" @click="viewCopies()">{{ mainButtonText }}</v-btn>
 
     <v-dialog
         v-model="confirmOrderVisible"
@@ -60,6 +60,8 @@
 
 <script>
 import api from "../../business/api.js"
+import coverTransition from "../../business/coverTransition.js"
+
 
 import confirmOrder from "../../components/bookstore/ConfirmOrder"
 import copySelector from "../../components/bookstore/CopySelector"
@@ -122,11 +124,14 @@ export default {
 
   async mounted(){
     this.item =  this.$route.params.item
+
     if(this.item == undefined){
       this.item = (await api.fetch("items/items?fields=*.*&filter[id]="+this.$route.params.item_id)).data[0]
     }
+
     this.item.copies = (await api.fetch("items/copies?fields=id,condition,edition.*,price,status,uid&filter[status]=available&filter[ordered_by][null]=&sort=price&filter[item]="+this.$route.params.item_id)).data
 
+    coverTransition.setToElement(this.$refs.coverEl.$el)
     if(this.item.copies.length == 1){
       this.copiesVisible = true
     }
