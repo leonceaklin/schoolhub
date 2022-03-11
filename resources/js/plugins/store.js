@@ -119,7 +119,6 @@ export default new Vuex.Store({
     },
 
     async fetchSchoolSystemData({state, commit, dispatch, getters}){
-      return
         if(state.fetchingData == true){
           return false
         }
