@@ -23,5 +23,5 @@ return [
   "sold_on" => "Verkaufsdatum",
   "sold_to" => "Verkauft an",
 
-  "new_transfer_order_created" => "Neuer Überweisungsauftrag"
+  "new_transfer_order_created" => "Neuer Überweisungsauftrag :month"
 ];

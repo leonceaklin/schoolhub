@@ -48,7 +48,7 @@ class CreateTransferOrders extends Command
       $stores = Store::all();
       foreach($stores as $store){
         $copies = $store->copies()->doesntHave("_transfer_order")->where("status", "sold")->whereHas('ownedBy', function($query){
-          $query->where("iban", "!=", null);
+          $query->where("iban", "!=", '');
         })->get();
 
         if(sizeof($copies) > 0){
@@ -60,7 +60,7 @@ class CreateTransferOrders extends Command
             $copy->transfer_order = $transferOrder->id;
             $copy->save();
           }
-          
+
 
           Mail::to("leonceaklin@icloud.com")->send(new TransferOrderCreated($transferOrder));
         }
