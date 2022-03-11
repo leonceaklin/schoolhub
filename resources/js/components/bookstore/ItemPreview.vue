@@ -1,6 +1,6 @@
 <template>
 <div class="item-preview">
-  <a ref="link" :href="'/'+item.id">
+  <a ref="link" :href="'/bookstore/'+item.id">
   <div class="preview-container">
     <v-img class="preview-cover elevation-2" ref="cover" :data-image-url="item.cover.data.thumbnails[5].url" :src="item.cover.data.thumbnails[3].url"></v-img>
     <div class="item-title-preview">{{ item.title }}</div>
