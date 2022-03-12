@@ -170,6 +170,7 @@ class BookstoreController extends Controller
          }
        }
      }
+     
 
      public function post(){
        if(!isset($this->_post)){
