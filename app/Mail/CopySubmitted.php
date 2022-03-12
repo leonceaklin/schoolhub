@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class CopyAvailable extends Mailable
+class CopySubmitted extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,7 +30,7 @@ class CopyAvailable extends Mailable
     {
         return $this->from($this->copy->_store->sender_email, $this->copy->_store->name)
           ->replyTo($this->copy->_store->contact_email, $this->copy->_store->name." Support")
-          ->subject(__("bookstore.copy_available_now"))
-          ->view("mail.copy_available", ["copy" => $this->copy]);
+          ->subject(__("bookstore.copy_submitted_subject"))
+          ->view("mail.copy_submitted", ["copy" => $this->copy]);
     }
 }

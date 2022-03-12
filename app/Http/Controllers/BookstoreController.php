@@ -14,7 +14,9 @@ use ReallySimpleJWT\Token;
 use Illuminate\Support\Facades\Log;
 use App\Classes\CredentialsManager;
 
-
+use App\Mail\CopySubmitted;
+use App\Mail\OrderConfirmed;
+use Illuminate\Support\Facades\Mail;
 
 class BookstoreController extends Controller
 {
@@ -194,7 +196,7 @@ class BookstoreController extends Controller
        $copy->generateOrderHash();
        $copy->save();
 
-       $this->mailToUser("Deine Bestellung im GymLi Bookstore", view("mail.order_confirmed", ["copy" => $copy]));
+       Mail::to($copy->orderedBy->activeEmail, $copy->orderedBy->name)->send(new OrderConfirmed($copy));
        return $copy;
      }
 
@@ -255,7 +257,7 @@ class BookstoreController extends Controller
 
        $copy->save();
 
-       $this->mailToUser("Dein eingereichtes Exemplar für den GymLi Bookstore", view("mail.copy_submitted", ["copy" => $copy]));
+       Mail::to($copy->ownedBy->activeEmail, $copy->ownedBy->name)->send(new CopySubmitted($copy));
 
        return $copy;
      }
@@ -297,39 +299,6 @@ class BookstoreController extends Controller
 
        $user->save();
        return $user;
-     }
-
-     public function mailTo($receiver, $title, $content){
-       $sender = "GymLi Bookstore<gymlibookstore@schoolhub.ch>";
-       $subject = $title;
-       $reply = "GymLi Bookstore Support<buechergymliestal@gmail.com>";
-       $header  = "MIME-Version: 1.0\r\n";
-       $header .= "Content-type: text/html; charset=utf-8\r\n";
-
-       $header .= "From: $sender\r\n";
-       $header .= "Reply-To: $reply\r\n";
-       $header .= "X-Mailer: PHP ". phpversion();
-       return mail( $receiver,
-         '=?utf-8?B?'.base64_encode($subject).'?=',
-         $content,
-         $header);
-     }
-
-     public function mailToUser($title, $content, $user = null){
-       if($user == null){
-         $user = $this->user();
-       }
-       if($user == null){
-         return false;
-       }
-
-       if($user->email){
-         $receiver = $user->email;
-       }
-       else{
-         $receiver = $user->username."@sbl.ch";
-       }
-       return self::mailTo($receiver, $title, $content);
      }
 
      function getAuthorizationHeader(){

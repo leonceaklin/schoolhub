@@ -13,7 +13,7 @@ use ReallySimpleJWT\Token;
 use Illuminate\Support\Facades\Log;
 use App\Classes\CredentialsManager;
 
-use App\Mail\TransferOrderCreated;
+use App\Mail\CopyAvailable;
 use Illuminate\Support\Facades\Mail;
 
 

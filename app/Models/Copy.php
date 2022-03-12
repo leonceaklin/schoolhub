@@ -9,6 +9,7 @@ use App\Models\Edition;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\TransferOrder;
+use App\Models\Store;
 
 class Copy extends Model
 {
@@ -31,6 +32,10 @@ class Copy extends Model
 
     public function _item(){
       return $this->belongsTo(Item::class, 'item');
+    }
+
+    public function _store(){
+      return $this->belongsTo(Store::class, 'store');
     }
 
     public function _transfer_order(){
