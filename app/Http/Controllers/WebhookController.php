@@ -69,7 +69,7 @@ class WebhookController extends Controller
          $transferOrder->completed_on = null;
          $transferOrder->save();
 
-         Log::info("Transfer set from completed to ".$transferOrder->status.". ID: ".$transferOrder->id);
+         Log::info("Transfer order set from completed to ".$transferOrder->status.". ID: ".$transferOrder->id);
 
          foreach($transferOrder->copies as $copy){
            $copy->status = "sold";
