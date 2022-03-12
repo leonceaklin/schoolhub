@@ -30,7 +30,7 @@ class CopyAvailable extends Mailable
     {
         return $this->from($this->copy->_store->sender_email, $this->copy->_store->name)
           ->replyTo($this->copy->_store->contact_email, $this->copy->_store->name." Support")
-          ->subject(__("bookstore.copy_available_subject"))
+          ->subject(__("bookstore.copy_available_subject", ["store_name" => $this->copy->_store->name]))
           ->view("mail.copy_available", ["copy" => $this->copy]);
     }
 }

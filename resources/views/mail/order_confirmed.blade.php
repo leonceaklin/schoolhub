@@ -12,7 +12,7 @@
 <h2 class="item-title">CHF {{ $copy->price }}.-</h2>
 
 
-Hallo {{ $copy->orderedBy->first_name }}<br>
+{{ __("bookstore.greeting", ["name" => $copy->orderedBy->first_name]) }}<br>
 <p>Du hast vor Kurzem "{{ $item->title }}" von {{ $item->authors }}@php if($copy->edition){
   $edition = $copy->_edition;
   echo " (".$edition->number.". Auflage, ".$edition->year."";
@@ -21,13 +21,13 @@ Hallo {{ $copy->orderedBy->first_name }}<br>
   }
   echo ")";
 } @endphp im Bookstore bestellt. Vielen Dank dafür.</p>
-<p>Referenz-Code: <span class="monospace">{{ $copy->uid }}-{{ $item->isbn }}</span></p>
-<img src="{{ url('/images/pickup.svg') }}" class="icon" alt="Abholung und Bezahlung">
-<div class="icon-side-text"><h2>Abholung und Bezahlung</h2>
-Abholen und bezahlen kannst du deine Bestellung beim Bookstore PickUp neben dem Lichthof. Bitte beachte, dass wir nur Zahlungen in Bar entgegennehmen können. Du brauchst keine Bestätigung der Bestellung. Sag uns einfach, wer du bist.
+<p>{{ __("bookstore.reference_code") }} <span class="monospace">{{ $copy->uid }}-{{ $item->isbn }}</span></p>
+<img src="{{ url('/images/pickup.svg') }}" class="icon" alt="{{ __("bookstore.pickup_and_payment") }}">
+<div class="icon-side-text"><h2>{{ __("bookstore.pickup_and_payment") }}</h2>
+{{ __("bookstore.pickup_info") }}
 </div>
 <br><br>
-<h2>Stornierung</h2>
-Hast du etwas falsches bestellt? Du kannst die Bestellung hier stornieren. Es fallen keine Gebühren an.
-<a class="button" href="{{ url('bookstore/cancel/'.$copy->order_hash) }}">Bestellung stornieren</a>
+<h2>{{ __("bookstore.cancellation") }}</h2>
+{{ __("bookstore.order_cancellation_info") }}
+<a class="button" href="{{ url('bookstore/cancel/'.$copy->order_hash) }}">{{ __("bookstore.cancel_order") }}</a>
 @endsection

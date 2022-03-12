@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class OrderConfirmed extends Mailable
+class ContactDetailsNeeded extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,7 +30,7 @@ class OrderConfirmed extends Mailable
     {
         return $this->from($this->copy->_store->sender_email, $this->copy->_store->name)
           ->replyTo($this->copy->_store->contact_email, $this->copy->_store->name." Support")
-          ->subject(__("bookstore.order_confirmed_subject"), ["store_name" => $this->copy->_store->name])
-          ->view("mail.order_confirmed", ["copy" => $this->copy]);
+          ->subject(__("bookstore.contact_details_needed_subject"))
+          ->view("mail.contact_details_needed");
     }
 }

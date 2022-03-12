@@ -10,7 +10,7 @@
 <h2 class="item-title">{{ $item->title }}</h2>
 <h3 class="item-authors">{{ $item->authors }}</h3>
 
-Hallo {{ $copy->ownedBy->first_name }}<br>
+{{ __("bookstore.greeting", ["name" => $copy->ownedBy->first_name]) }}<br>
 <p>Du hast vor Kurzem ein Exemplar von "{{ $item->title }}"@php if($copy->_edition){
   $edition = $copy->_edition;
   echo " (".$edition->number.". Auflage, ".$edition->year."";
@@ -20,16 +20,15 @@ Hallo {{ $copy->ownedBy->first_name }}<br>
   echo ")";
 } @endphp zum Verkauf eingereicht.</p>
 <br>
-<h2 class="center">Exemplar-Code</h2>
+<h2 class="center">{{ __("bookstore.copy_code") }}</h2>
 <div class="uid-large">{{ substr($copy->uid, 0,3) }} {{ substr($copy->uid, 3,6) }}</div>
-<p>Schreibe diesen Code auf einen Zettel und bringe diesen am Buch an.</p>
-<img src="{{ url('/images/pickup.svg') }}" class="icon" alt="Wie weiter?">
-<div class="icon-side-text"><h2>Wie weiter?</h2>
-Bring das Exemplar in den nächsten Tagen beim Bookstore PickUp vorbei, wo wir den Zustand bestimmen und es anschliessend im Store verfügbar machen werden.
-Wir werden es für dich für CHF {{ $copy->price }}.- verkaufen. Abzüglich einer Provision von {{ $copy->commission*100 }}% erhältst du CHF {{ $copy->payback }} von uns nach dem Verkauf.
+<p>{{ __("bookstore.copy_code_info") }}</p>
+<img src="{{ url('/images/pickup.svg') }}" class="icon" alt="{{ __("bookstore.what_next") }}">
+<div class="icon-side-text"><h2>{{ __("bookstore.what_next") }}</h2>
+  {{ __("bookstore.copy_submitted_further", ["price" => $copy->price.".-", "commission" => $copy->commission*100, "payback" => $copy->payback]) }}
 </div>
 <br><br>
-<h2>Stornierung</h2>
-Möchtest du das Buch doch nicht verkaufen? Dann storniere bitte deine Einreichung.
-<a class="button" href="{{ url('/bookstore/cancel/'.$copy->order_hash) }}">Verkauf stornieren</a>
+<h2>{{ __("bookstore.cancellation") }}</h2>
+{{ __("bookstore.submission_cancellation_info") }}
+<a class="button" href="{{ url('/bookstore/cancel/'.$copy->order_hash) }}">{{ __("bookstore.cancel_submission") }}</a>
 @endsection
