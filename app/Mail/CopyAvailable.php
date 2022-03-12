@@ -28,6 +28,9 @@ class CopyAvailable extends Mailable
      */
     public function build()
     {
-        return $this->subject(__("bookstore.copy_available_now"))->view("mail.copy_available", ["copy" => $copy]);
+        return $this->from($copy->_store->sender_email, $copy->_store->name)
+          ->replyTo($copy->_store->contact_email, $copy->_store->name." Support")
+          ->subject(__("bookstore.copy_available_now"))
+          ->view("mail.copy_available", ["copy" => $copy]);
     }
 }

@@ -33,14 +33,14 @@ class WebhookController extends Controller
      }
 
      public function onCopiesCreated(){
-       return $this->copiesWebhook();
+       return $this->copiesWebhook('created');
      }
 
      public function onCopiesUpdated(){
-       return $this->copiesWebhook();
+       return $this->copiesWebhook('updated');
      }
 
-     public function copiesWebhook(){
+     public function copiesWebhook($event){
        $copies = Copy::where('sold_on', null)->where('status', 'sold')
        ->orWhere(function($query){
          $query->where('available_since', null)->where('status', 'available');
@@ -61,7 +61,7 @@ class WebhookController extends Controller
             $copy->order_hash = null;
 
              if(!$copy->available_since){
-                 $copy->available_since = date();
+                 $copy->available_since = date("Y-m-d H:i:s");
                  $copy->save();
                  $copySaved = true;
                  Log::info("Copy available (".$copy->uid.") ".$copy->price." CHF by ".$copy->ownedBy->email);
@@ -78,7 +78,7 @@ class WebhookController extends Controller
 
          if($copy->status == "sold"){
              if(!$copy->sold_on){
-                 $copy->sold_on = date();
+                 $copy->sold_on = date("Y-m-d H:i:s");
                  $copy->save();
                  Log::info("Copy sold (".$copy->uid.") ".$copy->price." CHF to ".$copy->orderedBy->email);
              }
