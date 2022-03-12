@@ -11,14 +11,8 @@
 <h3 class="item-authors">{{ $item->authors }}</h3>
 
 {{ __("bookstore.greeting", ["name" => $copy->ownedBy->first_name]) }}<br>
-<p>Du hast ein Exemplar von "{{ $item->title }}"@php if($copy->edition){
-  $edition = $copy->_edition;
-  echo " (".$edition->number.". Auflage, ".$edition->year."";
-  if($edition->name){
-    echo ' "'.$edition->name.'"';
-  }
-  echo ")";
-} @endphp zum Verkauf abgegeben. Wir haben es nun überprüft und im Store verfügbar gemacht.</p>
+
+<p>{{ __("copy_available_introduction", ["item_name" => $copy->longName]) }}</p>
 <br>
 <img src="{{ url('/images/pickup.svg') }}" class="icon" alt="{{ __("bookstore.what_next") }}">
 <div class="icon-side-text"><h2>{{ __("bookstore.what_next") }}</h2>

@@ -60,6 +60,20 @@ class Copy extends Model
       return number_format($price*(1 - $this->commission), 2, '.', '');
     }
 
+    public function getLongNameAttribute(){
+      $name = '"'.$item->title.'"';
+      if($this->edition){
+        $edition = $this->_edition;
+        $name .= " (".__("bookstore.nth_edition", ["number" => $edition->number]).", ".$edition->year."";
+        if($edition->name){
+          $name .= ' "'.$edition->name.'"';
+        }
+      $name .= ")";
+      }
+
+      return $name;
+    }
+
     public function generateUid(){
         $seed = "0123456789ABCDEFGHJKLMNPQRSTUVWXYZ";
         $uid = '';

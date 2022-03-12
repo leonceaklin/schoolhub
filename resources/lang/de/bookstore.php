@@ -25,6 +25,7 @@ return [
   "pickup_info" => "Abholen und bezahlen kannst du deine Bestellung beim Bookstore PickUp neben dem Lichthof. Bitte beachte, dass wir nur Zahlungen in Bar entgegennehmen können. Du brauchst keine Bestätigung der Bestellung. Sag uns einfach, wer du bist.",
   "reference_code" => "Referenz-Code:",
 
+
   "transfer_order_title" => "Überweisungsauftrag :store_name",
   "sold_copies" => "Verkaufte Exemplare",
   "transfers" => "Überweisungen",
@@ -41,6 +42,9 @@ return [
   "greeting" => "Hallo :name",
   "best_regards" => "Das Bookstore-Team",
 
+  "copy_available_introduction" => "Du hast ein Exemplar von :item_name zum Verkauf abgegeben. Wir haben es nun überprüft und im Store verfügbar gemacht.",
+  "copy_submitted_introduction" => "Du hast vor Kurzem ein Exemplar von :item_name zum Verkauf eingereicht.",
+  "order_confirmed_introduction" => "Du hast vor Kurzem ein Exemplar von :item_name zum Verkauf eingereicht.",
   "contact_details_needed_introduction" => "Du hast vor einiger Zeit ein Buch im GymLi Bookstore zum Verkauf abgegeben. Nun haben wir dieses verkauft und würden dir gerne dein Geld auszahlen.|Du hast vor einiger Zeit Bücher im GymLi Bookstore zum Verkauf abgegeben. Nun haben wir eines davon verkauft und würden dir gerne dein Geld auszahlen.",
   "contact_details_info_needed" => "Um dies tun zu können, benötigen wir jedoch noch folgende Kontaktinfos:",
   "contact_details_needed_sold_copies" => "Bei dem verkauften Buch handelt es sich um:|Folgende Bücher haben wir von dir verkauft:",

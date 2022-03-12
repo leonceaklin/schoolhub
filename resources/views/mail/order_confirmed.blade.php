@@ -13,14 +13,7 @@
 
 
 {{ __("bookstore.greeting", ["name" => $copy->orderedBy->first_name]) }}<br>
-<p>Du hast vor Kurzem "{{ $item->title }}" von {{ $item->authors }}@php if($copy->edition){
-  $edition = $copy->_edition;
-  echo " (".$edition->number.". Auflage, ".$edition->year."";
-  if($edition->name){
-    echo ' "'.$edition->name.'"';
-  }
-  echo ")";
-} @endphp im Bookstore bestellt. Vielen Dank dafür.</p>
+<p>{{ __("bookstore.order_confirmed_introduction", ["item_name" => $copy->longName]) }}</p>
 <p>{{ __("bookstore.reference_code") }} <span class="monospace">{{ $copy->uid }}-{{ $item->isbn }}</span></p>
 <img src="{{ url('/images/pickup.svg') }}" class="icon" alt="{{ __("bookstore.pickup_and_payment") }}">
 <div class="icon-side-text"><h2>{{ __("bookstore.pickup_and_payment") }}</h2>
