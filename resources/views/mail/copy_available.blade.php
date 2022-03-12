@@ -12,7 +12,7 @@
 
 {{ __("bookstore.greeting", ["name" => $copy->ownedBy->first_name]) }}<br>
 
-<p>{{ __("copy_available_introduction", ["item_name" => $copy->longName]) }}</p>
+<p>{{ __("bookstore.copy_available_introduction", ["item_name" => $copy->longName]) }}</p>
 <br>
 <img src="{{ url('/images/pickup.svg') }}" class="icon" alt="{{ __("bookstore.what_next") }}">
 <div class="icon-side-text"><h2>{{ __("bookstore.what_next") }}</h2>
