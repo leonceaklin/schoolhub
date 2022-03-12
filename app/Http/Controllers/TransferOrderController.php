@@ -39,7 +39,7 @@ class TransferOrderController extends Controller
 
         $entriesByUser = [];
         $totalAmount = 0;
-        $detailData = [[__("bookstore.uid"), __("bookstore.title"), __("bookstore.isbn"), __("bookstore.sold_on"), __("bookstore.belongs_to"), __("bookstore.price")]];
+        $detailData = [[__("bookstore.uid"), __("bookstore.title"), __("bookstore.isbn"), __("bookstore.sold_on"), __("bookstore.seller"), __("bookstore.price")]];
         foreach($copies as $copy){
           $detailData[] = [
             $copy->uid,

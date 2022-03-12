@@ -15,6 +15,7 @@ return [
   "price" => "Preis",
   "uid" => "UID",
   "belongs_to" => "Gehört",
+  "seller" => "Verkäufer:in",
 
   "transfer_order_title" => "Überweisungsauftrag :store_name",
   "sold_copies" => "Verkaufte Exemplare",
