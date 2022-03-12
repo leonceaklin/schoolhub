@@ -11,7 +11,7 @@
 <h3 class="item-authors">{{ $item->authors }}</h3>
 
 {{ __("bookstore.greeting", ["name" => $copy->ownedBy->first_name]) }}<br>
-<p>{{ __("copy_submitted_introduction", ["item_name" => $copy->longName]) }}</p>
+<p>{{ __("bookstore.copy_submitted_introduction", ["item_name" => $copy->longName]) }}</p>
 <br>
 <h2 class="center">{{ __("bookstore.copy_code") }}</h2>
 <div class="uid-large">{{ substr($copy->uid, 0,3) }} {{ substr($copy->uid, 3,6) }}</div>
