@@ -61,6 +61,7 @@ class Copy extends Model
     }
 
     public function getLongNameAttribute(){
+      $item = $this->_item;
       $name = '"'.$item->title.'"';
       if($this->edition){
         $edition = $this->_edition;
