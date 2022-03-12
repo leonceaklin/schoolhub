@@ -29,7 +29,7 @@ class TransferOrderCreated extends Mailable
     public function build()
     {
       $this->transferOrder->generateXlsx();
-      return $this->from(config("mail.from.address"), config("mail.from.name"))
+      return $this->from("transferorders@schoolhub.ch", config("mail.from.name"))
             ->subject(__("bookstore.new_transfer_order_created", ['month' => $this->transferOrder->created_on->format("Y-m")]))
             ->view('mail.transfer_order_created', ["transferOrder" => $this->transferOrder])
             ->attach(storage_path("app/".$this->transferOrder->xlsxName),
