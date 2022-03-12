@@ -43,7 +43,7 @@ class WebhookController extends Controller
        ->where("modified_on", '>', \Carbon\Carbon::now()->subMinutes(0.5)->timestamp)->get();
 
        foreach($transferOrders as $transferOrder){
-         Mail::to($transferOrder->store->contact_email)->send(new TransferOrderUpdated($transferOrder));
+         Mail::to($transferOrder->_store->contact_email)->send(new TransferOrderUpdated($transferOrder));
        }
 
        //Update copies of completed transfer orders
@@ -52,7 +52,7 @@ class WebhookController extends Controller
        foreach($transferOrdersCompleted as $transferOrder){
          $transferOrder->completed_on = date("Y-m-d H:i:s");
          $transferOrder->save();
-         
+
          Log::info("Transfer order set as completed. ID: ".$transferOrder->id);
 
          foreach($transferOrder->copies as $copy){
