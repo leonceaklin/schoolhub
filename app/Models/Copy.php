@@ -20,7 +20,8 @@ class Copy extends Model
         'created_on',
         'modified_on',
         'sold_on',
-        'available_since'
+        'available_since',
+        'ordered_on'
     ];
 
     public $commission = 0.15;

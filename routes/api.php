@@ -33,7 +33,7 @@ Route::post('/{endpoint?}', [BookstoreController::class, 'process']);
 
 //Webhook
 
-Route::get('/webhook/copies:updated', [WebhookController::class, 'onCopiesUpdated']);
+Route::post('/webhook/copies:updated', [WebhookController::class, 'onCopiesUpdated']);
 Route::post('/webhook/copies:created', [WebhookController::class, 'onCopiesCreated']);
 
 Route::post('/webhook/transferorders:updated', [WebhookController::class, 'onTransferOrdersUpdated']);

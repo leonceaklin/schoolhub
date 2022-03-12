@@ -51,9 +51,19 @@ class WebhookController extends Controller
        ->orWhere(function($query){
          $query->where('status', 'available')->where('ordered_on', "!=", null);
        })
+       ->orWhere(function($query){
+         $query->where('status', 'ordered')->where('ordered_by', null);
+       })
        ->get();
 
        foreach($copies as $copy){
+         if($copy->status == "ordered"){
+           if($copy->ordered_by == null){
+             $copy->status = "available";
+             $copy->ordered_on = null;
+           }
+         }
+
          if($copy->status == "available"){
             $copySaved = false;
             $copy->ordered_on = null;
