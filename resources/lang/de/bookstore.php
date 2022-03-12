@@ -24,6 +24,7 @@ return [
   "sold_to" => "Verkauft an",
 
   "new_transfer_order_created" => "Neuer Überweisungsauftrag :month",
+  "transfer_order_updated" => "Aktualisierter Überweisungsauftrag! :month"
   "copy_available_subject" => "Dein Buch ist jetzt im GymLi Bookstore verfügbar",
   "order_confirmed_subject" => "Deine Bestellung im GymLi Bookstore",
   "copy_submitted_subject" => "Dein eingereichtes Exemplar im GymLi Bookstore"

@@ -7,13 +7,15 @@ use App\Models\User;
 use App\Models\Copy;
 use App\Models\Item;
 use App\Models\Edition;
-use App\Models\File;
+use App\Models\TransferOrder;
 
 use ReallySimpleJWT\Token;
 use Illuminate\Support\Facades\Log;
 use App\Classes\CredentialsManager;
 
 use App\Mail\CopyAvailable;
+
+use App\Mail\TransferOrderUpdated;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -30,6 +32,48 @@ class WebhookController extends Controller
 
      public function __construct(){
 
+     }
+
+     public function onTransferOrdersCreated(){
+
+     }
+
+     public function onTransferOrdersUpdated(){
+       $transferOrders = TransferOrder::where("status", "!=", "sent")->where("status", "!=", "completed")
+       ->where("modified_on", '>', \Carbon\Carbon::now()->subMinutes(0.5)->timestamp)->get();
+
+       foreach($transferOrders as $transferOrder){
+         Mail::to($transferOrder->store->contact_email)->send(new TransferOrderUpdated($transferOrder));
+       }
+
+       //Update copies of completed transfer orders
+       $transferOrdersCompleted = TransferOrder::where("status", "completed")->whereHas("copies", function($query){
+         $query->where("status", "!=", "paidout");
+       })->get();
+
+       foreach($transferOrdersCompleted as $transferOrder){
+         Log::info("Transfer order set as completed. ID: ".$transferOrder->id);
+
+         foreach($transferOrder->copies as $copy){
+           $copy->status = "paidout";
+           $copy->save();
+         }
+       }
+
+       //Update copies of not completed transfer orders
+       $transferOrdersNotCompleted = TransferOrder::where("status", "!=", "completed")->whereHas("copies", function($query){
+         $query->where("status", "paidout");
+       })->get();
+
+
+       foreach($transferOrdersNotCompleted as $transferOrder){
+         Log::info("Transfer set from completed to ".$transferOrder->status.". ID: ".$transferOrder->id);
+
+         foreach($transferOrder->copies as $copy){
+           $copy->status = "sold";
+           $copy->save();
+         }
+       }
      }
 
      public function onCopiesCreated(){
@@ -61,6 +105,8 @@ class WebhookController extends Controller
            if($copy->ordered_by == null){
              $copy->status = "available";
              $copy->ordered_on = null;
+             $copy->transfer_order = null;
+             $copy->save();
            }
          }
 
@@ -69,6 +115,7 @@ class WebhookController extends Controller
             $copy->ordered_on = null;
             $copy->ordered_by = null;
             $copy->order_hash = null;
+            $copy->transfer_order = null;
 
              if(!$copy->available_since){
                  $copy->available_since = date("Y-m-d H:i:s");
