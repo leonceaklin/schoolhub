@@ -8,6 +8,9 @@ use App\Classes\SalApi;
 use App\Classes\CredentialsManager;
 use App\Models\School;
 
+use Illuminate\Support\Facades\Log;
+
+
 class SalController extends Controller
 {
     /**
@@ -111,6 +114,7 @@ class SalController extends Controller
             $api->logout();
           }
           else{
+            Log::warn("Failed SAL login.", ["username" => $username]);
             return response()->json([
               "error" => [[
                 "message" => "Wrong credentials."
