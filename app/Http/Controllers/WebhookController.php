@@ -139,14 +139,14 @@ class WebhookController extends Controller
          if($copy->status == "sold"){
              if(!$copy->sold_on){
                  $copy->sold_on = date("Y-m-d H:i:s");
-                 // $copy->save();
+                 $copy->save();
 
                  //If no IBAN provided
                  if($copy->ownedBy->iban == null || $copy->ownedBy->zip == null || $copy->ownedBy->city == null){
                    Mail::to($copy->ownedBy->activeEmail)->send(new ContactDetailsNeeded($copy->ownedBy));
                  }
 
-                 Log::info("Copy sold (".$copy->uid.") ".$copy->price." CHF to ".$copy->orderedBy->email);
+                 Log::info("Copy sold (".$copy->uid.") ".$copy->price." CHF to ".$copy->orderedBy != null ? $copy->orderedBy->email : 'nobody…');
              }
          }
        }

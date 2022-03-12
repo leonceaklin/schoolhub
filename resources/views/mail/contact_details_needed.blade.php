@@ -14,17 +14,17 @@
     @endif
   @endforeach
 </ul>
-<br><br>
+<br>
 @php
   $soldCopies = $user->copiesOwned()->where("status", "sold")->get();
 @endphp
-  @choice("bookstore.contact_details_sold_copies", sizeof($soldCopies))
+  @choice("bookstore.contact_details_needed_sold_copies", sizeof($soldCopies))
 <ul>
   @foreach($soldCopies as $copy)
-    {{ $copy->_item->title }} - CHF {{ $copy->payback }}
+    <li>{{ $copy->_item->title }} - CHF {{ $copy->payback }}</li>
   @endforeach
 </ul><br><br>
 {{ __("bookstore.contact_details_needed_action") }}
-<br><br>
+<br>
 {{ __("bookstore.best_regards") }}
 @endsection
