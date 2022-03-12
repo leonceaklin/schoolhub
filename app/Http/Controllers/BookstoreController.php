@@ -72,14 +72,6 @@ class BookstoreController extends Controller
          return $this->response(["copy" => $this->cancelOrder($this->post())]);
        }
 
-       if($endpoint == 'copies:updated'){
-         return $this->processCopyWebhook('updated');
-       }
-
-       if($endpoint == 'copies:created'){
-         return $this->processCopyWebhook('created');
-       }
-
      }
 
      public function response($data, $error = null){
@@ -225,52 +217,6 @@ class BookstoreController extends Controller
        if($copy->status == 'submitted'){
          $copy->delete();
          return $copy;
-       }
-     }
-
-     public function processCopyWebhook($event){
-       $copies = Copy::where('sold_on', null)->where('status', 'sold')
-       ->orWhere(function($query){
-         $query->where('available_since', null)->where('status', 'available');
-       })
-       ->orWhere(function($query){
-         $query->where('status', 'available')->where('ordered_by', "!=", null);
-       })
-       ->orWhere(function($query){
-         $query->where('status', 'available')->where('ordered_on', "!=", null);
-       })
-       ->get();
-
-       foreach($copies as $copy){
-         if($copy->status == "available"){
-            $copySaved = false;
-            $copy->ordered_on = null;
-            $copy->ordered_by = null;
-            $copy->order_hash = null;
-
-             if(!$copy->available_since){
-                 $copy->available_since = date();
-                 $copy->save();
-                 $copySaved = true;
-                 Log::info("Copy available (".$copy->uid.") ".$copy->price." CHF by ".$copy->ownedBy->email);
-
-                 if($event == 'updated'){
-                   $this->mailToUser("Dein Buch ist jetzt im GymLi Bookstore verfügbar", view("mail.copy_available", ["copy" => $copy]), $copy->ownedBy);
-                 }
-             }
-
-             if(!$copySaved){
-               $copy->save();
-             }
-         }
-
-         if($copy->status == "sold"){
-             if(!$copy->sold_on){
-                 $copy->sold_on = date();
-                 $copy->save();
-                 Log::info("Copy sold (".$copy->uid.") ".$copy->price." CHF to ".$copy->orderedBy->email);
-             }
-         }
        }
      }
 

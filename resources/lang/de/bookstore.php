@@ -23,5 +23,6 @@ return [
   "sold_on" => "Verkaufsdatum",
   "sold_to" => "Verkauft an",
 
-  "new_transfer_order_created" => "Neuer Überweisungsauftrag :month"
+  "new_transfer_order_created" => "Neuer Überweisungsauftrag :month",
+  "copy_available_now" => "Dein Buch ist jetzt im GymLi Bookstore verfügbar"
 ];

@@ -36,6 +36,20 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function getActiveEmailAttribute(){
+      if(!empty($this->email)){
+        $email = $this->email;
+      }
+      else{
+        $email = $this->username."@sbl.ch";
+      }
+      return $email;
+    }
+
+    public function getNameAttribute(){
+      return $this->first_name." ".$this->last_name;
+    }
+
     /**
      * The attributes that should be cast.
      *

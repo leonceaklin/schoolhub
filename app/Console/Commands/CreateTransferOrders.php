@@ -9,7 +9,6 @@ use App\Models\Store;
 use App\Models\Copy;
 
 use App\Mail\TransferOrderCreated;
-
 use Illuminate\Support\Facades\Mail;
 
 class CreateTransferOrders extends Command

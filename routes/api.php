@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\SalController;
 use App\Http\Controllers\BookstoreController;
+use App\Http\Controllers\WebhookController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -28,3 +29,12 @@ Route::get('/sal/{school}/{endpoint?}', [SalController::class, 'process']);
 
 Route::get('/{endpoint?}', [BookstoreController::class, 'process']);
 Route::post('/{endpoint?}', [BookstoreController::class, 'process']);
+
+
+//Webhook
+
+Route::post('/webhook/copies:updated', [WebhookController::class, 'onCopiesUpdated']);
+Route::post('/webhook/copies:created', [WebhookController::class, 'onCopiesCreated']);
+
+Route::post('/webhook/transferorders:updated', [WebhookController::class, 'onTransferOrdersUpdated']);
+Route::post('/webhook/transferorders:created', [WebhookController::class, 'onTransferOrdersCreated']);
