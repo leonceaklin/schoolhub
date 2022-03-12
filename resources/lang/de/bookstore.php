@@ -24,6 +24,9 @@ return [
   "submission_cancellation_info" => "Möchtest du das Buch doch nicht verkaufen? Dann storniere bitte deine Einreichung.",
   "pickup_info" => "Abholen und bezahlen kannst du deine Bestellung beim Bookstore PickUp neben dem Lichthof. Bitte beachte, dass wir nur Zahlungen in Bar entgegennehmen können. Du brauchst keine Bestätigung der Bestellung. Sag uns einfach, wer du bist.",
   "reference_code" => "Referenz-Code:",
+  "login_to_order" => "Einloggen zum bestellen",
+  "login_to_sell" => "Einloggen zum verkaufen",
+  "sell_for" => "Für :price verkaufen",
 
 
   "transfer_order_title" => "Überweisungsauftrag :store_name",

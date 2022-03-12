@@ -31,8 +31,9 @@
         <v-text-field @blur="validatePrice" @keydown="checkPriceInput" class="mt-5" :error="priceError" pattern="\d*" prefix="CHF" type="number" v-model="price" outlined autofocus :min="1" :max="200" label="Preis" :hint="priceHint"></v-text-field>
 
         <v-select v-model="edition" :items="editions" v-if="editions.length > 0" outlined label="Auflage"></v-select>
+        <login ref="loginForm" @success="goToConfirmation" />
 
-        <v-btn @click="goToConfirmation" :loading="verifyingAccount" v-if="this.price" class="primary full-width mt-2" :disabled="priceError || !editionValid">Für CHF {{ price }}.- verkaufen</v-btn>
+        <v-btn @click="goToConfirmation" :loading="verifyingAccount" v-if="this.price" class="primary full-width mt-2" :disabled="priceError || !editionValid">{{ sellConfirmText }}</v-btn>
       </div>
 
     <v-dialog
@@ -102,13 +103,15 @@
 import api from "../../business/api.js"
 
 import barcodeScanner from "../../components/bookstore/BarcodeScanner"
+import login from "../../components/dialogs/LoginBookstore"
 
 import pageTitle from "../../components/PageTitle"
 
 export default {
   components: {
     barcodeScanner,
-    pageTitle
+    pageTitle,
+    login
   },
   data(){
     return {
@@ -139,6 +142,20 @@ export default {
   computed: {
     baseUrl(){
       return window.baseUrl
+    },
+    stateUser(){
+      return this.$store.state.user
+    },
+    hasUserInfo(){
+      return this.$store.state.user && this.$store.state.user.username
+    },
+    sellConfirmText(){
+      if(this.hasUserInfo){
+        this.$t("bookstore.sell_for", {price: "CHF "+this.price+".-"})
+      }
+      else{
+        return this.$t("bookstore.login_to_sell")
+      }
     },
     editions(){
       if(!this.item){
@@ -210,6 +227,10 @@ export default {
       return true
     },
 
+    hasUserInfo(){
+      return this.$store.state.user && this.$store.state.user.username
+    },
+
     payback(){
       var pb = Math.floor(this.price*(1-api.commission)*100)/100
       return (Math.round(pb * 100) / 100).toFixed(2);
@@ -229,11 +250,21 @@ export default {
 
     price(val){
       this.validatePrice()
+    },
+
+    stateUser(val){
+      if(!this.confirmSaleVisible){
+        this.user = val
+      }
     }
   },
 
   methods: {
     async goToConfirmation(){
+      if(!this.hasUserInfo){
+        this.$refs.loginForm.show()
+        return
+      }
       this.verifyingAccount = true
       var user = await api.getUserInfo()
       if(user == null){

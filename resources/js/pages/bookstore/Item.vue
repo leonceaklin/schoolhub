@@ -14,6 +14,7 @@
     <h3 class="item-authors mb-5">{{ item.authors }}</h3>
 
     <copy-selector v-if="copiesVisible && item.copies" @select="selectCopy" :copies="item.copies"></copy-selector>
+    <login ref="loginForm" @success="confirmOrderVisible = true" />
 
     <v-btn class="primary full-width" v-if="item.copies && item.copies.length > 0" @click="viewCopies()">{{ mainButtonText }}</v-btn>
 
@@ -66,12 +67,14 @@ import coverTransition from "../../business/coverTransition.js"
 import confirmOrder from "../../components/bookstore/ConfirmOrder"
 import copySelector from "../../components/bookstore/CopySelector"
 import pageTitle from "../../components/PageTitle"
+import login from "../../components/dialogs/LoginBookstore"
 
 export default {
   components: {
     confirmOrder,
     copySelector,
-    pageTitle
+    pageTitle,
+    login
   },
   data(){
     return {
@@ -91,6 +94,10 @@ export default {
       return window.bookstore
     },
 
+    hasUserInfo(){
+      return this.$store.state.user && this.$store.state.user.username
+    },
+
     mainButtonText(){
       if(this.item == undefined){
         return "";
@@ -102,7 +109,12 @@ export default {
         return `${this.item.copies.length} Exemplar${(this.item.copies.length > 1 ? 'e ab' : ' für')} ${this.item.copies[0].price}.-`
       }
       else{
-        return "Jetzt bestellen"
+        if(this.hasUserInfo){
+          return this.$t("bookstore.order_now")
+        }
+        else{
+          return this.$t("bookstore.login_to_order")
+        }
       }
     }
   },
@@ -113,13 +125,18 @@ export default {
         this.copiesVisible = true
       }
       else{
-        this.confirmOrderVisible = true
+        if(this.hasUserInfo){
+          this.confirmOrderVisible = true
+        }
+        else{
+          this.$refs.loginForm.show()
+        }
       }
     },
 
     selectCopy(copy){
       this.selectedCopy = copy
-    }
+    },
   },
 
   async mounted(){
