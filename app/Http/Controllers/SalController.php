@@ -114,7 +114,7 @@ class SalController extends Controller
             $api->logout();
           }
           else{
-            Log::warn("Failed SAL login.", ["username" => $username]);
+            Log::info("Failed SAL login.", ["username" => $username]);
             return response()->json([
               "error" => [[
                 "message" => "Wrong credentials."
