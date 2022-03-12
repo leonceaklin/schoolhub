@@ -62,6 +62,7 @@ class CreateTransferOrders extends Command
           }
 
           Log::info("Transfer order created for ".$transferOrder->_store->name.".", ["id" => $transferOrder->id]);
+        
           Mail::to($store->contact_email)->send(new TransferOrderCreated($transferOrder));
         }
       }
