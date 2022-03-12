@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\School;
+
 class User extends Authenticatable
 {
   const CREATED_AT = 'created_on';
@@ -48,6 +50,10 @@ class User extends Authenticatable
 
     public function getNameAttribute(){
       return $this->first_name." ".$this->last_name;
+    }
+
+    public function _school(){
+      return $this->belongsTo(School::class, 'school');
     }
 
     /**

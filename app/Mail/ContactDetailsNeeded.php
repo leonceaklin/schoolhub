@@ -16,9 +16,9 @@ class ContactDetailsNeeded extends Mailable
      *
      * @return void
      */
-    public function __construct($copy)
+    public function __construct($user)
     {
-        $this->copy = $copy;
+        $this->user = $user;
     }
 
     /**
@@ -28,9 +28,11 @@ class ContactDetailsNeeded extends Mailable
      */
     public function build()
     {
-        return $this->from($this->copy->_store->sender_email, $this->copy->_store->name)
-          ->replyTo($this->copy->_store->contact_email, $this->copy->_store->name." Support")
+      $store = $user->_school->stores[0];
+
+      return $this->from($store->sender_email, $store->name)
+          ->replyTo($store->contact_email, $store->name." Support")
           ->subject(__("bookstore.contact_details_needed_subject"))
-          ->view("mail.contact_details_needed");
+          ->view("mail.contact_details_needed", ["user" => $this->user]);
     }
 }
