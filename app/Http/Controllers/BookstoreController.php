@@ -165,12 +165,12 @@ class BookstoreController extends Controller
              $user->save();
              $token = Token::create($user->id, $this->secret, time()+3600*24*30, "SchoolHub");
              $this->salApi->logout();
-             Log::info("New user created (".$user->name.", ".$user->username."). ID: ".$user->id);
+             Log::info("New user created.", ["id" => $user->id, "username" => $user->username, "name" => $user->name]);
              return $token;
          }
        }
      }
-    
+
 
      public function post(){
        if(!isset($this->_post)){
@@ -197,7 +197,7 @@ class BookstoreController extends Controller
        $copy->ordered_on = date("Y-m-d H:i:s");
        $copy->generateOrderHash();
        $copy->save();
-       Log::info("User with ID ".$copy->orderedBy->id." has ordered ".$copy->uid." (".$copy->id.")");
+       Log::info("Copy ordered.", ["ordered_by" => $copy->ordered_by, "uid" => $copy->uid, "price" => $copy->price, "id" => $copy->id]);
 
        Mail::to($copy->orderedBy->activeEmail, $copy->orderedBy->name)->send(new OrderConfirmed($copy));
        return $copy;
@@ -216,13 +216,13 @@ class BookstoreController extends Controller
          $copy->ordered_on = null;
          $copy->order_hash = null;
          $copy->save();
-         Log::info("Cancelled order of (".$copy->uid.")");
+         Log::info("Order cancelled.", ["uid" => $copy->uid, "id" => $copy->id]);
          return $copy;
        }
 
        if($copy->status == 'submitted'){
          $copy->delete();
-         Log::info("Cancelled submission of (".$copy->uid.")");
+         Log::info("Submission of copy cancelled.", ["uid" => $copy->uid, "id" => $copy->id]);
          return $copy;
        }
      }
@@ -263,7 +263,7 @@ class BookstoreController extends Controller
 
        $copy->save();
 
-       Log::info("Copy submit. User with ID ".$copy->ownedBy->id." has submitted ".$copy->uid." (".$copy->id.")");
+       Log::info("Copy submitted.", ["id" => $copy->id, "uid" => $uid, "owned_by" => $copy->ownedBy->id]);
 
        Mail::to($copy->ownedBy->activeEmail, $copy->ownedBy->name)->send(new CopySubmitted($copy));
 

@@ -125,7 +125,7 @@ class WebhookController extends Controller
                  $copy->available_since = date("Y-m-d H:i:s");
                  $copy->save();
                  $copySaved = true;
-                 Log::info("Copy available (".$copy->uid.") ".$copy->price." CHF by ".$copy->ownedBy->email,
+                 Log::info("Copy made available.",
                   ["id" => $copy->id, "price" => $copy->price, "owned_by" => $copy->ownedBy->id]);
 
                  if($event == 'updated'){
@@ -149,8 +149,10 @@ class WebhookController extends Controller
                  }
 
 
-                 Log::info("Copy sold (".$copy->uid.") ".$copy->price." CHF to ".$copy->orderedBy != null ? $copy->orderedBy->email : 'nobody…',
-                 ["price" => $copy->price, "uid" => $copy->uid, "ordered_by" => $copy->orderedBy != null ? $copy->orderedBy->id : null]);
+                 Log::info("Copy sold.",
+                 ["price" => $copy->price, "uid" => $copy->uid, "id" => $copy->id,
+                 "owned_by" => $copy->ownedBy != null ? $copy->ownedBy->id : null,
+                 "ordered_by" => $copy->orderedBy != null ? $copy->orderedBy->id : null]);
              }
          }
        }
