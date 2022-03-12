@@ -28,11 +28,11 @@ class ContactDetailsNeeded extends Mailable
      */
     public function build()
     {
-      $store = $user->_school->stores[0];
+      $store = $this->user->_school->stores[0];
 
       return $this->from($store->sender_email, $store->name)
           ->replyTo($store->contact_email, $store->name." Support")
           ->subject(__("bookstore.contact_details_needed_subject"))
-          ->view("mail.contact_details_needed", ["user" => $this->user]);
+          ->view("mail.contact_details_needed", ["user" => $this->user, "store" => $store]);
     }
 }

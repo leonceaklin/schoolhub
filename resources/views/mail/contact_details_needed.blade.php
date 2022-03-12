@@ -3,8 +3,8 @@
 @section('body')
   {{ __("bookstore.greeting", ["name" => $user->first_name]) }}<br>
 
-{{ __("bookstore.contact_details_needed_introduction", sizeof($user->copies), ["store_name" => "GymLi Bookstore"]) }}
-{{ __("bookstore.contact_details_info_needed") }}
+  @choice("bookstore.contact_details_needed_introduction", sizeof($user->copiesOwned), ["store_name" => $store->name])
+  {{ __("bookstore.contact_details_info_needed") }}
 
 @php $fields = ["zip", "city", "iban"]; @endphp
 <ul>
@@ -16,9 +16,9 @@
 </ul>
 <br><br>
 @php
-  $soldCopies = $user->copies()->where("status", "sold")->get();
+  $soldCopies = $user->copiesOwned()->where("status", "sold")->get();
 @endphp
-{{ __("bookstore.contact_details_sold_copies", sizeof($soldCopies)) }}
+  @choice("bookstore.contact_details_sold_copies", sizeof($soldCopies))
 <ul>
   @foreach($soldCopies as $copy)
     {{ $copy->_item->title }} - CHF {{ $copy->payback }}

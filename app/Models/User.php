@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 use App\Models\School;
+use App\Models\Copy;
 
 class User extends Authenticatable
 {
@@ -54,6 +55,14 @@ class User extends Authenticatable
 
     public function _school(){
       return $this->belongsTo(School::class, 'school');
+    }
+
+    public function copiesOwned(){
+      return $this->hasMany(Copy::class, 'owned_by');
+    }
+
+    public function copiesOrdered(){
+      return $this->hasMany(Copy::class, 'ordered_by');
     }
 
     /**
