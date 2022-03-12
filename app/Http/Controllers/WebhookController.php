@@ -115,6 +115,7 @@ class WebhookController extends Controller
 
          if($copy->status == "available"){
             $copySaved = false;
+            
             $copy->ordered_on = null;
             $copy->ordered_by = null;
             $copy->order_hash = null;
@@ -123,7 +124,7 @@ class WebhookController extends Controller
              if(!$copy->available_since){
                  $copy->available_since = date("Y-m-d H:i:s");
                  $copy->save();
-                 
+
                  $copySaved = true;
                  Log::info("Copy available (".$copy->uid.") ".$copy->price." CHF by ".$copy->ownedBy->email);
 
