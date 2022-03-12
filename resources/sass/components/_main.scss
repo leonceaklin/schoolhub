@@ -30,8 +30,8 @@
   max-width: 100%;
   margin: auto;
   position: relative;
-  height: min(90%, 90vh);
-  top
+  height: 90%;
+  max-height: 90vh;
   font-size: 14px;
   padding-left: var(--safe-area-inset-left);
   padding-right: var(--safe-area-inset-right);
@@ -350,6 +350,7 @@ body{
   .main-content{
     box-shadow: none !important;
     width: 100%;
+    max-height: auto;
     margin: 0px;
     height: auto;
     overflow: visible;
