@@ -10,6 +10,7 @@ use App\Models\Copy;
 
 use App\Mail\TransferOrderCreated;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class CreateTransferOrders extends Command
 {

@@ -165,6 +165,7 @@ class BookstoreController extends Controller
              $user->save();
              $token = Token::create($user->id, $this->secret, time()+3600*24*30, "SchoolHub");
              $this->salApi->logout();
+             Log::info("New user created (".$user->name.", ".$user->username."). ID: ".$user->id);
              return $token;
          }
        }
@@ -195,6 +196,7 @@ class BookstoreController extends Controller
        $copy->ordered_on = date("Y-m-d H:i:s");
        $copy->generateOrderHash();
        $copy->save();
+       Log::info("User with ID ".$copy->orderedBy->id." has ordered ".$copy->uid." (".$copy->id.")");
 
        Mail::to($copy->orderedBy->activeEmail, $copy->orderedBy->name)->send(new OrderConfirmed($copy));
        return $copy;
@@ -213,11 +215,13 @@ class BookstoreController extends Controller
          $copy->ordered_on = null;
          $copy->order_hash = null;
          $copy->save();
+         Log::info("Cancelled order of (".$copy->uid.")");
          return $copy;
        }
 
        if($copy->status == 'submitted'){
          $copy->delete();
+         Log::info("Cancelled submission of (".$copy->uid.")");
          return $copy;
        }
      }
@@ -256,6 +260,8 @@ class BookstoreController extends Controller
        }
 
        $copy->save();
+
+       Log::info("Copy submit. User with ID ".$copy->ownedBy->id." has submitted ".$copy->uid." (".$copy->id.")");
 
        Mail::to($copy->ownedBy->activeEmail, $copy->ownedBy->name)->send(new CopySubmitted($copy));
 
