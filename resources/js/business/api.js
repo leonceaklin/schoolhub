@@ -174,7 +174,9 @@ class SchoolHubApi{
     this.school = credentials.school
     var response = await axios.get(`${this.apiUrl}/sal/${this.school}/login`,{headers: {"Authorization": "Basic "+auth}})
     if(response.data){
-      this.credentialsToken = response.data.data.token
+      if(response.data.data){
+        this.credentialsToken = response.data.data.token
+      }
       return response.data
     }
   }

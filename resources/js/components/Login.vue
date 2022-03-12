@@ -63,6 +63,9 @@ export default {
   },
   methods: {
     async login(){
+      if(this.loading){
+        return false
+      }
       this.username = this.username.split("@")[0]
       this.loading = true
         var response = await api.schoolSystemLogin({
