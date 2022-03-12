@@ -143,7 +143,7 @@ class WebhookController extends Controller
 
                  //If no IBAN provided
                  if($copy->ownedBy->iban == null || $copy->ownedBy->zip == null || $copy->ownedBy->city == null){
-                   new Mail::to($copy->ownedBy->activeEmail)->send(new ContactDetailsNeeded($copy->ownedBy));
+                   Mail::to($copy->ownedBy->activeEmail)->send(new ContactDetailsNeeded($copy->ownedBy));
                  }
 
                  Log::info("Copy sold (".$copy->uid.") ".$copy->price." CHF to ".$copy->orderedBy->email);
