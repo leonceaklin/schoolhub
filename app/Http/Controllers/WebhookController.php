@@ -123,6 +123,7 @@ class WebhookController extends Controller
              if(!$copy->available_since){
                  $copy->available_since = date("Y-m-d H:i:s");
                  $copy->save();
+                 
                  $copySaved = true;
                  Log::info("Copy available (".$copy->uid.") ".$copy->price." CHF by ".$copy->ownedBy->email);
 
@@ -145,7 +146,7 @@ class WebhookController extends Controller
                  if($copy->ownedBy->iban == null || $copy->ownedBy->zip == null || $copy->ownedBy->city == null){
                    Mail::to($copy->ownedBy->activeEmail)->send(new ContactDetailsNeeded($copy->ownedBy));
                  }
-                 
+
 
                  Log::info("Copy sold (".$copy->uid.") ".$copy->price." CHF to ".$copy->orderedBy != null ? $copy->orderedBy->email : 'nobody…');
              }
