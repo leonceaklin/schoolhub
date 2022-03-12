@@ -59,8 +59,12 @@ class SalController extends Controller
         $cm = new CredentialsManager();
         $c = $cm->getCredentials($this->getBearerToken());
 
-        $username = $c->username;
-        $password = $c->password;
+        if(isset($c->username)){
+          $username = $c->username;
+        }
+        if(isset($c->password)){
+          $password = $c->password;
+        }
       }
 
       if(!in_array('endpoint', ["subjects", "absence_information", "events", "user", "class", "login"])){
