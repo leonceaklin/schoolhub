@@ -238,6 +238,7 @@ class BookstoreController extends Controller
          return null;
        }
        $copy->owned_by = $this->user()->id;
+       $copy->store = $this->user()->_school->stores[0]->id;
        $copy->generateOrderHash();
 
        $item = Item::find($data->item);
