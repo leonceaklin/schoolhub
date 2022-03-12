@@ -47,11 +47,12 @@ class WebhookController extends Controller
        }
 
        //Update copies of completed transfer orders
-       $transferOrdersCompleted = TransferOrder::where("status", "completed")->whereHas("copies", function($query){
-         $query->where("status", "!=", "paidout");
-       })->get();
+       $transferOrdersCompleted = TransferOrder::where("status", "completed")->where("completed_on", null)->get();
 
        foreach($transferOrdersCompleted as $transferOrder){
+         $transferOrder->completed_on = date("Y-m-d H:i:s");
+         $transferOrder->save();
+         
          Log::info("Transfer order set as completed. ID: ".$transferOrder->id);
 
          foreach($transferOrder->copies as $copy){
@@ -61,12 +62,13 @@ class WebhookController extends Controller
        }
 
        //Update copies of not completed transfer orders
-       $transferOrdersNotCompleted = TransferOrder::where("status", "!=", "completed")->whereHas("copies", function($query){
-         $query->where("status", "paidout");
-       })->get();
+       $transferOrdersNotCompleted = TransferOrder::where("status", "!=", "completed")->where("completed_on", "!=", null)->get();
 
 
        foreach($transferOrdersNotCompleted as $transferOrder){
+         $transferOrder->completed_on = null;
+         $transferOrder->save();
+
          Log::info("Transfer set from completed to ".$transferOrder->status.". ID: ".$transferOrder->id);
 
          foreach($transferOrder->copies as $copy){
