@@ -263,7 +263,7 @@ class BookstoreController extends Controller
 
        $copy->save();
 
-       Log::info("Copy submitted.", ["id" => $copy->id, "uid" => $uid, "owned_by" => $copy->ownedBy->id]);
+       Log::info("Copy submitted.", ["id" => $copy->id, "uid" => $copy->uid, "owned_by" => $copy->ownedBy->id]);
 
        Mail::to($copy->ownedBy->activeEmail, $copy->ownedBy->name)->send(new CopySubmitted($copy));
 

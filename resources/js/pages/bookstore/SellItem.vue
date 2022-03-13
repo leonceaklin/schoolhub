@@ -151,7 +151,7 @@ export default {
     },
     sellConfirmText(){
       if(this.hasUserInfo){
-        this.$t("bookstore.sell_for", {price: "CHF "+this.price+".-"})
+        return this.$t("bookstore.sell_for", {price: "CHF "+this.price+".-"})
       }
       else{
         return this.$t("bookstore.login_to_sell")
