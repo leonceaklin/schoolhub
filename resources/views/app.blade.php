@@ -51,7 +51,6 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-google-charts/dist/vue-google-charts.browser.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/@ericblade/quagga2/dist/quagga.min.js" crossorigin="anonymous"></script>
-    <script src="{{ url("/js/app.js") }}"></script>
 
 		<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
 		<script>
@@ -66,5 +65,7 @@
 		    });
 		  });
 		</script>
+		
+		<script src="{{ url("/js/app.js") }}"></script>
   </body>
 </html>
