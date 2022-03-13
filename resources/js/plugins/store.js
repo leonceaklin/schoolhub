@@ -105,7 +105,11 @@ export default new Vuex.Store({
         dispatch('setBookstoreSubjects', [])
         dispatch('setAuth', null)
         commit('fetchingStopped')
-
+        try{
+          OneSignal.push(function() {
+            OneSignal.removeExternalUserId();
+          });
+        }catch(e){}
     },
 
     startSchoolSystemFetchInterval({state, commit, dispatch, getters}){
@@ -145,6 +149,14 @@ export default new Vuex.Store({
         if(response.data && getters.schoolSystemLoggedIn){
 
           dispatch('setUser', response.data)
+
+          //SchoolHub Login
+          var userInfo = await api.getUserInfo()
+          try{
+            OneSignal.push(function() {
+              OneSignal.setExternalUserId(userInfo.data.id);
+            });
+          }catch(e){}
 
           _paq.push(['trackGoal', 1]);
 

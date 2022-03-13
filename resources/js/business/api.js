@@ -136,6 +136,7 @@ class SchoolHubApi{
     if(response.data && response.data.data && response.data.data.id){
       return response.data.data
     }
+
     return null
   }
 
