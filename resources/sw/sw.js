@@ -11,6 +11,7 @@ const {
   cacheableResponse: { CacheableResponsePlugin },
   expiration: { ExpirationPlugin },
   routing: { registerRoute },
+  precaching: { precacheAndRoute },
   strategies: { CacheFirst, StaleWhileRevalidate },
 } = workbox;
 
