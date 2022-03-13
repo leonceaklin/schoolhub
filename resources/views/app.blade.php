@@ -65,7 +65,7 @@
 		    });
 		  });
 		</script>
-		
-		<script src="{{ url("/js/app.js") }}"></script>
+
+		<script src="{{ url("/js/app.js") }}" crossorigin="anonymous"></script>
   </body>
 </html>

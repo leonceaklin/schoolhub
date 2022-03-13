@@ -32,6 +32,7 @@ var localStorageValues = {
   absencePeriods: [],
   subjects: [],
   allowNotifications: null,
+  serviceWorkerRegistered: false,
 
   user: {},
   schoolClass: {},

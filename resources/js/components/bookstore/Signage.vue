@@ -1,30 +1,30 @@
 <template>
   <div>
     <transition name="slideUp">
-      <div class="slide slide-1" v-if="slideIndex == 1">
+      <div class="slide slogan-1" v-if="slideIndex == 'slogan-1'">
         <div class="slogan-text">{{ slogan.text_1 }}</div>
       </div>
     </transition>
 
     <transition name="slideUp">
-      <div class="slide slide-2" v-if="slideIndex == 2">
+      <div class="slide slogan-2" v-if="slideIndex == 'slogan-2'">
         <div class="slogan-text">{{ slogan.text_2 }}</div>
       </div>
     </transition>
 
     <transition name="scale">
-      <div class="slide slide-5" v-if="slideIndex == 5">
+      <div class="slide end-card" v-if="slideIndex == 'end-card'">
         <div class="end-card">
           <img :src="baseUrl+'/images/sell.svg'"/>
           <div class="end-title">Der GymLi Bookstore</div>
           <div class="end-subtitle">Secondhand Bücher <b>kaufen</b> und <b>verkaufen</b>.<br>Ein Angebot der SO Gymnasium Liestal.</div>
-          <div class="end-title mt-4 store-link">schoolhub.ch</div>
+          <div class="end-title mt-4 store-link">schoolhub.ch/bookstore</div>
         </div>
       </div>
     </transition>
 
     <transition name="slideUp">
-      <div :class="{slide: true, 'slide-3': slideIndex == 3, 'slide-4': slideIndex == 4}" v-if="slideIndex == 3 || slideIndex == 4">
+      <div :class="{slide: true, 'book': slideIndex == 'book', 'book-copies': slideIndex == 'book-copies'}" v-if="slideIndex == 'book' || slideIndex == 'book-copies'">
         <div class="signage-item-preview">
           <div class="item-info">
             <div class="signage-cover-wrapper">
@@ -45,6 +45,17 @@
         </div>
       </div>
     </transition>
+
+    <transition name="scale">
+      <div class="slide end-card" v-if="slideIndex == 'store-open'">
+        <div class="end-card">
+          <img :src="baseUrl+'/images/sell.svg'"/>
+          <div class="end-title">Der GymLi Bookstore ist jetzt geöffnet!<br>Du kannst deine Bestellungen abholen.</div>
+        </div>
+      </div>
+    </transition>
+
+
   </div>
 </template>
 
@@ -59,6 +70,9 @@ export default {
       subject: null,
       unavailableSlogans: [],
       storeId: 1,
+      cycleLength: 6,
+      cycleStep: 1,
+      store: null,
 
       slideIndex: 0,
       currentVersion: null,
@@ -68,7 +82,7 @@ export default {
   async mounted(){
     while(true){
       try{
-        await this.startCycle()
+        await this.startCycleStep()
       }catch(e){
         break;
         this.reloadWindow()
@@ -101,20 +115,35 @@ export default {
     }
   },
   methods: {
-    async startCycle(){
+    async startCycleStep(){
+      await this.versionCheck()
       this.slideIndex = 0
-      await this.prepareSlogan()
-      await this.sleep(500)
-      this.slideIndex = 1
-      await this.sleep(3000)
-      this.slideIndex = 2
-      await this.sleep(4000)
-      this.slideIndex = 3
-      await this.sleep(2000)
-      this.slideIndex = 4
-      await this.sleep(5000)
-      this.slideIndex = 5
-      await this.sleep(7000)
+
+      if(this.store.status == 'open' && this.cycleStep == 1){
+        await this.sleep(500)
+        this.slideIndex = 'store-open'
+        await this.sleep(10000)
+      }
+
+      
+
+      // BookShow
+      else{
+        await this.prepareSlogan()
+        await this.sleep(500)
+        this.slideIndex = 'slogan-1'
+        await this.sleep(3000)
+        this.slideIndex = 'slogan-2'
+        await this.sleep(4000)
+        this.slideIndex = 'book'
+        await this.sleep(2000)
+        this.slideIndex = 'book-copies'
+        await this.sleep(5000)
+        this.slideIndex = 'end-card'
+        await this.sleep(7000)
+      }
+
+      this.cycleStep++
     },
 
     async prepareSlogan(){
@@ -122,7 +151,6 @@ export default {
         alert("Sorry…")
         returnw
       }
-      await this.versionCheck()
       var data = await api.fetch('items/signage_slogans?fields=id,subject.id,item.id&filter[store]='+this.storeId)
       var slogans = data.data
       var sloganId = null
@@ -185,8 +213,9 @@ export default {
 
     async versionCheck(){
       try{
-        var data = await api.fetch('items/stores/'+this.storeId+'?fields=version')
-        var version = data.data.version
+        var data = await api.fetch('items/stores/'+this.storeId)
+        this.store = data.data
+        var version = store.version
         if(this.currentVersion != null && version != this.currentVersion){
           this.reloadWindow()
         }
@@ -199,7 +228,7 @@ export default {
     },
 
     reloadWindow(){
-      window.location.reload()
+      //window.location.reload()
     },
 
     sleep(ms){
@@ -213,7 +242,11 @@ export default {
 
   },
   watch: {
-
+    cycleStep(val){
+      if(val > this.cycleLength){
+        this.cycleStep = 0
+      }
+    }
   }
 }
 </script>

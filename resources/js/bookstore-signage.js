@@ -11,16 +11,6 @@ const app = new Vue({
     }
 });
 
-
-if("serviceWorker" in navigator){
-  navigator.serviceWorker.register("sw.js").then(function(registration){
-    console.log("Service Worker registriert");
-  }).catch(function(error){
-    console.log("Service Worker nicht registriert. Fehler: ",error);
-  });
-}
-
-
 var darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
 

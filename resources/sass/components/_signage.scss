@@ -90,11 +90,11 @@ body{
   transition: transform .4s ease;
 }
 
-.slide-3 .item-info{
+.book .item-info{
   transform: translateY(2em);
 }
 
-.slide-4 .item-info{
+.book-copies .item-info{
   transform: translateY(0px);
 }
 
@@ -107,7 +107,7 @@ body{
   margin-top: 0.5em;
 }
 
-.slide-4 .price-info{
+.book-copies .price-info{
   opacity: 1;
   font-weight: 600;
 }

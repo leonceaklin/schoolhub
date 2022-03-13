@@ -49,8 +49,10 @@ export const app = new Vue({
       }
     },
     async mounted(){
-      this.installServiceWorker()
       this.checkVersion()
+      if(!this.$store.state.serviceWorkerRegistered){
+        this.installServiceWorker()
+      }
       this.startFetchIntervals()
       this.localStorageMigrations()
     },
@@ -66,6 +68,7 @@ export const app = new Vue({
         if(this.version != this.latestVersion){
           this.$store.dispatch('logout')
           this.$store.dispatch('setVersion', this.latestVersion)
+          this.installServiceWorker()
         }
       },
 
@@ -77,9 +80,11 @@ export const app = new Vue({
       },
 
       installServiceWorker(){
+        this.$store.dispatch("setServiceWorkerRegistered", false)
         if("serviceWorker" in navigator){
-          navigator.serviceWorker.register("sw.js").then(function(registration){
+          navigator.serviceWorker.register(window.baseUrl+"/sw.js").then((registration) => {
             console.log("Service Worker registriert");
+            this.$store.dispatch("setServiceWorkerRegistered", true)
           }).catch(function(error){
             console.log("Service Worker nicht registriert. Fehler: ",error);
           });

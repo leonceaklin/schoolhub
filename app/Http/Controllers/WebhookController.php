@@ -39,7 +39,7 @@ class WebhookController extends Controller
      }
 
      public function onStoresUpdated(){
-       $openedStores = Store::where("status", "opened")
+       $openedStores = Store::where("status", "open")
               ->whereHas("copies", function($query){
                 $query->where("status", "ordered")
                   ->orWhere("status", "prepared");
