@@ -18,9 +18,11 @@
     "/icon/mstile-70x70.png": "/icon/mstile-70x70.png",
     "/icon/safari-pinned-tab.svg": "/icon/safari-pinned-tab.svg",
     "/icon/site.webmanifest": "/icon/site.webmanifest",
+    "/OneSignalSDKWorker.js": "/OneSignalSDKWorker.js",
     "/sw.js": "/sw.js",
     "/images/bookstore-banner.png": "/images/bookstore-banner.png",
     "/images/logo.svg": "/images/logo.svg",
     "/images/pickup.svg": "/images/pickup.svg",
-    "/images/sell.svg": "/images/sell.svg"
+    "/images/sell.svg": "/images/sell.svg",
+    "/onesignal/OneSignalSDKWorker.js": "/onesignal/OneSignalSDKWorker.js"
 }
