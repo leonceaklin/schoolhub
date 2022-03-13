@@ -445,6 +445,8 @@ body{
 #onesignal-bell-container.onesignal-reset .onesignal-bell-launcher .onesignal-bell-launcher-dialog button.action{
   fill: var(--primary-color) !important;
   background-color: var(--primary-color) !important;
+  background: var(--primary-gradient) !important;
+  border: none;
 }
 
 #onesignal-bell-container.onesignal-reset .onesignal-bell-launcher.onesignal-bell-launcher-theme-default .onesignal-bell-launcher-button svg .stroke{
