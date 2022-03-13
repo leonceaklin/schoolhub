@@ -440,3 +440,13 @@ body{
   font-size: 12px;
   opacity: 0.8;
 }
+
+#onesignal-bell-container.onesignal-reset .onesignal-bell-launcher.onesignal-bell-launcher-theme-default .onesignal-bell-launcher-button svg .background,
+#onesignal-bell-container.onesignal-reset .onesignal-bell-launcher .onesignal-bell-launcher-dialog button.action{
+  fill: var(--primary-color) !important;
+  background-color: var(--primary-color) !important;
+}
+
+#onesignal-bell-container.onesignal-reset .onesignal-bell-launcher.onesignal-bell-launcher-theme-default .onesignal-bell-launcher-button svg .stroke{
+  display: none;
+}
