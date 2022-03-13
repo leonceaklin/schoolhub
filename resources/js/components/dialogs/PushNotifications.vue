@@ -34,7 +34,7 @@ export default {
     return{
       showDialog: false,
       allowNotifications: this.$store.state.allowNotifications,
-      askingForPermission: true
+      askingForPermission: false
     }
   },
   computed: {
