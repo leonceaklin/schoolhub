@@ -50,9 +50,7 @@ export const app = new Vue({
     },
     async mounted(){
       this.checkVersion()
-      if(!this.$store.state.serviceWorkerRegistered){
-        this.installServiceWorker()
-      }
+      this.checkServiceWorker()
       this.startFetchIntervals()
       this.localStorageMigrations()
     },
@@ -79,14 +77,24 @@ export const app = new Vue({
         window.localStorage.removeItem("password")
       },
 
+      checkServiceWorker(){
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+          for(var registration of registrations){
+            if(registration.active && registration.active.scriptURL == window.baseUrl+"/sw.js"){
+              console.log("SW found")
+              return
+            }
+          }
+          this.installServiceWorker()
+        });
+      },
+
       installServiceWorker(){
-        this.$store.dispatch("setServiceWorkerRegistered", false)
         if("serviceWorker" in navigator){
           navigator.serviceWorker.register(window.baseUrl+"/sw.js").then((registration) => {
-            console.log("Service Worker registriert");
-            this.$store.dispatch("setServiceWorkerRegistered", true)
+            console.log("SW installed");
           }).catch(function(error){
-            console.log("Service Worker nicht registriert. Fehler: ",error);
+            console.log("SW not installed: ",error);
           });
         }
       },

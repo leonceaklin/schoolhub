@@ -2,13 +2,17 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox
 importScripts('https://analytics.zebrapig.com/offline-service-worker.js');
 matomoAnalytics.initialize();
 
-
-workbox.skipWaiting();
-workbox.clientsClaim();
-
 workbox.setConfig({
   debug: false,
 });
+
+const {
+  cacheableResponse: { CacheableResponsePlugin },
+  expiration: { ExpirationPlugin },
+  routing: { registerRoute },
+  strategies: { CacheFirst, StaleWhileRevalidate },
+} = workbox;
+
 
 // cache name
 workbox.core.setCacheNameDetails({
@@ -19,14 +23,14 @@ workbox.core.setCacheNameDetails({
 
   workbox.routing.registerRoute(
       new RegExp('/$'),
-      workbox.strategies.staleWhileRevalidate({
+      new StaleWhileRevalidate({
           cacheName: 'main-cache',
       })
   );
 
   workbox.routing.registerRoute(
       new RegExp('\.webmanifest$'),
-      workbox.strategies.staleWhileRevalidate({
+      new StaleWhileRevalidate({
           cacheName: 'main-cache',
       })
   );
@@ -34,10 +38,10 @@ workbox.core.setCacheNameDetails({
 // runtime cache
 workbox.routing.registerRoute(
     new RegExp('\.css$'),
-    workbox.strategies.staleWhileRevalidate({
+    new StaleWhileRevalidate({
         cacheName: 'css-cache',
         plugins: [
-            new workbox.expiration.Plugin({
+            new ExpirationPlugin({
                 maxAgeSeconds: 60 * 60 * 24 * 7, // cache for one week
             })
         ]
@@ -46,10 +50,10 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
     new RegExp('\.js$'),
-    workbox.strategies.staleWhileRevalidate({
+    new StaleWhileRevalidate({
         cacheName: 'js-cache',
         plugins: [
-            new workbox.expiration.Plugin({
+            new ExpirationPlugin({
                 maxAgeSeconds: 60 * 60 * 24 * 7, // cache for one week
             })
         ]
@@ -58,10 +62,10 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
     new RegExp('\.(png|svg|jpg|jpeg)$'),
-    workbox.strategies.cacheFirst({
+    new CacheFirst({
         cacheName: 'image-cache',
         plugins: [
-            new workbox.expiration.Plugin({
+            new ExpirationPlugin({
                 maxAgeSeconds: 60 * 60 * 24 * 7,
             })
         ]
@@ -70,10 +74,10 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
     new RegExp('^https://content.zebrapig.com'),
-    workbox.strategies.staleWhileRevalidate({
+    new StaleWhileRevalidate({
         cacheName: 'content-cache',
         plugins: [
-            new workbox.expiration.Plugin({
+            new ExpirationPlugin({
                 maxAgeSeconds: 60 * 60 * 24 * 7,
             })
         ]
@@ -82,7 +86,7 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
     new RegExp('^https://cdnjs.cloudflare.com'),
-    workbox.strategies.cacheFirst({
+    new CacheFirst({
         cacheName: 'cdn-cache',
         cacheExpiration: {
           maxAgeSeconds: 60 * 60 * 24 * 7 * 4, // cache for four weeks
@@ -92,7 +96,7 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
     new RegExp('^https://unpkg.com'),
-    workbox.strategies.cacheFirst({
+    new CacheFirst({
         cacheName: 'cdn-cache',
         cacheExpiration: {
           maxAgeSeconds: 60 * 60 * 24 * 7 * 4, // cache for four weeks
@@ -102,7 +106,7 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
     new RegExp('^https://cdn.jsdelivr.net'),
-    workbox.strategies.cacheFirst({
+    new CacheFirst({
         cacheName: 'cdn-cache',
         cacheExpiration: {
           maxAgeSeconds: 60 * 60 * 24 * 7 * 4, // cache for four weeks
@@ -112,7 +116,7 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
     new RegExp('^https://fonts.googleapis.com'),
-    workbox.strategies.cacheFirst({
+    new CacheFirst({
         cacheName: 'cdn-cache',
         cacheExpiration: {
           maxAgeSeconds: 60 * 60 * 24 * 7 * 4, // cache for four weeks
@@ -122,12 +126,10 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
     new RegExp('^https://fonts.gstatic.com'),
-    workbox.strategies.cacheFirst({
+    new CacheFirst({
         cacheName: 'font-cache',
         cacheExpiration: {
           maxAgeSeconds: 60 * 60 * 24 * 7 * 4, // cache for four weeks
         }
     })
 );
-
-workbox.precaching.precacheAndRoute([]);
