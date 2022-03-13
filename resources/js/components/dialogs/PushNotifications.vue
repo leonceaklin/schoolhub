@@ -48,6 +48,14 @@ export default {
       this.askingForPermission = true
       window.OneSignal.push(["registerForPushNotifications"]);
       window.OneSignal.push(["setSubscription", true]);
+
+      window.OneSignal.push(["getNotificationPermission", (permission) => {
+          if(permission == "granted"){
+            this.showDialog = false
+            window.OneSignal.push(["setSubscription", true]);
+          }
+      }]);
+
       window.OneSignal.push(() => {
         window.OneSignal.on('notificationPermissionChange', (permissionChange) => {
           var permission = permissionChange.to;
@@ -63,6 +71,7 @@ export default {
           }
         });
       });
+
     },
     deny(){
       this.$store.dispatch("setAllowNotifications", false)
