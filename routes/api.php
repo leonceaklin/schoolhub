@@ -38,3 +38,5 @@ Route::post('/webhook/copies:created', [WebhookController::class, 'onCopiesCreat
 
 Route::post('/webhook/transferorders:updated', [WebhookController::class, 'onTransferOrdersUpdated']);
 Route::post('/webhook/transferorders:created', [WebhookController::class, 'onTransferOrdersCreated']);
+
+Route::post('/webhook/stores:updated', [WebhookController::class, 'onStoresUpdated']);

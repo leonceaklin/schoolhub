@@ -18,6 +18,9 @@ use App\Mail\CopyAvailable;
 use App\Mail\TransferOrderUpdated;
 use App\Mail\ContactDetailsNeeded;
 use Illuminate\Support\Facades\Mail;
+use PushNotifications;
+
+use App\Models\Store;
 
 
 class WebhookController extends Controller
@@ -34,6 +37,32 @@ class WebhookController extends Controller
      public function __construct(){
 
      }
+
+     public function onStoresUpdated(){
+       $openedStores = Store::where("status", "opened")
+              ->whereHas("copies", function($query){
+                $query->where("status", "ordered")
+                  ->orWhere("status", "prepared");
+              })
+              ->where("opened_since", '<', \Carbon\Carbon::now()->subDays(1))
+              ->orWhere("opened_since", null)->get();
+
+      foreach($openedStores as $store){
+        $copies = $store->copies()->where("status", "ordered")->orWhere("status", "prepared");
+        $userIds = [];
+        foreach($copies as $copy){
+          $userId = $copy->orderedBy->id;
+          if(!in_array($userId, $userIds)){
+            $userIds[] = $userId;
+          }
+        }
+
+        foreach($userIds as $userId){
+          PushNotifications::sendNotificationToExternalUser(__("bookstore.store_opened_short_message", ["item_name" => $copy->longName]), strval($userId))
+        }
+      }
+     }
+
 
      public function onTransferOrdersCreated(){
 
@@ -104,7 +133,7 @@ class WebhookController extends Controller
        ->get();
 
        foreach($copies as $copy){
-         if($copy->status == "ordered"){
+         if($copy->status == "ordered" || $copy->status == "prepared"){
            if($copy->ordered_by == null){
              $copy->status = "available";
              $copy->ordered_on = null;
@@ -130,7 +159,7 @@ class WebhookController extends Controller
 
                  if($event == 'updated'){
                    Mail::to($copy->ownedBy->activeEmail, $copy->ownedBy->name)->send(new CopyAvailable($copy));
-                   \PushMessages::sendNotificationToExternalUser(__("bookstore.copy_available_short_message", ["item_name" => $copy->longName]), $copy->ownedBy->id,
+                   PushNotifications::sendNotificationToExternalUser(__("bookstore.copy_available_short_message", ["item_name" => $copy->longName]), strval($copy->ownedBy->id),
                     $copy->publicUrl);
                  }
              }

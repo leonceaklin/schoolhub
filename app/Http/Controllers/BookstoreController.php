@@ -206,11 +206,11 @@ class BookstoreController extends Controller
      public function cancelOrder($data){
        $copy = Copy::where('order_hash', $data->order_hash)->first();
 
-       if($copy->status != 'ordered' && $copy->status != 'submitted'){
+       if($copy->status != 'ordered' && $copy->status != 'submitted' && $copy->status != 'prepared'){
          return null;
        }
 
-       if($copy->status == 'ordered'){
+       if($copy->status == 'ordered' || $copy->status == 'prepared'){
          $copy->status = 'available';
          $copy->ordered_by = null;
          $copy->ordered_on = null;

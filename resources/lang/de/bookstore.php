@@ -38,6 +38,7 @@ return [
 
 
   "copy_available_short_message" => "Dein Exemplar von :item_name ist jetzt im Bookstore verfügbar",
+  "store_opened_short_message" => "Der Bookstore hat jetzt geöffnet und du kannst dein Exemplar von :item_name abholen!",
   "new_transfer_order_created" => "Neuer Überweisungsauftrag :month",
   "transfer_order_updated" => "Aktualisierter Überweisungsauftrag :month",
   "copy_available_subject" => "Dein Buch ist jetzt im :store_name verfügbar",
