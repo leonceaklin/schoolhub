@@ -153,6 +153,7 @@ class WebhookController extends Controller
              $copy->status = "available";
              $copy->ordered_on = null;
              $copy->transfer_order = null;
+             $copy->prepared_since = null;
              $copy->save();
            }
          }
@@ -164,6 +165,7 @@ class WebhookController extends Controller
             $copy->ordered_by = null;
             $copy->order_hash = null;
             $copy->transfer_order = null;
+            $copy->prepared_since = null;
 
              if(!$copy->available_since){
                  $copy->available_since = date("Y-m-d H:i:s");
