@@ -46,11 +46,23 @@ export default {
     subscribe(){
       this.$store.dispatch("setAllowNotifications", true)
       this.askingForPermission = true
-      window.OneSignal.push(["registerForPushNotifications", () => {
-        window.OneSignal.push(["setSubscription", true]);
-        this.showDialog = false
-      }]);
+      window.OneSignal.push(["registerForPushNotifications"]);
       window.OneSignal.push(["setSubscription", true]);
+      OneSignal.push(() => {
+        OneSignal.on('notificationPermissionChange', (permissionChange) => {
+          var permission = permissionChange.to;
+          if(permission == "granted"){
+            this.showDialog = false
+            window.OneSignal.push(["setSubscription", true]);
+          }
+          if(permission == "default"){
+            window.OneSignal.push(["registerForPushNotifications"]);
+          }
+          else{
+            this.showDialog = false
+          }
+        });
+      });
     },
     deny(){
       this.$store.dispatch("setAllowNotifications", false)

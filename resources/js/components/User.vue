@@ -36,9 +36,7 @@ export default {
     allowNotifications(val){
       this.$store.dispatch("setAllowNotifications", val)
       if(val == true){
-        window.OneSignal.push(["registerForPushNotifications", () => {
-          window.OneSignal.push(["setSubscription", true]);
-        }])
+        window.OneSignal.push(["registerForPushNotifications"])
         window.OneSignal.push(["setSubscription", true]);
       }
       if(val == false){
