@@ -3,11 +3,17 @@
     <transition name="fade">
       <router-view/>
     </transition>
+    <push-notifications/>
   </div>
 </template>
 
 <script>
+import pushNotifications from "../components/dialogs/PushNotifications"
+
 export default {
+  components: {
+    pushNotifications
+  },
   data(){
     return {
       page:{

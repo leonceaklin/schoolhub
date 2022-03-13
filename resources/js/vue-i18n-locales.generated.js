@@ -51,7 +51,10 @@ export default {
             "amount": "Betrag",
             "sold_on": "Verkaufsdatum",
             "sold_to": "Verkauft an",
-            "copy_available_short_message": "Dein Exemplar von {item_name} ist jetzt im Bookstore verfügbar",
+            "copy_available_short_message": "Dein Exemplar von {item_name} ist jetzt im Bookstore verfügbar.",
+            "store_opened_short_message": "Der Bookstore hat jetzt geöffnet und du kannst dein Exemplar von {item_name} abholen!",
+            "store_opened_short_message_no_item": "Der Bookstore hat jetzt geöffnet und du kannst deine Bestellung abholen!",
+            "copy_prepared_short_message": "Wir haben dein Exemplar von {item_name} vorbereitet. Du kannst es während der nächsten Öffnungszeit abholen.",
             "new_transfer_order_created": "Neuer Überweisungsauftrag {month}",
             "transfer_order_updated": "Aktualisierter Überweisungsauftrag {month}",
             "copy_available_subject": "Dein Buch ist jetzt im {store_name} verfügbar",
@@ -120,7 +123,12 @@ export default {
         "general": {
             "share_text": "SchoolHub - Notenrechner und mehr",
             "share_with_friends": "Teile mich mit deinen Freunden.",
-            "like_it": "Gefällt's dir?"
+            "like_it": "Gefällt's dir?",
+            "notifications": "Benachrichtigungen",
+            "get_notification": "Benachrichtigung erhalten",
+            "notifications_yes": "Für Wichtiges benachrichtigen",
+            "notifications_no": "Nein",
+            "notifications_question": "Möchtest du benachrichtigt werden, wenn deine Bestellung bereit ist oder deine eingereichten Bücher verfügbar sind?"
         },
         "absences": {
             "absences": "Absenzen",

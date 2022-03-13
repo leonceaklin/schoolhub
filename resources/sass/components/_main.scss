@@ -441,6 +441,18 @@ body{
   opacity: 0.8;
 }
 
+.notification-banner{
+  color: var(--text-color);
+
+  .v-icon{
+    font-size: 50px;
+    width: 100%;
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+  }
+}
+
 #onesignal-bell-container.onesignal-reset .onesignal-bell-launcher.onesignal-bell-launcher-theme-default .onesignal-bell-launcher-button svg .background,
 #onesignal-bell-container.onesignal-reset .onesignal-bell-launcher .onesignal-bell-launcher-dialog button.action{
   fill: var(--primary-color) !important;

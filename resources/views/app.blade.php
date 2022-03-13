@@ -61,7 +61,7 @@
 		      appId: "61dd7782-d16b-4de4-8d21-c12f2823897c",
 		      safari_web_id: "",
 		      notifyButton: {
-		        enable: true,
+		        enable: false,
 		      },
 		    });
 		  });
