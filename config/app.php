@@ -168,7 +168,7 @@ return [
          * Package Service Providers...
          */
          MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
-         Berkayk\OneSignal\OneSignalServiceProvider::class
+         Berkayk\OneSignal\OneSignalServiceProvider::class,
 
 
         /*
