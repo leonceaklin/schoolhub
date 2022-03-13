@@ -48,8 +48,8 @@ export default {
       this.askingForPermission = true
       window.OneSignal.push(["registerForPushNotifications"]);
       window.OneSignal.push(["setSubscription", true]);
-      OneSignal.push(() => {
-        OneSignal.on('notificationPermissionChange', (permissionChange) => {
+      window.OneSignal.push(() => {
+        window.OneSignal.on('notificationPermissionChange', (permissionChange) => {
           var permission = permissionChange.to;
           if(permission == "granted"){
             this.showDialog = false
