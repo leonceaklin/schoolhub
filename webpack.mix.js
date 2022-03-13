@@ -15,6 +15,7 @@ require('vuetifyjs-mix-extension')
 
 mix.copy('resources/icon', 'public/icon');
 mix.copy('resources/sw', 'public');
+mix.copy('resources/sw/sw.js', 'public/OneSignalSDKWorker.js');
 mix.copy('resources/images', 'public/images');
 
 mix.js('resources/js/app.js', 'public/js')
