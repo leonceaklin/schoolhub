@@ -23,13 +23,6 @@ workbox.core.setCacheNameDetails({
   });
 
   workbox.routing.registerRoute(
-      new RegExp('/$'),
-      new StaleWhileRevalidate({
-          cacheName: 'main-cache',
-      })
-  );
-
-  workbox.routing.registerRoute(
       new RegExp('\.webmanifest$'),
       new StaleWhileRevalidate({
           cacheName: 'main-cache',
@@ -132,5 +125,12 @@ workbox.routing.registerRoute(
         cacheExpiration: {
           maxAgeSeconds: 60 * 60 * 24 * 7 * 4, // cache for four weeks
         }
+    })
+);
+
+workbox.routing.registerRoute(
+    new RegExp('/.*$'),
+    new StaleWhileRevalidate({
+        cacheName: 'main-cache',
     })
 );
