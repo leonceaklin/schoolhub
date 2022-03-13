@@ -44,21 +44,30 @@ class WebhookController extends Controller
                 $query->where("status", "ordered")
                   ->orWhere("status", "prepared");
               })
-              ->where("opened_since", '<', \Carbon\Carbon::now()->subDays(1))
-              ->orWhere("opened_since", null)->get();
+              ->where(function($query){
+                $query->where("opened_since", '<', \Carbon\Carbon::now()->subDays(1))
+                ->orWhere("opened_since", null);
+              })->get();
 
       foreach($openedStores as $store){
-        $copies = $store->copies()->where("status", "ordered")->orWhere("status", "prepared");
+        $store->opened_since = date("Y-m-d H:i:s");
+        $store->save();
+
+        $copies = $store->copies()->where("status", "ordered")->orWhere("status", "prepared")->get();
         $userIds = [];
         foreach($copies as $copy){
           $userId = $copy->orderedBy->id;
           if(!in_array($userId, $userIds)){
             $userIds[] = $userId;
+            $copies[] = $copy;
           }
         }
 
+        $i = 0;
         foreach($userIds as $userId){
-          PushNotifications::sendNotificationToExternalUser(__("bookstore.store_opened_short_message", ["item_name" => $copy->longName]), strval($userId))
+          $copy = $copies[$i];
+          PushNotifications::sendNotificationToExternalUser(__("bookstore.store_opened_short_message", ["item_name" => $copy->longName]), strval($userId));
+          $i++;
         }
       }
      }
@@ -130,10 +139,16 @@ class WebhookController extends Controller
        ->orWhere(function($query){
          $query->where('status', 'ordered')->where('ordered_by', null);
        })
+       ->orWhere(function($query){
+         $query->where('status', 'prepared')->where('ordered_by', null);
+       })
+       ->orWhere(function($query){
+         $query->where('status', 'prepared')->where('prepared_since', null);
+       })
        ->get();
 
        foreach($copies as $copy){
-         if($copy->status == "ordered" || $copy->status == "prepared"){
+         if($copy->status == "ordered" || $copy->status == "prepared"){
            if($copy->ordered_by == null){
              $copy->status = "available";
              $copy->ordered_on = null;
@@ -169,9 +184,21 @@ class WebhookController extends Controller
              }
          }
 
+         if($copy->status == "prepared"){
+           if($copy->prepared_since == null){
+             $copy->prepared_since = date("Y-m-d H:i:s");
+             $copy->save();
+             PushNotifications::sendNotificationToExternalUser(__("bookstore.copy_prepared_short_message", ["item_name" => $copy->longName]), strval($copy->orderedBy->id));
+           }
+         }
+
          if($copy->status == "sold"){
              if(!$copy->sold_on){
                  $copy->sold_on = date("Y-m-d H:i:s");
+
+                 if($copy->prepared_since == null){
+                   $copy->prepared_since = date("Y-m-d H:i:s");
+                 }
                  $copy->save();
 
                  //If no IBAN provided
