@@ -60,6 +60,10 @@ class Copy extends Model
       return number_format($price*(1 - $this->commission), 2, '.', '');
     }
 
+    public function getPublicUrlAttribute(){
+      return url("/bookstore/".$this->_copy->id."/".$this->uid);
+    }
+
     public function getLongNameAttribute(){
       $item = $this->_item;
       $name = '"'.$item->title.'"';

@@ -168,6 +168,7 @@ return [
          * Package Service Providers...
          */
          MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
+         Berkayk\OneSignal\OneSignalServiceProvider::class
 
 
         /*
@@ -193,7 +194,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // ...
+        'PushNotification' => Berkayk\OneSignal\OneSignalFacade::class
     ])->toArray(),
 
 ];

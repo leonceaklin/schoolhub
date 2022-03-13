@@ -36,6 +36,8 @@ return [
   "sold_on" => "Verkaufsdatum",
   "sold_to" => "Verkauft an",
 
+
+  "copy_available_short_message" => "Dein Exemplar von :item_name ist jetzt im Bookstore verfügbar",
   "new_transfer_order_created" => "Neuer Überweisungsauftrag :month",
   "transfer_order_updated" => "Aktualisierter Überweisungsauftrag :month",
   "copy_available_subject" => "Dein Buch ist jetzt im :store_name verfügbar",
