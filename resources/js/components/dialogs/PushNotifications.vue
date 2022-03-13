@@ -94,7 +94,12 @@ export default {
           // The user is subscribed to notifications
           this.$store.dispatch("setAllowNotifications", true)
         } else {
-          this.showDialog = true
+          if(this.allowNotifications == false){
+            this.showDialog = true
+          }
+          else{
+            window.OneSignal.push(["setSubscription", true]);
+          }
         }
       });
     });
