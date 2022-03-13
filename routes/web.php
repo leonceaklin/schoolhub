@@ -18,7 +18,7 @@ use App\Models\TransferOrder;
 use App\Http\Controllers\TransferOrderController;
 
 
-Route::get('/bookstore-signage', function () {
+Route::get('/bookstore-signage/{school_identifier}', function () {
     return view('bookstore-signage');
 });
 
