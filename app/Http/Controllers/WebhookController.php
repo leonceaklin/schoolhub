@@ -66,7 +66,7 @@ class WebhookController extends Controller
         $i = 0;
         foreach($userIds as $userId){
           $copy = $copies[$i];
-          PushNotifications::sendNotificationToExternalUser(__("bookstore.store_opened_short_message", ["item_name" => $copy->longName]), strval($userId));
+          PushNotifications::sendNotificationToExternalUser(__("bookstore.store_opened_short_message_no_item"), strval($userId));
           $i++;
         }
       }
