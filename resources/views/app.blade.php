@@ -52,5 +52,19 @@
     <script src="https://cdn.jsdelivr.net/npm/vue-google-charts/dist/vue-google-charts.browser.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/@ericblade/quagga2/dist/quagga.min.js" crossorigin="anonymous"></script>
     <script src="{{ url("/js/app.js") }}"></script>
+
+		<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+		<script>
+		  window.OneSignal = window.OneSignal || [];
+		  OneSignal.push(function() {
+		    OneSignal.init({
+		      appId: "61dd7782-d16b-4de4-8d21-c12f2823897c",
+		      safari_web_id: "",
+		      notifyButton: {
+		        enable: true,
+		      },
+		    });
+		  });
+		</script>
   </body>
 </html>

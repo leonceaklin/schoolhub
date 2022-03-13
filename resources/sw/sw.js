@@ -1,4 +1,5 @@
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.5.0/workbox-sw.js');
+importScripts('https://cdn.onesignal.com/sdks/OneSignalSDKWorker.js');
 
 workbox.skipWaiting();
 workbox.clientsClaim();
