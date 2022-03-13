@@ -130,7 +130,7 @@ class WebhookController extends Controller
 
                  if($event == 'updated'){
                    Mail::to($copy->ownedBy->activeEmail, $copy->ownedBy->name)->send(new CopyAvailable($copy));
-                   PushMessages::sendNotificationToExternalUser(__("bookstore.copy_available_short_message", "item_name" => $copy->longName), $copy->ownedBy->id,
+                   \PushMessages::sendNotificationToExternalUser(__("bookstore.copy_available_short_message", ["item_name" => $copy->longName]), $copy->ownedBy->id,
                     $copy->publicUrl);
                  }
              }
