@@ -24,5 +24,5 @@ Route::get('/bookstore-signage', function () {
 
 
 Route::get('{route?}', function () {
-    return response(view('app'))->header("Service-Worker-Allowed", "/");
+    return view('app');
 })->where('route', '(.*)');

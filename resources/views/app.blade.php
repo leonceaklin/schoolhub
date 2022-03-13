@@ -58,7 +58,6 @@
 		  OneSignal.push(function() {
 		    OneSignal.init({
 		      appId: "61dd7782-d16b-4de4-8d21-c12f2823897c",
-					path: "/onesignal/",
 		      safari_web_id: "",
 		      notifyButton: {
 		        enable: false,
