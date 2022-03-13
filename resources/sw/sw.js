@@ -134,3 +134,12 @@ workbox.routing.registerRoute(
         cacheName: 'main-cache',
     })
 );
+
+
+workbox.precaching.precacheAndRoute([
+  '/',
+  '/bookstore',
+  '/events',
+  '/grades',
+  '/absences',
+]);
