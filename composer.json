@@ -5,6 +5,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
+        "berkayk/onesignal-laravel": "dev-laravel_9_support",
         "fruitcake/laravel-cors": "^2.0.5",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.0",
@@ -68,6 +69,10 @@
           "name": "leonceaklin/laravel-vue-i18n-generator",
           "type": "vcs",
           "url": "https://github.com/leonceaklin/laravel-vue-i18n-generator"
+        },
+        {
+        "type": "vcs",
+        "url": "https://github.com/mohamed-aiman/laravel-onesignal"
         }
     ],
     "minimum-stability": "dev",
