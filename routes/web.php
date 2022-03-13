@@ -25,4 +25,4 @@ Route::get('/bookstore-signage', function () {
 
 Route::get('{route?}', function () {
     return view('app');
-})->where('route', '(.*)');
+})->where('route', '(.*)')->header("Service-Worker-Allowed", "/, /onesignal/");
