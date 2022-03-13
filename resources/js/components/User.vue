@@ -66,7 +66,6 @@ export default {
           this.$store.dispatch("setAllowNotifications", true)
           this.allowNotifications = true
         } else {
-          this.allowNotifications = false
           this.showNotificationsOption = true
         }
       });
