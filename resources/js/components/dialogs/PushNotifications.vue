@@ -13,9 +13,14 @@
       <v-card-text>
         <div class="notification-banner">
           <v-icon size="xl">mdi-bell</v-icon>
-          <p>{{ $t('general.notifications_question') }}</p>
-          <v-btn class="primary full-width mb-3" @click="subscribe">{{ $t('general.notifications_yes') }}</v-btn>
-          <v-btn class="full-width" text @click="deny">{{ $t('general.notifications_no') }}</v-btn>
+          <div v-if="!askingForPermission">
+            <p>{{ $t('general.notifications_question') }}</p>
+            <v-btn class="primary full-width mb-3" @click="subscribe">{{ $t('general.notifications_yes') }}</v-btn>
+            <v-btn class="full-width" text @click="deny">{{ $t('general.notifications_no') }}</v-btn>
+          </div>
+          <div v-else>
+            <p>{{ $t('general.notifications_native_prompt_info') }}</p>
+          </div>
         </div>
       </v-card-text>
     </v-card>
@@ -28,7 +33,8 @@ export default {
   data(){
     return{
       showDialog: false,
-      allowNotifications: this.$store.state.allowNotifications
+      allowNotifications: this.$store.state.allowNotifications,
+      askingForPermission: true
     }
   },
   computed: {
@@ -39,11 +45,17 @@ export default {
   methods: {
     subscribe(){
       this.$store.dispatch("setAllowNotifications", true)
-      window.OneSignal.push(["registerForPushNotifications"]);
-      this.showDialog = false
+      this.askingForPermission = true
+      window.OneSignal.push(["registerForPushNotifications", () => {
+        window.OneSignal.push(["setSubscription", true]);
+        this.showDialog = false
+      }]);
+      window.OneSignal.push(["setSubscription", true]);
     },
     deny(){
       this.$store.dispatch("setAllowNotifications", false)
+      this.showDialog = false
+      window.OneSignal.push(["setSubscription", false]);
     }
   },
   mounted(){
@@ -59,7 +71,7 @@ export default {
       window.OneSignal.isPushNotificationsEnabled((isEnabled) => {
         if (isEnabled) {
           // The user is subscribed to notifications
-          // Don't show anything
+          this.$store.dispatch("setAllowNotifications", true)
         } else {
           this.showDialog = true
         }
