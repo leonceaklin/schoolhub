@@ -73,6 +73,7 @@ return [
   "copy_code_info" => "Schreibe ihn mit grossen Buchstaben auf einen Zettel und klebe diesen gut sichtbar auf das Buch. Dieses kannst du während den Öffnungszeiten beim Bookstore PickUp vorbeibringen.",
   "copy_code_introduction" => "Abschliessend musst du dein Buch mit folgendem Code kennzeichnen:",
   "sell_item_charity_info" => "Zudem spenden wir :amount beim Verkauf an :charity_name",
+  "donation" => "Spende",
 
   "copy_available_introduction" => "Du hast ein Exemplar von :item_name zum Verkauf abgegeben. Wir haben es nun überprüft und im Store verfügbar gemacht.",
   "copy_submitted_introduction" => "Du hast vor Kurzem ein Exemplar von :item_name zum Verkauf eingereicht.",

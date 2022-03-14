@@ -41,7 +41,7 @@ class TransferOrderController extends Controller
         $charities = [];
         $totalAmount = 0;
 
-        $detailHeaders = [__("bookstore.uid"), __("bookstore.title"), __("bookstore.isbn"), __("bookstore.sold_on"), __("bookstore.seller"), __("bookstore.price")];
+        $detailHeaders = [__("bookstore.uid"), __("bookstore.title"), __("bookstore.isbn"), __("bookstore.sold_on"), __("bookstore.seller"), __("bookstore.price"), __("bookstore.donation")];
 
         $detailCopies = [];
         foreach($copies as $copy){
@@ -51,7 +51,8 @@ class TransferOrderController extends Controller
             $copy->_item->isbn."",
             $this->excelDate($copy->sold_on),
             $copy->ownedBy->first_name." ".$copy->ownedBy->last_name." (".$copy->ownedBy->iban.")",
-            $copy->price
+            $copy->price,
+            $copy->donation ? "TRUE" : "FALSE",
           ];
 
           $totalAmount += $copy->price;
@@ -70,7 +71,7 @@ class TransferOrderController extends Controller
           $entriesByUser["user_".$copy->owned_by]["copies"][] = $copy;
         }
 
-        $detailData = [];
+        $detailData = [$detailHeaders];
         foreach($detailCopies as $copy){
           $detailData[] = $copy;
         }
