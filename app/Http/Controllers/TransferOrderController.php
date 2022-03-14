@@ -58,7 +58,7 @@ class TransferOrderController extends Controller
             $copyRow[] = "CHF ".$copy->charityAmount." ".__("bookstore.to")." ".$copy->_charity->name;
           }
 
-          $detailCopies = $copyRow;
+          $detailCopies[] = $copyRow;
 
           $totalAmount += $copy->price;
 
