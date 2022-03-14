@@ -100,6 +100,10 @@ class Copy extends Model
       return number_format($this->payback, 2, '.', '');
     }
 
+    public function getEarningsAttribute(){
+      return $this->price - $this->payback - $this->charityAmount;
+    }
+
     public function getCharityAmountAttribute(){
       $price = $this->price;
       if($this->donation == true){

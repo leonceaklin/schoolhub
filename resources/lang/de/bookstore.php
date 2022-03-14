@@ -27,6 +27,9 @@ return [
   "login_to_order" => "Einloggen zum bestellen",
   "login_to_sell" => "Einloggen zum verkaufen",
   "sell_for" => "Für :price verkaufen",
+  "earnings_so" => "Einnahmen SO",
+  "payback_to_seller" => "Rückzahlung an Verkäufer:in",
+  "organization" => "Organisation",
 
 
   "transfer_order_title" => "Überweisungsauftrag :store_name",

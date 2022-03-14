@@ -39,9 +39,13 @@ class TransferOrderController extends Controller
 
         $entriesByUser = [];
         $charities = [];
-        $totalAmount = 0;
 
-        $detailHeaders = [__("bookstore.uid"), __("bookstore.title"), __("bookstore.isbn"), __("bookstore.sold_on"), __("bookstore.seller"), __("bookstore.price"), __("bookstore.donation")];
+        $totalAmount = 0;
+        $totalPaybackAmount = 0;
+        $totalCharityAmount = 0;
+        $totalEarningsAmount = 0;
+
+        $detailHeaders = [__("bookstore.uid"), __("bookstore.title"), __("bookstore.isbn"), __("bookstore.sold_on"), __("bookstore.seller"), __("bookstore.price"), __("bookstore.earnings_so"), __("bookstore.payback_to_seller"), __("bookstore.donation"), __("bookstore.organization")];
 
         $detailCopies = [];
         foreach($copies as $copy){
@@ -52,15 +56,21 @@ class TransferOrderController extends Controller
             $this->excelDate($copy->sold_on),
             $copy->ownedBy->first_name." ".$copy->ownedBy->last_name." (".$copy->ownedBy->iban.")",
             $copy->price,
+            $copy->earnings,
+            $copy->payback,
           ];
 
           if($copy->charityAmount > 0){
-            $copyRow[] = "CHF ".$copy->charityAmount." ".__("bookstore.to")." ".$copy->_charity->name;
+            $copyRow[] = $copy->charityAmount;
+            $copyRow[] = $copy->_charity->name;
           }
 
           $detailCopies[] = $copyRow;
 
           $totalAmount += $copy->price;
+          $totalPaybackAmount += $copy->payback;
+          $totalEarningsAmount += $copy->earnings;
+          $totalCharityAmount += $copy->charityAmount;
 
           if($copy->charityAmount > 0){
             $charities["charity_".$copy->charity]["charity"] = $copy->_charity;
@@ -80,7 +90,7 @@ class TransferOrderController extends Controller
         foreach($detailCopies as $copy){
           $detailData[] = $copy;
         }
-        $summaryData[] = ['', '', '', '', '', "TOTAL", $totalAmount];
+        $detailData[] = [null, null, null, null, null, "TOTAL", $totalAmount, $totalEarningsAmount, $totalPaybackAmount, $totalCharityAmount];
 
         $totalTransferAmount = 0;
         $summaryHeaders = [__("auth.first_name"), __("auth.last_name"), __("auth.email"), __("auth.mobile"), __("auth.zip"), __("auth.city"), __("auth.iban"), __("bookstore.amount")];
@@ -122,7 +132,7 @@ class TransferOrderController extends Controller
         foreach($summaryUsers as $user){
           $summaryData[] = $user;
         }
-        $summaryData[] = ['', '', '', '', '', '', "TOTAL", $totalTransferAmount];
+        $summaryData[] = [null, null, null, null, null, null, "TOTAL", $totalTransferAmount];
 
 
         $chfNumberFormat = '"CHF "#,##0.00_-';
@@ -176,13 +186,31 @@ class TransferOrderController extends Controller
         $detail->mergeCells("A1:G1");
         $detail->setCellValue('A1', __("bookstore.sold_copies"));
         $detail->getStyle("A1")->applyFromArray($titleStyle);
-        $detail->getStyle("A2:G2")->applyFromArray($tableHeadStyle);
-        $detail->getStyle("A3:G".sizeof($detailData)+1)->applyFromArray($tableContentStyle);
+        $detail->getStyle("A2:J2")->applyFromArray($tableHeadStyle);
+        $detail->getStyle("A3:J".sizeof($detailData)+1)->applyFromArray($tableContentStyle);
 
         $detail->fromArray($detailData, NULL, 'A2');
 
         for($i = 3; $i < sizeof($detailData) + 3; $i++){
           $coordinate = "F".$i;
+          $value = $detail->getCell($coordinate)->getStyle()->getNumberFormat()
+          ->setFormatCode($chfNumberFormat);
+        }
+
+        for($i = 3; $i < sizeof($detailData) + 3; $i++){
+          $coordinate = "G".$i;
+          $value = $detail->getCell($coordinate)->getStyle()->getNumberFormat()
+          ->setFormatCode($chfNumberFormat);
+        }
+
+        for($i = 3; $i < sizeof($detailData) + 3; $i++){
+          $coordinate = "H".$i;
+          $value = $detail->getCell($coordinate)->getStyle()->getNumberFormat()
+          ->setFormatCode($chfNumberFormat);
+        }
+
+        for($i = 3; $i < sizeof($detailData) + 3; $i++){
+          $coordinate = "I".$i;
           $value = $detail->getCell($coordinate)->getStyle()->getNumberFormat()
           ->setFormatCode($chfNumberFormat);
         }
@@ -206,6 +234,9 @@ class TransferOrderController extends Controller
         $detail->getColumnDimension('E')->setAutoSize(true);
         $detail->getColumnDimension('F')->setAutoSize(true);
         $detail->getColumnDimension('G')->setAutoSize(true);
+        $detail->getColumnDimension('H')->setAutoSize(true);
+        $detail->getColumnDimension('I')->setAutoSize(true);
+        $detail->getColumnDimension('J')->setAutoSize(true);
 
         $detail->freezePane("A3");
 
