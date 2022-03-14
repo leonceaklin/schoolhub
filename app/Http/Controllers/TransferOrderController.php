@@ -90,7 +90,12 @@ class TransferOrderController extends Controller
         foreach($detailCopies as $copy){
           $detailData[] = $copy;
         }
-        $detailData[] = [null, null, null, null, "TOTAL", $totalAmount, $totalEarningsAmount, $totalPaybackAmount, $totalCharityAmount];
+        $detailData[] = [null, null, null, null, "TOTAL",
+          number_format($totalAmount, 2, '.', ''),
+          number_format($totalEarningsAmount, 2, '.', ''),
+          number_format($totalPaybackAmount, 2, '.', ''),
+          number_format($totalCharityAmount, 2, '.', '')
+        ];
 
         $totalTransferAmount = 0;
         $summaryHeaders = [__("auth.first_name"), __("auth.last_name"), __("auth.email"), __("auth.mobile"), __("auth.zip"), __("auth.city"), __("auth.iban"), __("bookstore.amount")];
@@ -132,7 +137,9 @@ class TransferOrderController extends Controller
         foreach($summaryUsers as $user){
           $summaryData[] = $user;
         }
-        $summaryData[] = [null, null, null, null, null, null, "TOTAL", $totalTransferAmount];
+        $summaryData[] = [null, null, null, null, null, null, "TOTAL",
+          number_format($totalTransferAmount, 2, '.', '')
+        ];
 
 
         $chfNumberFormat = '"CHF "#,##0.00_-';
