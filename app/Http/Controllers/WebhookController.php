@@ -218,9 +218,7 @@ class WebhookController extends Controller
        }
 
 
-       $paybackCopies = Copy::where("commission", null)->whereHas("_store", function($query){
-         $query->where("commission", "!=", null);
-       })->get();
+       $paybackCopies = Copy::where("commission", null)->get();
 
        foreach($paybackCopies as $copy){
          $store = $copy->_store;
