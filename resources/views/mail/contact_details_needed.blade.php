@@ -21,7 +21,7 @@
   @choice("bookstore.contact_details_needed_sold_copies", sizeof($soldCopies))
 <ul>
   @foreach($soldCopies as $copy)
-    <li>{{ $copy->_item->title }} - CHF {{ $copy->payback }}</li>
+    <li>{{ $copy->_item->title }} - CHF {{ $copy->paybackFormatted }}</li>
   @endforeach
 </ul><br><br>
 {{ __("bookstore.contact_details_needed_action") }}

@@ -39,7 +39,7 @@ class TransferOrderController extends Controller
 
         $entriesByUser = [];
         $totalAmount = 0;
-        
+
         $detailData = [[__("bookstore.uid"), __("bookstore.title"), __("bookstore.isbn"), __("bookstore.sold_on"), __("bookstore.seller"), __("bookstore.price")]];
         foreach($copies as $copy){
           $detailData[] = [
@@ -70,7 +70,7 @@ class TransferOrderController extends Controller
           foreach($copies as $copy){
             $amount+= $copy->payback;
           }
-          $column[] = $amount;
+          $column[] = $copy->paybackFormatted;
           $totalTransferAmount += $amount;
 
           $summaryData[] = $column;

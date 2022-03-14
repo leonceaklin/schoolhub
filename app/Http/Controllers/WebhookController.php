@@ -216,6 +216,23 @@ class WebhookController extends Controller
              }
          }
        }
+
+
+       $paybackCopies = Copy::where("payback", null)->whereHas("_store", function($query){
+         $query->where("payback", "!=", null);
+       })->get();
+
+       foreach($paybackCopies as $copy){
+         $store = $copy->_store;
+
+         $copy->payback = $store->payback;
+         $copy->charity_payback = $store->charity_payback;
+
+         if($store->_charity != null){
+           $copy->charity = $store->charity;
+         }
+         $copy->save();
+       }
      }
 
 

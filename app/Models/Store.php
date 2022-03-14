@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Copy;
 use App\Models\File;
 use App\Models\TransferOrder;
+use App\Models\Charity;
 
 class Store extends Model
 {
@@ -22,5 +23,10 @@ class Store extends Model
 
     public function copies(){
       return $this->hasMany(Copy::class, 'store');
+    }
+
+
+    public function _charity(){
+      return $this->belongsTo(Charity::class, 'charity');
     }
 }

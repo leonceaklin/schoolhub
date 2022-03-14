@@ -239,7 +239,23 @@ class BookstoreController extends Controller
          return null;
        }
        $copy->owned_by = $this->user()->id;
-       $copy->store = $this->user()->_school->stores[0]->id;
+       $store =  $this->user()->_school->stores[0];
+       $copy->store = $store->id;
+
+       if($store->commission != null && $store->commission > 0 && $store->commission <= 1){
+         $copy->commission = $store->commission;
+       }
+
+       if($store->charity_commission != null && $store->charity_commission > 0 && $store->charity_commission <= 1){
+         $copy->charity_commission = $store->charity_commission;
+       }
+
+       if($store->charity != null && $store->_charity != null){
+         $copy->charity = $store->charity;
+       }
+
+       $copy->donation = $data->donation;
+
        $copy->generateOrderHash();
 
        $item = Item::find($data->item);

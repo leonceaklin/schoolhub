@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Item;
 use App\Models\TransferOrder;
 use App\Models\Store;
+use App\Models\Charity;
 
 class Copy extends Model
 {
@@ -24,8 +25,6 @@ class Copy extends Model
         'ordered_on',
         'prepared_since'
     ];
-
-    public $commission = 0.15;
 
     public function __construct(){
       $this->generateUid();
@@ -56,9 +55,60 @@ class Copy extends Model
       return $this->belongsTo(Edition::class, 'edition');
     }
 
+    public function _charity(){
+      return $this->belongsTo(Charity::class, 'charity');
+    }
+
+    public function getRealCommissionAttribute(){
+      if($this->commission != null && $this->commission >= 0 && $this->commission <= 1){
+        $commission = $this->commission;
+      }
+      else if($this->_store->commission != null && $this->_store->commission >= 0 && $this->_store->commission <= 1){
+        $commission = $this->_store->commission;
+      }
+      else{
+        $commission = 0;
+      }
+      return $commission;
+    }
+
+    public function getRealCharityCommissionAttribute(){
+      if($this->charity_commission != null && $this->charity_commission >= 0 && $this->charity_commission <= 1){
+        $commission = $this->charity_commission;
+      }
+      else if($this->_store->charity_commission != null && $this->_store->charity_commission >= 0 && $this->_store->charity_commission <= 1){
+        $commission = $this->_store->charity_commission;
+      }
+      else{
+        $commission = 0;
+      }
+      return $commission;
+    }
+
     public function getPaybackAttribute(){
       $price = $this->price;
-      return number_format($price*(1 - $this->commission), 2, '.', '');
+      if($this->donation == true){
+        $payback = 0;
+      }
+      else{
+        $payback = $price*(1 - $this->realCommission);
+      }
+      return $payback;
+    }
+
+    public function getPaybackFormattedAttribute(){
+      return number_format($this->payback, 2, '.', '');
+    }
+
+    public function getCharityPaybackAttribute(){
+      $price = $this->price;
+      if($this->donation == true){
+        $payback = $price;
+      }
+      else{
+        $payback = $price * $this->realCommission * $this->realCharityCommission;
+      }
+      return $payback;
     }
 
     public function getPublicUrlAttribute(){
