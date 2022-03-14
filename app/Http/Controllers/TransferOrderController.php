@@ -45,15 +45,20 @@ class TransferOrderController extends Controller
 
         $detailCopies = [];
         foreach($copies as $copy){
-          $detailCopies[] = [
+          $copyRow = [
             $copy->uid,
             $copy->_item->title,
             $copy->_item->isbn."",
             $this->excelDate($copy->sold_on),
             $copy->ownedBy->first_name." ".$copy->ownedBy->last_name." (".$copy->ownedBy->iban.")",
             $copy->price,
-            $copy->donation ? "TRUE" : "FALSE",
           ];
+
+          if($copy->charityAmount > 0){
+            $copyRow[] = "CHF ".$copy->charityAmount." ".__("bookstore.to")." ".$copy->_charity->name;
+          }
+
+          $detailCopies = $copyRow;
 
           $totalAmount += $copy->price;
 
@@ -75,6 +80,7 @@ class TransferOrderController extends Controller
         foreach($detailCopies as $copy){
           $detailData[] = $copy;
         }
+        $summaryData[] = [null, null, null, null, null, "TOTAL", $totalAmount];
 
         $totalTransferAmount = 0;
         $summaryHeaders = [__("auth.first_name"), __("auth.last_name"), __("auth.email"), __("auth.mobile"), __("auth.zip"), __("auth.city"), __("auth.iban"), __("bookstore.amount")];
@@ -102,6 +108,8 @@ class TransferOrderController extends Controller
           $charity = $charityEntry["charity"];
           $amount = $charityEntry["amount"];
 
+          $totalTransferAmount += $amount;
+
           $column = [$charity->name, null, $charity->email, null, $charity->zip, $charity->city, $charity->iban, $amount];
           $summaryCharities[] = $column;
         }
@@ -114,6 +122,7 @@ class TransferOrderController extends Controller
         foreach($summaryUsers as $user){
           $summaryData[] = $user;
         }
+        $summaryData[] = [null, null, null, null, null, null, "TOTAL", $totalTransferAmount];
 
 
         $chfNumberFormat = '"CHF "#,##0.00_-';
@@ -164,11 +173,11 @@ class TransferOrderController extends Controller
         $detail = $spreadsheet->getActiveSheet();
 
         $detail->setTitle(__("bookstore.sold_copies"));
-        $detail->mergeCells("A1:F1");
+        $detail->mergeCells("A1:G1");
         $detail->setCellValue('A1', __("bookstore.sold_copies"));
         $detail->getStyle("A1")->applyFromArray($titleStyle);
-        $detail->getStyle("A2:F2")->applyFromArray($tableHeadStyle);
-        $detail->getStyle("A3:F".sizeof($detailData)+1)->applyFromArray($tableContentStyle);
+        $detail->getStyle("A2:G2")->applyFromArray($tableHeadStyle);
+        $detail->getStyle("A3:G".sizeof($detailData)+1)->applyFromArray($tableContentStyle);
 
         $detail->fromArray($detailData, NULL, 'A2');
 
@@ -196,6 +205,7 @@ class TransferOrderController extends Controller
         $detail->getColumnDimension('D')->setAutoSize(true);
         $detail->getColumnDimension('E')->setAutoSize(true);
         $detail->getColumnDimension('F')->setAutoSize(true);
+        $detail->getColumnDimension('G')->setAutoSize(true);
 
         $detail->freezePane("A3");
 
