@@ -38,11 +38,14 @@ class TransferOrderController extends Controller
         $copies = $transferOrder->copies;
 
         $entriesByUser = [];
+        $charities = [];
         $totalAmount = 0;
 
-        $detailData = [[__("bookstore.uid"), __("bookstore.title"), __("bookstore.isbn"), __("bookstore.sold_on"), __("bookstore.seller"), __("bookstore.price")]];
+        $detailHeaders = [__("bookstore.uid"), __("bookstore.title"), __("bookstore.isbn"), __("bookstore.sold_on"), __("bookstore.seller"), __("bookstore.price")];
+
+        $detailCopies = [];
         foreach($copies as $copy){
-          $detailData[] = [
+          $detailCopies[] = [
             $copy->uid,
             $copy->_item->title,
             $copy->_item->isbn."",
@@ -53,13 +56,28 @@ class TransferOrderController extends Controller
 
           $totalAmount += $copy->price;
 
+          if($copy->charityAmount > 0){
+            $charities["charity_".$copy->charity]["charity"] = $copy->_charity;
+            if(isset($charities["charity_".$copy->charity]["amount"])){
+              $charities["charity_".$copy->charity]["amount"] += $copy->charityAmount;
+            }
+            else{
+              $charities["charity_".$copy->charity]["amount"] = $copy->charityAmount;
+            }
+          }
+
           $entriesByUser["user_".$copy->owned_by]["user"] = $copy->ownedBy;
           $entriesByUser["user_".$copy->owned_by]["copies"][] = $copy;
         }
 
-        $totalTransferAmount = 0;
-        $summaryData = [[__("auth.first_name"), __("auth.last_name"), __("auth.email"), __("auth.mobile"), __("auth.zip"), __("auth.city"), __("auth.iban"), __("bookstore.amount")]];
+        $detailData = [];
+        foreach($detailCopies as $copy){
+          $detailData[] = $copy;
+        }
 
+        $totalTransferAmount = 0;
+        $summaryHeaders = [__("auth.first_name"), __("auth.last_name"), __("auth.email"), __("auth.mobile"), __("auth.zip"), __("auth.city"), __("auth.iban"), __("bookstore.amount")];
+        $summaryUsers = [];
         foreach($entriesByUser as $key => $userEntry){
           $user = $userEntry["user"];
           $copies = $userEntry["copies"];
@@ -70,10 +88,30 @@ class TransferOrderController extends Controller
           foreach($copies as $copy){
             $amount+= $copy->payback;
           }
-          $column[] = $copy->paybackFormatted;
+          $column[] = $amount;
           $totalTransferAmount += $amount;
 
-          $summaryData[] = $column;
+          if($amount > 0){
+            $summaryUsers[] = $column;
+          }
+        }
+
+        $summaryCharities = [];
+        foreach($charities as $key => $charityEntry){
+          $charity = $charityEntry["charity"];
+          $amount = $charityEntry["amount"];
+
+          $column = [$charity->name, null, $charity->email, null, $charity->zip, $charity->city, $charity->iban, $amount];
+          $summaryCharities[] = $column;
+        }
+
+
+        $summaryData = [$summaryHeaders];
+        foreach($summaryCharities as $charity){
+          $summaryData[] = $charity;
+        }
+        foreach($summaryUsers as $user){
+          $summaryData[] = $user;
         }
 
 
@@ -178,6 +216,11 @@ class TransferOrderController extends Controller
           $coordinate = "H".$i;
           $value = $summary->getCell($coordinate)->getStyle()->getNumberFormat()
           ->setFormatCode($chfNumberFormat);
+        }
+
+        for($i = 3; $i < sizeof($summaryCharities) + 3; $i++){
+          $coordinate = "A".$i.":B".$i;
+          $value = $summary->mergeCells($coordinate);
         }
 
         $summary->getColumnDimension('A')->setAutoSize(true);

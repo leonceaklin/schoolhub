@@ -36,6 +36,7 @@ export default {
   mounted(){
     window.bookstore = this
     _paq.push(['trackGoal', 4])
+    this.$store.dispatch("fetchStore");
   }
 }
 </script>

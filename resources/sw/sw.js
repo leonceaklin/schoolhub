@@ -130,7 +130,7 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-    new RegExp('/.*$'),
+    new RegExp('^/(?!api$)[a-z0-9]+$'),
     new StaleWhileRevalidate({
         cacheName: 'main-cache',
     })

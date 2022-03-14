@@ -9,18 +9,18 @@
     <div class="scroll-content">
     <div class="my-2 mx-5 nav-padding">
     <img v-if="!item" :src="baseUrl+'/images/sell.svg'" class="sell-icon">
-    <h2 class="center">Verkaufe ein Buch</h2>
+    <h2 class="center">{{ $t('bookstore.sell_a_book') }}</h2>
 
       <div v-if="!this.item">
-        <p class="center">Scanne als erstes den Barcode deines Buchs, um herauszufinden, ob wir es verkaufen können.</p>
-          <v-btn class="primary full-width" v-if="!showScanner" @click="showScanner = true; showManually = false"><v-icon dark left>mdi-barcode-scan</v-icon>Barcode scannen</v-btn>
+        <p class="center">{{ $t('bookstore.scan_barcode_first') }}</p>
+          <v-btn class="primary full-width" v-if="!showScanner" @click="showScanner = true; showManually = false"><v-icon dark left>mdi-barcode-scan</v-icon>{{ $t('bookstore.scan_barcode') }}</v-btn>
           <barcode-scanner v-if="showScanner" @scan="checkIsbn" @error="showScanner = false; showManually = true"></barcode-scanner>
 
           <v-btn class="full-width mt-3" v-if="!this.showManually" @click="showManually = true; showScanner = false">ISBN manuell eingeben</v-btn>
           <v-text-field autofocus @keydown="checkIsbnInput" v-if="showManually" type="text" :hint="$t('bookstore.isbn_hint')" v-model="isbnInput" class="mt-4" outlined label="ISBN" pattern="\d*"></v-text-field>
 
-          <div v-if="notFound" class="text--secondary">Wir haben nichts gefunden. Du kannst eine Aufnahme des Buchs beantragen:<br>
-              <v-btn class="btn primary mt-2 full-width" :href="'mailto:GymLi Bookstore Support<'+'buecher'+'gymli'+'estal'+'@'+'gma'+'il.c'+'om?subject=['+isbn+'] Bitte nehmt dieses Buch in den Bookstore auf&body=ISBN: '+isbn+'%0D%0AMein Name: '+user.name+' ('+user.username+')%0D%0ADas Buch heisst: %0D%0AWird in folgendem Fach verwendet: %0D%0A'"><v-icon dark left>mdi-book</v-icon>Aufnahme beantragen</v-btn>
+          <div v-if="notFound" class="text--secondary">{{ $t("bookstore.sell_item_not_found") }}<br>
+              <v-btn class="btn primary mt-2 full-width" :href="'mailto:GymLi Bookstore Support<'+'buecher'+'gymli'+'estal'+'@'+'gma'+'il.c'+'om?subject=['+isbn+'] Bitte nehmt dieses Buch in den Bookstore auf&body=ISBN: '+isbn+'%0D%0AMein Name: '+user.name+' ('+user.username+')%0D%0ADas Buch heisst: %0D%0AWird in folgendem Fach verwendet: %0D%0A'"><v-icon dark left>mdi-book</v-icon>{{ $t("bookstore.apply_for_admission") }}</v-btn>
           </div>
       </div>
       <div class="mt-3" v-if="this.item">
@@ -31,6 +31,11 @@
         <v-text-field @blur="validatePrice" @keydown="checkPriceInput" class="mt-5" :error="priceError" pattern="\d*" prefix="CHF" type="number" v-model="price" outlined autofocus :min="1" :max="200" label="Preis" :hint="priceHint"></v-text-field>
 
         <v-select v-model="edition" :items="editions" v-if="editions.length > 0" outlined label="Auflage"></v-select>
+
+        <v-switch v-if="allowDonations" v-model="donation">
+          <template v-slot:label>{{ $t("bookstore.donate_amount_to") }}<v-img v-if="charity && charity.logo" class="ml-3 charity-logo-small" :alt="charity.name" :src="charity.logo.data.full_url" /></template>
+        </v-switch>
+
         <login ref="loginForm" @success="goToConfirmation" />
 
         <v-btn @click="goToConfirmation" :loading="verifyingAccount" v-if="this.price" class="primary full-width mt-2" :disabled="priceError || !editionValid">{{ sellConfirmText }}</v-btn>
@@ -44,7 +49,7 @@
       <v-card>
           <v-card-title>
             <v-btn icon class="mr-2" @click="confirmSaleVisible = false"><v-icon>mdi-close</v-icon></v-btn>
-            Verkauf bestätigen
+            {{ $t("bookstore.confirm_sale") }}
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text class="pa-4">
@@ -52,20 +57,33 @@
               <div v-if="item" class="mt-5 text-main">
               <v-img class="full-cover small elevation-2 mt-2" :aspect-ratio="item.cover.width/item.cover.height" :src="item.cover.data.thumbnails[5].url"></v-img>
               <h2 class="item-title">{{ item.title }}</h2>
-              <h3 class="item-authors mb-3">wird verkauft für CHF {{ price }}.-</h3>
-              <h3 class="item-authors mt-6">Du erhältst beim Verkauf von uns:</h3>
-              <h2 class="copy-price-large mt-2">CHF {{ payback }}</h2>
+              <h3 class="item-authors mb-3">{{ $t("bookstore.gets_sold_for", {price: "CHF "+price+".-"}) }}</h3>
+              <template v-if="!donation">
+                <h3 class="item-authors mt-6">{{ $t("bookstore.get_at_sale") }}</h3>
+                <h2 class="copy-price-large mt-2">CHF {{ payback }}</h2>
+                <div v-if="charity && charityAmount > 0">
+                  <v-img v-if="charity && charity.logo" class="mx-auto mb-2 charity-logo-small" :alt="charity.name" :src="charity.logo.data.full_url" />
+                  <h3 class="item-authors mb-7">{{ $t("bookstore.sell_item_charity_info", {amount: "CHF "+charityAmount, charity_name: charity.name}) }}</h3>
+                </div>
+              </template>
+              <template v-else>
+                <h3 class="item-authors mt-6">{{ $t("bookstore.donate_at_sale") }}</h3>
+                <h2 class="copy-price-large mt-2 mb-2">CHF {{ price }}.-</h2>
+                <h3 class="item-authors">an</h3>
+                <v-img v-if="charity && charity.logo" class="mx-auto mb-6 charity-logo-small" :alt="charity.name" :src="charity.logo.data.full_url" />
+              </template>
               </div>
 
               <v-expansion-panels v-model="expansionPanels">
               <v-expansion-panel>
                   <v-expansion-panel-header>
                     <div>
-                      <v-icon class="mr-2">mdi-account</v-icon> Verkaufen als {{ user.first_name }} {{ user.last_name }}
+                      <v-icon class="mr-2">mdi-account</v-icon> {{ $t("bookstore."+(donation ? "donate_as" : "sell_as"), {name: user.first_name + " " + user.last_name}) }}
                     </div>
                   </v-expansion-panel-header>
                   <v-expansion-panel-content>
-                    <p>Überprüfe deine Kontaktdaten, damit wir dir das Geld nach dem Verkauf auszahlen können. Sie gelten für alle Bücher, die du momentan verkaufst.</p>
+                    <p v-if="!donation">{{ $t("bookstore.check_contact_details_sell") }}</p>
+                    <p v-if="donation">{{ $t("bookstore.check_contact_details_donate") }}</p>
                     <v-text-field type="email" :error="!emailValid" :label="$t('auth.email')" :hint="$t('auth.email_hint')" outlined v-model="user.email"></v-text-field>
                     <v-text-field type="tel" :error="user.mobile == ''" :label="$t('auth.mobile')" outlined v-model="user.mobile"></v-text-field>
                     <v-text-field :label="$t('auth.iban')" :error="user.iban == ''" outlined v-model="user.iban"></v-text-field>
@@ -75,7 +93,7 @@
                 </v-expansion-panel>
               </v-expansion-panels>
 
-              <v-btn class="primary full-width mt-5" @click="confirmSale" :loading="loading" :disabled="!formValid">Verkaufen</v-btn>
+              <v-btn class="primary full-width mt-5" @click="confirmSale" :loading="loading" :disabled="!formValid">{{ donation ? $t("bookstore.donate") : $t("bookstore.sell") }}</v-btn>
             </div>
 
           <transition name="fade">
@@ -84,11 +102,11 @@
               <h2 class="item-title">{{ item.title }}</h2>
               <v-icon class="mt-5" large>mdi-check-circle</v-icon>
               <h2 class="my-5">{{ $t('bookstore.your_copy_code') }}</h2>
-              <p>Abschliessend musst du dein Buch mit folgendem Code kennzeichnen:</p>
+              <p>{{ $t("bookstore.copy_code_introduction") }}</p>
               <div class="copy-uid-large mb-4">{{ copy.uid.substring(0,3) }} {{ copy.uid.substring(3,6) }}</div>
-              <p>Schreibe ihn mit grossen Buchstaben auf einen Zettel und klebe diesen gut sichtbar auf das Buch. Dieses kannst du während den Öffnungszeiten beim Bookstore PickUp vorbeibringen.</p>
+              <p>{{ $t("bookstore.copy_code_info") }}</p>
 
-              <v-btn @click="$router.replace({name: 'bookstore'})" class="primary full-width mt-2">Das Buch ist markiert</v-btn>
+              <v-btn @click="$router.replace({name: 'bookstore'})" class="primary full-width mt-2">{{ $t("bookstore.book_is_marked") }}</v-btn>
             </div>
           </transition>
           </v-card-text>
@@ -129,6 +147,7 @@ export default {
       confirmed: false,
       loading: false,
       edition: null,
+      donation: false,
 
       copy: null,
 
@@ -140,6 +159,18 @@ export default {
   },
 
   computed: {
+    commission(){
+      return this.$store.state.store.commission
+    },
+    charityCommission(){
+      return this.$store.state.store.charity_commission
+    },
+    allowDonations(){
+      return this.$store.state.store.allow_donations
+    },
+    charity(){
+      return this.$store.state.store.charity
+    },
     baseUrl(){
       return window.baseUrl
     },
@@ -148,6 +179,15 @@ export default {
     },
     hasUserInfo(){
       return this.$store.state.user && this.$store.state.user.username
+    },
+    charityAmount(){
+      if(this.charity == null){
+        return 0
+      }
+      if(!this.charityCommission){
+        return 0
+      }
+      return Math.round(this.price * this.commission * this.charityCommission * 100)/100
     },
     sellConfirmText(){
       if(this.hasUserInfo){
@@ -179,7 +219,7 @@ export default {
         return ''
       }
       if(this.item.copies.length == 1){
-        return 'Es ist bereits ein Exemplar für CHF '+this.item.copies[0].price+'.- im Bookstore vorhanden'
+        return this.$t("bookstore.already_copy_available", {price: "CHF " + this.item.copies[0].price + ".-"})
       }
         var min = 100000000
         var max = 0
@@ -191,7 +231,7 @@ export default {
             min = copy.price
           }
         }
-        return 'Es sind bereits Exemplare zwischen CHF '+min+'.- und '+max+'.- im Bookstore vorhanden'
+        return this.$t("bookstore.already_copies_available", {min: "CHF " + min + ".-", max: "CHF " + max + ".-"})
     },
     emailValid(){
       var email = this.user.email
@@ -232,7 +272,7 @@ export default {
     },
 
     payback(){
-      var pb = Math.floor(this.price*(1-api.commission)*100)/100
+      var pb = Math.floor(this.price*(1-this.commission)*100)/100
       return (Math.round(pb * 100) / 100).toFixed(2);
     }
   },
@@ -296,7 +336,8 @@ export default {
       this.copy = await api.submitCopy({
         item: this.item.id,
         price: this.price,
-        edition: this.edition
+        edition: this.edition,
+        donation: this.donation
       })
 
       if(this.copy.id){

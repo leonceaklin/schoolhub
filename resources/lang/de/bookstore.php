@@ -36,6 +36,25 @@ return [
   "sold_on" => "Verkaufsdatum",
   "sold_to" => "Verkauft an",
 
+  "donate_as" => "Spenden als",
+  "donate" => "Spenden",
+  "sell" => "Verkaufen",
+  "sell_as" => "Verkaufen als",
+  "donate_as" => "Spenden als",
+  "gets_sold_for" => "wird verkauft für :price",
+  "get_at_sale" => "Du erhältst beim Verkauf von uns:",
+  "donate_at_sale" => "Wir spenden beim Verkauf:",
+  "to" => "an",
+  "check_contact_details_sell" => "Überprüfe deine Kontaktdaten, damit wir dir das Geld nach dem Verkauf auszahlen können. Sie gelten für alle Bücher, die du momentan verkaufst.",
+  "check_contact_details_donate" => "Überprüfe deine Kontaktdaten, damit wir dir das Geld notfalls auch auszahlen könnten. Sie gelten auch für Bücher, die du momentan verkaufst.",
+  "confirm_sale" => "Verkauf bestätigen",
+  "sell_a_book" => "Verkaufe ein Buch",
+  "scan_barcode_first" => "Scanne als erstes den Barcode deines Buchs, um herauszufinden, ob wir es verkaufen können.",
+  "scan_barcode" => "Barcode scannen",
+  "sell_item_not_found" => "Wir haben nichts gefunden. Du kannst eine Aufnahme des Buchs beantragen:",
+  "apply_for_admission" => "Aufnahme beantragen",
+  "already_copy_available" => "Es ist bereits ein Exemplar für :price im Bookstore vorhanden",
+  "already_copies_available" => "Es sind bereits Exemplare zwischen :min und :max im Bookstore vorhanden",
 
   "copy_available_short_message" => "Dein Exemplar von :item_name ist jetzt im Bookstore verfügbar.",
   "store_opened_short_message" => "Der Bookstore hat jetzt geöffnet und du kannst dein Exemplar von :item_name abholen!",
@@ -49,6 +68,11 @@ return [
   "contact_details_needed_subject" => "Wir brauchen deine Kontaktdaten",
   "greeting" => "Hallo :name",
   "best_regards" => "Das Bookstore-Team",
+  "donate_amount_to" => "Betrag spenden an",
+  "book_is_marked" => "Das Buch ist markiert",
+  "copy_code_info" => "Schreibe ihn mit grossen Buchstaben auf einen Zettel und klebe diesen gut sichtbar auf das Buch. Dieses kannst du während den Öffnungszeiten beim Bookstore PickUp vorbeibringen.",
+  "copy_code_introduction" => "Abschliessend musst du dein Buch mit folgendem Code kennzeichnen:",
+  "sell_item_charity_info" => "Zudem spenden wir :amount beim Verkauf an :charity_name",
 
   "copy_available_introduction" => "Du hast ein Exemplar von :item_name zum Verkauf abgegeben. Wir haben es nun überprüft und im Store verfügbar gemacht.",
   "copy_submitted_introduction" => "Du hast vor Kurzem ein Exemplar von :item_name zum Verkauf eingereicht.",
@@ -59,7 +83,7 @@ return [
   "contact_details_needed_action" => "Bitte antworte auf diese Mail und Teile uns deine Kontaktdaten mit, damit wir dir dein Geld bald auszahlen können.",
   "what_next" => "Wie weiter?",
   "order_cancellation_info" => "Hast du etwas falsches bestellt? Du kannst die Bestellung hier stornieren. Es fallen keine Gebühren an.",
-  "copy_available_further" => "Wir werden es für dich nun für CHF :price verkaufen. Abzüglich einer Provision von :commission% erhältst du CHF :payback von uns nach dem Verkauf.",
-  "copy_submitted_further" => "Bring das Exemplar in den nächsten Tagen beim Bookstore PickUp vorbei, wo wir den Zustand bestimmen und es anschliessend im Store verfügbar machen werden.
-  Wir werden es für dich für CHF :price verkaufen. Abzüglich einer Provision von :commission% erhältst du CHF :payback von uns nach dem Verkauf."
+  "copy_available_further_sell" => "Wir werden es für dich nun für :price verkaufen. Abzüglich einer Provision von :commission% erhältst du :payback von uns nach dem Verkauf.",
+  "copy_submitted_further_sell" => "Bring das Exemplar in den nächsten Tagen beim Bookstore PickUp vorbei, wo wir den Zustand bestimmen und es anschliessend im Store verfügbar machen werden.
+  Wir werden es für dich für :price verkaufen. Abzüglich einer Provision von :commission% erhältst du :payback von uns nach dem Verkauf."
 ];

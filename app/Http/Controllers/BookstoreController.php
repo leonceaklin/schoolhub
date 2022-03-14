@@ -254,7 +254,9 @@ class BookstoreController extends Controller
          $copy->charity = $store->charity;
        }
 
-       $copy->donation = $data->donation;
+       if($store->allow_donations){
+         $copy->donation = $data->donation;
+       }
 
        $copy->generateOrderHash();
 

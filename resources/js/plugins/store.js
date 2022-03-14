@@ -55,6 +55,7 @@ export default new Vuex.Store({
   state: {
     latestVersion: "1.0.2",
     fetchingData: false,
+    store: null,
     ...hydratedValues
   },
   mutations: {
@@ -63,6 +64,9 @@ export default new Vuex.Store({
     },
     fetchingStopped(state){
       state.fetchingData = false
+    },
+    setStore(state, data){
+      state.store = data
     },
     setSchoolSystemFetchInterval(state, data){
       state.schoolSystemFetchInterval = data
@@ -120,6 +124,13 @@ export default new Vuex.Store({
 
     stopSchoolSystemFetchInterval({state, commit, dispatch, getters}){
       clearInterval(state.schoolSystemFetchInterval)
+    },
+
+    async fetchStore({commit}){
+      var response = await api.fetch("items/stores/1?fields=*,charity.*.*");
+      if(response.data){
+        commit("setStore", response.data)
+      }
     },
 
     async fetchSchoolSystemData({state, commit, dispatch, getters}){

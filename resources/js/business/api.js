@@ -4,7 +4,6 @@ class SchoolHubApi{
   constructor(data){
     this.catalogUrl = data.catalogUrl
     this.apiUrl = data.apiUrl
-    this.commission = 0.15
   }
 
   set authToken(val){
