@@ -90,7 +90,7 @@ class TransferOrderController extends Controller
         foreach($detailCopies as $copy){
           $detailData[] = $copy;
         }
-        $detailData[] = [null, null, null, null, null, "TOTAL", $totalAmount, $totalEarningsAmount, $totalPaybackAmount, $totalCharityAmount];
+        $detailData[] = [null, null, null, null, "TOTAL", $totalAmount, $totalEarningsAmount, $totalPaybackAmount, $totalCharityAmount];
 
         $totalTransferAmount = 0;
         $summaryHeaders = [__("auth.first_name"), __("auth.last_name"), __("auth.email"), __("auth.mobile"), __("auth.zip"), __("auth.city"), __("auth.iban"), __("bookstore.amount")];

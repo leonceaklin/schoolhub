@@ -69,7 +69,7 @@ class Copy extends Model
       else{
         $commission = 0;
       }
-      return $commission;
+      return number_format($commission, 2, '.', '');
     }
 
     public function getRealCharityCommissionAttribute(){
@@ -82,7 +82,7 @@ class Copy extends Model
       else{
         $commission = 0;
       }
-      return $commission;
+      return number_format($commission, 2, '.', '');
     }
 
     public function getPaybackAttribute(){
@@ -93,15 +93,12 @@ class Copy extends Model
       else{
         $payback = $price*(1 - $this->realCommission);
       }
-      return $payback;
-    }
-
-    public function getPaybackFormattedAttribute(){
-      return number_format($this->payback, 2, '.', '');
+      return number_format($payback, 2, '.', '');
     }
 
     public function getEarningsAttribute(){
-      return $this->price - $this->payback - $this->charityAmount;
+      $earnings = $this->price - $this->payback - $this->charityAmount;
+      return number_format($earnings, 2, '.', '');
     }
 
     public function getCharityAmountAttribute(){
@@ -112,7 +109,7 @@ class Copy extends Model
       else{
         $payback = $price * $this->realCommission * $this->realCharityCommission;
       }
-      return $payback;
+      return number_format($payback, 2, '.', '');
     }
 
     public function getPublicUrlAttribute(){

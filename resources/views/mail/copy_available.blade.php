@@ -16,6 +16,6 @@
 <br>
 <img src="{{ url('/images/pickup.svg') }}" class="icon" alt="{{ __("bookstore.what_next") }}">
 <div class="icon-side-text"><h2>{{ __("bookstore.what_next") }}</h2>
-  {{ __("bookstore.copy_available_further_sell", ["price" => "CHF ".$copy->price.".-", "commission" => $copy->realCommission*100, "payback" => "CHF ".$copy->paybackFormatted]) }}
+  {{ __("bookstore.copy_available_further_sell", ["price" => "CHF ".$copy->price.".-", "commission" => $copy->realCommission*100, "payback" => "CHF ".$copy->payback]) }}
 </div>
 @endsection
