@@ -46,6 +46,19 @@ class WebhookController extends Controller
        return $this->onOrdersUpdated();
      }
 
+     public function onItemsCreated(){
+       return $this->onItemsUpdated();
+     }
+
+     public function onItemsUpdated(){
+       $items = Item::where("slug", null)->get();
+       foreach($items as $item){
+         $slug = str_slug($item->title." ".$item->authors." ".$item->publisher);
+         $item->slug = $slug;
+         $item->save();
+       }
+     }
+
      public function onOrdersUpdated(){
        $orders = Order::where(function($query){
          $query->where("status", "prepared")->where("prepared_since", null);

@@ -62,7 +62,7 @@ const router = new VueRouter({
             component: CancelOrder
           },
           {
-            path: ':item_id/:copy_uid?',
+            path: ':item_slug/:copy_uid?',
             name: 'bookstore.item',
             component: Item
           }

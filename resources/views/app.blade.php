@@ -62,6 +62,10 @@
 		      notifyButton: {
 		        enable: false,
 		      },
+					welcomeNotification: {
+						title: "{{ __("bookstore.notifications_enabled") }}",
+						message: "{{ __("bookstore.notifications_enabled_info") }}"
+					}
 		    });
 		  });
 		</script>

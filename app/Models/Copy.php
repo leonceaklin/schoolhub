@@ -119,7 +119,7 @@ class Copy extends Model
     }
 
     public function getPublicUrlAttribute(){
-      return url("/bookstore/".$this->_item->id."/".$this->uid);
+      return url("/bookstore/".$this->_item->slug."/".$this->uid);
     }
 
     public function getLongNameAttribute(){

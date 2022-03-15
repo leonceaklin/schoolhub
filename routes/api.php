@@ -48,4 +48,8 @@ Route::group(['prefix' => '/webhook', 'middleware' => 'throttle:500,10'], functi
   Route::post('/orders:created', [WebhookController::class, 'onOrdersCreated']);
   Route::post('/orders:deleted', [WebhookController::class, 'onOrdersDeleted']);
 
+  Route::post('/items:updated', [WebhookController::class, 'onItemsUpdated']);
+  Route::post('/items:created', [WebhookController::class, 'onItemsCreated']);
+
+
 });

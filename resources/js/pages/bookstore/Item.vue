@@ -143,10 +143,12 @@ export default {
     this.item =  this.$route.params.item
 
     if(this.item == undefined){
-      this.item = (await api.fetch("items/items?fields=*.*&filter[id]="+this.$route.params.item_id)).data[0]
+      this.item = (await api.fetch("items/items?fields=*.*&filter[slug]="+this.$route.params.item_slug)).data[0]
     }
 
-    this.item.copies = (await api.fetch("items/copies?fields=id,condition,edition.*,price,status,uid&filter[status]=available&filter[ordered_by][null]=&sort=price&filter[item]="+this.$route.params.item_id)).data
+    var itemId = this.item.id
+
+    this.item.copies = (await api.fetch("items/copies?fields=id,condition,edition.*,price,status,uid&filter[status]=available&filter[ordered_by][null]=&sort=price&filter[item]="+itemId)).data
 
     coverTransition.setToElement(this.$refs.coverEl.$el)
     if(this.item.copies.length == 1){
