@@ -67,7 +67,7 @@ class User extends Authenticatable
     }
 
     public function getActiveOrderAttribute(){
-      return $this->orders()->where("status", "placed");
+      return $this->orders()->where("status", "placed")->first();
     }
 
     public function orders(){

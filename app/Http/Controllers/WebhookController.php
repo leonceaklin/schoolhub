@@ -60,8 +60,10 @@ class WebhookController extends Controller
 
           if($order->status == "prepared"){
             foreach($order->copies as $copy){
-              $copy->status = "prepared";
-              $copy->save();
+              if($copy->status == "ordered"){
+                $copy->status = "prepared";
+                $copy->save();
+              }
             }
 
             $order->prepared_since = date("Y-m-d H:i:s");
