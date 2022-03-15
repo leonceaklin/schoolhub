@@ -68,6 +68,7 @@ class WebhookController extends Controller
             }
 
             $order->paid_on = date("Y-m-d H:i:s");
+            $order->calculate();
             $order->save();
             $updateCopies = true;
           }
@@ -88,6 +89,7 @@ class WebhookController extends Controller
             }
 
             $order->prepared_since = date("Y-m-d H:i:s");
+            $order->calculate();
             $order->save();
             $updateCopies = true;
           }
@@ -106,6 +108,10 @@ class WebhookController extends Controller
 
             if($canDelete){
               $order->delete();
+            }
+            else{
+              $order->calculate();
+              $order->save();
             }
             $updateCopies = true;
           }
