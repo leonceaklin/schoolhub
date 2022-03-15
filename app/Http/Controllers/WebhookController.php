@@ -52,7 +52,7 @@ class WebhookController extends Controller
           $query->where("status", "paid")->where("paid_on", null);
         })->orWhere("status", "deleted")
         ->orWhere(function($query){
-          $query->where("updated_on", '<', \Carbon\Carbon::now()->subMinutes(0.2))
+          $query->where("modified_on", '<', \Carbon\Carbon::now()->subMinutes(0.2))
           ->where("calculated_on", '<', \Carbon\Carbon::now()->subMinutes(0.2))
           ->orWhere("calculated_on", null);
         })->get();
