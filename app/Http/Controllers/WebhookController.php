@@ -52,10 +52,11 @@ class WebhookController extends Controller
         })
         ->orWhere(function($query){
           $query->where("status", "paid")->where("paid_on", null);
-        })->orWhere("status", "deleted")
+        })
+        ->orWhere("status", "deleted")
         ->orWhere("modified_on", '>', \Carbon\Carbon::now()->subMinutes(0.2))
         ->orWhere("calculated_on", null)
-        })->get();
+        ->get();
 
         $updateCopies = false;
 
