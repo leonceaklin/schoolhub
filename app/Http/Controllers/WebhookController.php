@@ -110,6 +110,7 @@ class WebhookController extends Controller
               $order->delete();
             }
             else{
+              $order->status = "problem";
               $order->calculate();
               $order->save();
             }
