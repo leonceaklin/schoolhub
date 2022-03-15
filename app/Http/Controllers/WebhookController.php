@@ -38,11 +38,15 @@ class WebhookController extends Controller
 
      }
 
+     public function onOrdersDeleted(){
+       return $this->onOrdersUpdated();
+     }
+
      public function onOrdersUpdated(){
        $orders = Order::where("status", "prepared")->where("prepared_since", null)
         ->orWhere(function($query){
           $query->where("status", "paid")->where("paid_on", null);
-        })->get();
+        })->orWhere("status", "deleted")->get();
 
         $updateCopies = false;
 
@@ -68,6 +72,24 @@ class WebhookController extends Controller
 
             $order->prepared_since = date("Y-m-d H:i:s");
             $order->save();
+            $updateCopies = true;
+          }
+
+          if($order->status == "deleted"){
+            $canDelete = true;
+            foreach($order->copies as $copy){
+              if($copy->status == "ordered" || $copy->status == "prepared" || $copy->status == "available"){
+                $copy->status = "available";
+                $copy->save();
+              }
+              else{
+                $canDelete = false;
+              }
+            }
+
+            if($canDelete){
+              $order->delete();
+            }
             $updateCopies = true;
           }
         }
@@ -179,6 +201,12 @@ class WebhookController extends Controller
        })
        ->orWhere(function($query){
          $query->where('status', 'prepared')->where('ordered_by', null);
+       })
+       ->orWhere(function($query){
+         $query->where('status', 'prepared')->where('order', null);
+       })
+       ->orWhere(function($query){
+         $query->where('status', 'ordered')->where('order', null);
        })
        ->orWhere(function($query){
          $query->where('status', 'prepared')->where('prepared_since', null);
