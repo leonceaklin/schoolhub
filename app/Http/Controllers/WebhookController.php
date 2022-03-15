@@ -47,13 +47,14 @@ class WebhookController extends Controller
      }
 
      public function onOrdersUpdated(){
-       $orders = Order::where("status", "prepared")->where("prepared_since", null)
+       $orders = Order::where(function($query){
+         $query->where("status", "prepared")->where("prepared_on", null);
+        })
         ->orWhere(function($query){
           $query->where("status", "paid")->where("paid_on", null);
         })->orWhere("status", "deleted")
-        ->orWhere(function($query){
-          $query->where("modified_on", '>', \Carbon\Carbon::now()->subMinutes(0.2))
-          ->orWhere("calculated_on", null);
+        ->orWhere("modified_on", '>', \Carbon\Carbon::now()->subMinutes(0.2))
+        ->orWhere("calculated_on", null)
         })->get();
 
         $updateCopies = false;
