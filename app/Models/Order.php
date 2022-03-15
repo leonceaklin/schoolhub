@@ -59,6 +59,7 @@ class Order extends Model
     }
 
     $this->amount = $amount;
+    $this->calculated_on = date("Y-m-d H:i:s");
   }
 
 }
