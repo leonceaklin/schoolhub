@@ -23,6 +23,8 @@ use PushNotifications;
 use App\Models\Store;
 use App\Models\Order;
 
+use Illuminate\Support\Str;
+
 class WebhookController extends Controller
 {
     /**
@@ -53,7 +55,7 @@ class WebhookController extends Controller
      public function onItemsUpdated(){
        $items = Item::where("slug", null)->get();
        foreach($items as $item){
-         $slug = \str_slug($item->title." ".$item->authors." ".$item->publisher);
+         $slug = Str::slug($item->title." ".$item->authors." ".$item->publisher);
          $item->slug = $slug;
          $item->save();
        }
