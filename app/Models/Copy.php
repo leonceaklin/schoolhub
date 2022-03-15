@@ -11,6 +11,8 @@ use App\Models\Item;
 use App\Models\TransferOrder;
 use App\Models\Store;
 use App\Models\Charity;
+use App\Models\Order;
+
 
 class Copy extends Model
 {
@@ -37,6 +39,10 @@ class Copy extends Model
 
     public function _store(){
       return $this->belongsTo(Store::class, 'store');
+    }
+
+    public function _order(){
+      return $this->belongsTo(Order::class, 'order');
     }
 
     public function _transfer_order(){

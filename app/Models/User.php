@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 use App\Models\School;
 use App\Models\Copy;
+use App\Models\Order;
 
 class User extends Authenticatable
 {
@@ -63,6 +64,14 @@ class User extends Authenticatable
 
     public function copiesOrdered(){
       return $this->hasMany(Copy::class, 'ordered_by');
+    }
+
+    public function getActiveOrderAttribute(){
+      return $this->orders()->where("status", "placed");
+    }
+
+    public function orders(){
+      return $this->hasMany(Order::class, 'placed_by');
     }
 
     /**

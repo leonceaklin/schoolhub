@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Mail;
 use PushNotifications;
 
 use App\Models\Store;
-
+use App\Models\Order;
 
 class WebhookController extends Controller
 {
@@ -36,6 +36,43 @@ class WebhookController extends Controller
 
      public function __construct(){
 
+     }
+
+     public function onOrdersUpdated(){
+       $orders = Order::where("status", "prepared")->where("prepared_since", null)
+        ->orWhere(function($query){
+          $query->where("status", "paid")->where("paid_on", null);
+        })->get();
+
+        $updateCopies = false;
+
+        foreach($orders as $order){
+          if($order->status == "paid"){
+            foreach($order->copies as $copy){
+              $copy->status = "sold";
+              $copy->save();
+            }
+
+            $order->paid_on = date("Y-m-d H:i:s");
+            $order->save();
+            $updateCopies = true;
+          }
+
+          if($order->status == "prepared"){
+            foreach($order->copies as $copy){
+              $copy->status = "prepared";
+              $copy->save();
+            }
+
+            $order->prepared_on = date("Y-m-d H:i:s");
+            $order->save();
+            $updateCopies = true;
+          }
+        }
+
+        if($updateCopies){
+          $this->onCopiesUpdated();
+        }
      }
 
      public function onStoresUpdated(){
@@ -71,7 +108,6 @@ class WebhookController extends Controller
         }
       }
      }
-
 
      public function onTransferOrdersCreated(){
 
@@ -147,6 +183,8 @@ class WebhookController extends Controller
        })
        ->get();
 
+       $updateOrders = false;
+
        foreach($copies as $copy){
          if($copy->status == "ordered" || $copy->status == "prepared"){
            if($copy->ordered_by == null){
@@ -166,6 +204,21 @@ class WebhookController extends Controller
             $copy->order_hash = null;
             $copy->transfer_order = null;
             $copy->prepared_since = null;
+
+            if($copy->_order != null){
+              $order = $copy->_order;
+              $copy->order = null;
+              $copy->save();
+              $order->calculate();
+
+              if(sizeof($order->copies) == 0){
+                $order->delete();
+              }
+              else{
+                $order->save();
+                $updateOrders = true;
+              }
+            }
 
              if(!$copy->available_since){
                  $copy->available_since = date("Y-m-d H:i:s");
@@ -190,6 +243,12 @@ class WebhookController extends Controller
            if($copy->prepared_since == null){
              $copy->prepared_since = date("Y-m-d H:i:s");
              $copy->save();
+
+             if($copy->_order != null){
+               $copy->_order->calculate();
+               $copy->_order->save();
+               $updateOrders = true;
+             }
              PushNotifications::sendNotificationToExternalUser(__("bookstore.copy_prepared_short_message", ["item_name" => $copy->longName]), strval($copy->orderedBy->id));
            }
          }
@@ -202,6 +261,12 @@ class WebhookController extends Controller
                    $copy->prepared_since = date("Y-m-d H:i:s");
                  }
                  $copy->save();
+
+                 if($copy->_order != null){
+                   $copy->_order->calculate();
+                   $copy->_order->save();
+                   $updateOrders = true;
+                 }
 
                  //If no IBAN provided
                  if($copy->ownedBy->iban == null || $copy->ownedBy->zip == null || $copy->ownedBy->city == null){
@@ -216,6 +281,11 @@ class WebhookController extends Controller
              }
          }
        }
+
+
+      if($updateOrders){
+        $this->onOrdersUpdated();
+      }
 
 
        $paybackCopies = Copy::where("commission", null)->get();

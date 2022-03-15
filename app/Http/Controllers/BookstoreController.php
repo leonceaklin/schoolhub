@@ -196,7 +196,24 @@ class BookstoreController extends Controller
        $copy->ordered_by = $this->user()->id;
        $copy->ordered_on = date("Y-m-d H:i:s");
        $copy->generateOrderHash();
+
+       if($this->user()->activeOrder != null){
+         $order = $this->user()->activeOrder;
+       }
+       else{
+         $order = new Order();
+         $order->status = "placed";
+         $order->placed_by = $this->user()->id;
+         $order->save();
+       }
+
+       $copy->order = $order->id;
        $copy->save();
+
+
+       $order->calculate();
+       $order->save();
+
        Log::info("Copy ordered.", ["ordered_by" => $copy->ordered_by, "uid" => $copy->uid, "price" => $copy->price, "id" => $copy->id]);
 
        Mail::to($copy->orderedBy->activeEmail, $copy->orderedBy->name)->send(new OrderConfirmed($copy));
@@ -215,7 +232,23 @@ class BookstoreController extends Controller
          $copy->ordered_by = null;
          $copy->ordered_on = null;
          $copy->order_hash = null;
+
+         if($copy->_order){
+           $order = $copy->_order;
+           $copy->order = null;
+           $copy->save();
+
+           if(sizeof($order->copies) == 0){
+             $order->delete();
+           }
+           else{
+             $order->calculate();
+             $order->save();
+           }
+         }
+
          $copy->save();
+
          Log::info("Order cancelled.", ["uid" => $copy->uid, "id" => $copy->id]);
          return $copy;
        }

@@ -40,3 +40,6 @@ Route::post('/webhook/transferorders:updated', [WebhookController::class, 'onTra
 Route::post('/webhook/transferorders:created', [WebhookController::class, 'onTransferOrdersCreated']);
 
 Route::post('/webhook/stores:updated', [WebhookController::class, 'onStoresUpdated']);
+
+Route::post('/webhook/orders:updated', [WebhookController::class, 'onOrdersUpdated']);
+Route::post('/webhook/orders:created', [WebhookController::class, 'onOrdersCreated']);
