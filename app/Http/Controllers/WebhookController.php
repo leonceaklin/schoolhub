@@ -53,7 +53,17 @@ class WebhookController extends Controller
         foreach($orders as $order){
           if($order->status == "paid"){
             foreach($order->copies as $copy){
-              $copy->status = "sold";
+              if($copy->status == "ordered" || $copy->status == "prepared" || $copy->status == "available")
+                $copy->status = "sold";
+
+                if($order->placedBy != null){
+                  $copy->ordered_by = $order->placed_by;
+                }
+              }
+
+              if($order->placedBy == null && $copy->orderedBy != null){
+                $order->placed_by = $copy->ordered_by;
+              }
               $copy->save();
             }
 
@@ -64,9 +74,16 @@ class WebhookController extends Controller
 
           if($order->status == "prepared"){
             foreach($order->copies as $copy){
-              if($copy->status == "ordered"){
+              if($copy->status == "ordered" || $copy->status == "available"){
                 $copy->status = "prepared";
+                if($order->placedBy != null){
+                  $copy->ordered_by = $order->placed_by;
+                }
                 $copy->save();
+              }
+
+              if($order->placedBy == null && $copy->orderedBy != null){
+                $order->placed_by = $copy->ordered_by;
               }
             }
 
@@ -217,7 +234,7 @@ class WebhookController extends Controller
 
        foreach($copies as $copy){
          if($copy->status == "ordered" || $copy->status == "prepared"){
-           if($copy->ordered_by == null){
+           if($copy->ordered_by == null || $copy->_order == null){
              $copy->status = "available";
              $copy->ordered_on = null;
              $copy->transfer_order = null;
