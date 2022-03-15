@@ -33,13 +33,18 @@ Route::post('/{endpoint?}', [BookstoreController::class, 'process']);
 
 //Webhook
 
-Route::post('/webhook/copies:updated', [WebhookController::class, 'onCopiesUpdated']);
-Route::post('/webhook/copies:created', [WebhookController::class, 'onCopiesCreated']);
 
-Route::post('/webhook/transferorders:updated', [WebhookController::class, 'onTransferOrdersUpdated']);
-Route::post('/webhook/transferorders:created', [WebhookController::class, 'onTransferOrdersCreated']);
+Route::group(['prefix' => '/webhook', 'middleware' => 'throttle:500,10'], function () {
 
-Route::post('/webhook/stores:updated', [WebhookController::class, 'onStoresUpdated']);
+  Route::post('/copies:updated', [WebhookController::class, 'onCopiesUpdated']);
+  Route::post('/copies:created', [WebhookController::class, 'onCopiesCreated']);
 
-Route::post('/webhook/orders:updated', [WebhookController::class, 'onOrdersUpdated']);
-Route::post('/webhook/orders:created', [WebhookController::class, 'onOrdersCreated']);
+  Route::post('/transferorders:updated', [WebhookController::class, 'onTransferOrdersUpdated']);
+  Route::post('/transferorders:created', [WebhookController::class, 'onTransferOrdersCreated']);
+
+  Route::post('/stores:updated', [WebhookController::class, 'onStoresUpdated']);
+
+  Route::post('/orders:updated', [WebhookController::class, 'onOrdersUpdated']);
+  Route::post('/orders:created', [WebhookController::class, 'onOrdersCreated']);
+
+});
