@@ -7,9 +7,7 @@
 	<title>Bookstore Signage</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&family=Roboto+Mono&display=swap">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
-	<link href="../css/style.css" rel="stylesheet" type="text/css" />
-	<link href="../css/bookstore.css" rel="stylesheet" type="text/css" />
-	<link href="../css/bookstore-signage.css" rel="stylesheet" type="text/css" />
+	<link href="{{ mix('/css/bookstore-signage.css') }}" rel="stylesheet" type="text/css" />
 
 	<link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
@@ -53,6 +51,6 @@
 
     <script>window.baseUrl = "{{ url("/") }}"</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
-    <script src="{{ url('/js/bookstore-signage.js') }}"></script>
+    <script src="{{ mix('/js/bookstore-signage.js') }}"></script>
   </body>
 </html>

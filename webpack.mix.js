@@ -12,7 +12,7 @@ require('vuetifyjs-mix-extension')
  | file for the application as well as bundling up all the JS files.
  |
  */
-
+mix.version();
 mix.copy('resources/icon', 'public/icon');
 mix.copy('resources/sw', 'public');
 mix.copy('resources/images', 'public/images');
