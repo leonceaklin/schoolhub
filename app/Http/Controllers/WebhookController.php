@@ -108,7 +108,6 @@ class WebhookController extends Controller
               $order->delete();
             }
             $updateCopies = true;
-          }
         }
 
         if($updateCopies){
