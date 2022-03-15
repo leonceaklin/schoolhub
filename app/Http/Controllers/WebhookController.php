@@ -53,7 +53,7 @@ class WebhookController extends Controller
         foreach($orders as $order){
           if($order->status == "paid"){
             foreach($order->copies as $copy){
-              if($copy->status == "ordered" || $copy->status == "prepared" || $copy->status == "available")
+              if($copy->status == "ordered" || $copy->status == "prepared" || $copy->status == "available"){
                 $copy->status = "sold";
 
                 if($order->placedBy != null){
@@ -108,6 +108,7 @@ class WebhookController extends Controller
               $order->delete();
             }
             $updateCopies = true;
+          }
         }
 
         if($updateCopies){
