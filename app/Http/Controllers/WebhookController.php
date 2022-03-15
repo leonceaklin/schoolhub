@@ -64,7 +64,7 @@ class WebhookController extends Controller
               $copy->save();
             }
 
-            $order->prepared_on = date("Y-m-d H:i:s");
+            $order->prepared_since = date("Y-m-d H:i:s");
             $order->save();
             $updateCopies = true;
           }
