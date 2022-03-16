@@ -69,7 +69,6 @@ export default {
     },
 
     trackSearch(){
-      console.log("track search")
       if(this.query != this.trackedQuery){
         window._paq.push(['trackSiteSearch', this.query, null, this.results.length])
       }

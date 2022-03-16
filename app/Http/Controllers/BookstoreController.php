@@ -18,6 +18,7 @@ use App\Classes\CredentialsManager;
 use App\Mail\CopySubmitted;
 use App\Mail\OrderConfirmed;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 
 use App\Models\School;
 
@@ -146,6 +147,8 @@ class BookstoreController extends Controller
 
        if($this->salApi->login($credentials->username, $credentials->password, $school->identifier)){
          $user = User::where('username', $credentials->username)->first();
+         $user->password = Hash::make($credentials->password);
+         $user->save();
          $token = Token::create($user->id, $this->secret, time()+3600*24*30, "SchoolHub");
          $this->salApi->logout();
          return $token;
@@ -171,6 +174,7 @@ class BookstoreController extends Controller
              $user->last_name = $properties->last_name;
              $user->city = $properties->city;
              $user->zip = $properties->zip;
+             $user->password = Hash::make($credentials->password);
              $user->save();
              $token = Token::create($user->id, $this->secret, time()+3600*24*30, "SchoolHub");
              $this->salApi->logout();
