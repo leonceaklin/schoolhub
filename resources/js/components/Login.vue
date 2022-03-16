@@ -7,11 +7,11 @@
       <p>{{ $t('auth.school_system_info', {system_name: systemName, credentials_name: systemCredentials}) }}</p>
       <v-text-field outlined v-model="username" :label="systemUsername" autocomplete="username" :error="loginError"></v-text-field>
       <v-text-field outlined v-model="password" type="password" autocomplete="password" label="Passwort" :error="loginError"></v-text-field>
+      <p class="red--text" v-if="loginError && rateError">{{ $t("auth.rate_error") }}</p>
     </div>
     <p>{{ $t('auth.login_disclamer') }}</p>
     <v-checkbox :label="$t('auth.accept_conditions')" v-model="acceptConditions"></v-checkbox>
 
-    <p v-if="loginError && rateError">{{ $t("auth.rate_error") }}</p>
     <v-btn
       type="submit"
       @click="login"
@@ -77,10 +77,12 @@ export default {
           this.loginError = true
           this.$emit('error')
           this.loading = false
-          this.password = ""
 
           if(e.response.status == 429){
             this.rateError = true
+          }
+          else{
+            this.password = null;
           }
         })
 
