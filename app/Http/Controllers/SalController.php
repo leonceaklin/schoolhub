@@ -9,7 +9,7 @@ use App\Classes\CredentialsManager;
 use App\Models\School;
 
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\RateLimiter;
 
 class SalController extends Controller
 {
@@ -71,6 +71,18 @@ class SalController extends Controller
       }
 
       if(!in_array('endpoint', ["subjects", "absence_information", "events", "user", "class", "login"])){
+
+        if(RateLimiter::tooManyAttempts('failed-login-sal:'.request()->ip(), $perMinute = $api->loginAttemptsPerMinute) ||
+            RateLimiter::tooManyAttempts('failed-login-sal:'.$username, $perMinute = $api->loginAttemptsPerMinute)
+          ){
+          Log::info("Too many login attempts for SAL api.", ["username" => $username]);
+
+          return response()->json(["error" => [[
+              "code" => 429,
+              "message" => "Too many failed login attempts.",
+            ]]
+          ], 429);
+        }
 
         if(!empty($username) && !empty($password) && !empty($school)){
         if($api->login($username, $password, $school)){

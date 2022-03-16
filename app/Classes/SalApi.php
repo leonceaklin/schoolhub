@@ -11,6 +11,8 @@ class SalApi{
 
   public $origin = "https://sal.portal.bl.ch";
 
+  public $loginAttemptsPerMinute = 2;
+
   public $cookies = [];
   public $school = "";
 
@@ -530,7 +532,8 @@ class SalApi{
   }
 
   function login($username, $password, $school = "", $ct = 0){
-    if(RateLimiter::tooManyAttempts('failed-login-sal:'.request()->ip(), $perMinute = 4)){
+    if(RateLimiter::tooManyAttempts('failed-login-sal:'.request()->ip(), $perMinute = $this->loginAttemptsPerMinute) ||
+      RateLimiter::tooManyAttempts('failed-login-sal:'.$username, $perMinute = $this->loginAttemptsPerMinute)){
       Log::info("Too many login attempts for SAL", ["username" => $username, "school_identifier" => $school]);
       return false;
     }
@@ -560,12 +563,14 @@ class SalApi{
     if(sizeof(explode("eOSP - Login", $res)) == 1){
       $this->authenticated = true;
       RateLimiter::clear("failed-login-sal:".request()->ip());
+      RateLimiter::clear("failed-login-sal:".$username);
       return true;
     }
     else{
       if($ct == 0){
         //Login failed
         RateLimiter::hit("failed-login-sal:".request()->ip());
+        RateLimiter::hit("failed-login-sal:".$username);
         return false;
       }
       return $this->login($username, $password, $school, $ct+1);

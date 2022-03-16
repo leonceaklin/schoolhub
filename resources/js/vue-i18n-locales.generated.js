@@ -17,7 +17,8 @@ export default {
             "city": "Ort",
             "sell_as": "Sell as {name}",
             "first_name": "Vorname",
-            "last_name": "Nachname"
+            "last_name": "Nachname",
+            "rate_error": "Du hast zu viele Versuche gebraucht, um dich einzuloggen. Bitte warte einen Moment und versuche es dann noch einmal."
         },
         "bookstore": {
             "bookstore": "Bookstore",
@@ -45,6 +46,9 @@ export default {
             "login_to_order": "Einloggen zum bestellen",
             "login_to_sell": "Einloggen zum verkaufen",
             "sell_for": "Für {price} verkaufen",
+            "earnings_so": "Einnahmen SO",
+            "payback_to_seller": "Rückzahlung an Verkäufer{in}",
+            "organization": "Organisation",
             "transfer_order_title": "Überweisungsauftrag {store_name}",
             "sold_copies": "Verkaufte Exemplare",
             "transfers": "Überweisungen",
@@ -85,6 +89,7 @@ export default {
             "book_is_marked": "Das Buch ist markiert",
             "copy_code_introduction": "Abschliessend musst du dein Buch mit folgendem Code kennzeichnen:",
             "sell_item_charity_info": "Zudem spenden wir {amount} beim Verkauf an {charity_name}",
+            "donation": "Spende",
             "copy_available_introduction": "Du hast ein Exemplar von {item_name} zum Verkauf abgegeben. Wir haben es nun überprüft und im Store verfügbar gemacht.",
             "copy_submitted_introduction": "Du hast vor Kurzem ein Exemplar von {item_name} zum Verkauf eingereicht.",
             "order_confirmed_introduction": "Du hast vor Kurzem ein Exemplar von {item_name} im {store_name} bestellt. Vielen Dank dafür.",
@@ -152,7 +157,9 @@ export default {
             "notifications_yes": "Für Wichtiges benachrichtigen",
             "notifications_no": "Nein",
             "notifications_native_prompt_info": "Erteile deinem Browser die Erlaubnis, Benachrichtigungen von dieser App zu empfangen, indem du auf \"Erlauben\" klickst.",
-            "notifications_question": "Möchtest du benachrichtigt werden, wenn deine Bestellung bereit ist oder deine eingereichten Bücher verfügbar sind?"
+            "notifications_question": "Möchtest du benachrichtigt werden, wenn deine Bestellung bereit ist oder deine eingereichten Bücher verfügbar sind?",
+            "notifications_enabled": "Benachrichtigungen aktiviert",
+            "notifications_enabled_info": "Wir werden dich nur in wichtigen Belangen benachrichtigen."
         },
         "absences": {
             "absences": "Absenzen",

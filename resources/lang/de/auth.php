@@ -18,5 +18,7 @@ return [
   "city" => "Ort",
   "sell_as" => "Sell as :name",
   "first_name" => "Vorname",
-  "last_name" => "Nachname"
+  "last_name" => "Nachname",
+
+  "rate_error" => "Du hast zu viele Versuche gebraucht, um dich einzuloggen. Bitte warte einen Moment und versuche es dann noch einmal."
 ];

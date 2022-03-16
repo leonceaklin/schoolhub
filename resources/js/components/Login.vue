@@ -11,6 +11,7 @@
     <p>{{ $t('auth.login_disclamer') }}</p>
     <v-checkbox :label="$t('auth.accept_conditions')" v-model="acceptConditions"></v-checkbox>
 
+    <p v-if="loginError && rateError">{{ $t("auth.rate_error") }}</p>
     <v-btn
       type="submit"
       @click="login"
@@ -33,6 +34,7 @@ export default {
       password: null,
       loading: false,
       loginError: false,
+      rateError: false,
 
       credentialsToken: this.$store.state.credentialsToken,
       school: this.$store.state.school,
@@ -71,6 +73,15 @@ export default {
           school: this.school,
           username: this.username,
           password: this.password
+        }).catch((e) => {
+          this.loginError = true
+          this.$emit('error')
+          this.loading = false
+          this.password = ""
+
+          if(e.response.status == 429){
+            this.rateError = true
+          }
         })
 
         if(response.data && response.data.token){
@@ -98,8 +109,8 @@ export default {
 
   computed: {
     systemId(){
-      if(this.selectedSchool){
-        return this.selectedSchool.system
+      if(this.school){
+        return this.school.system
       }
       return null
     },
