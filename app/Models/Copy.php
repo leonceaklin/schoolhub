@@ -110,7 +110,12 @@ class Copy extends Model
     public function getCharityAmountAttribute(){
       $price = $this->price;
       if($this->donation == true){
-        $payback = $price;
+        if($this->_charity != null){
+          $payback = $price;
+        }
+        else{
+          $payback = 0;
+        }
       }
       else{
         $payback = $price * $this->realCommission * $this->realCharityCommission;
