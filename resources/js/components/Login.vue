@@ -3,7 +3,7 @@
   <p class="mb-6 mt-4">
     {{ $t('auth.login_info')}}</p>
     <v-autocomplete outlined return-object :items="schools" item-text="name" label="Schule" v-model="school"></v-autocomplete>
-    <div v-if="school">
+    <div v-if="school.identifier">
       <p>{{ $t('auth.school_system_info', {system_name: systemName, credentials_name: systemCredentials}) }}</p>
       <v-text-field outlined v-model="username" :label="systemUsername" autocomplete="username" :error="loginError"></v-text-field>
       <v-text-field outlined v-model="password" type="password" autocomplete="password" label="Passwort" :error="loginError"></v-text-field>
