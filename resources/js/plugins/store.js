@@ -162,10 +162,12 @@ export default new Vuex.Store({
           dispatch('setUser', response.data)
 
           //SchoolHub Login
-          var userInfo = await api.getUserInfo()
-          window.OneSignal.push(() => {
-            window.OneSignal.setExternalUserId(userInfo.id);
-          });
+          if(state.school == "gymli"){
+            var userInfo = await api.getUserInfo()
+            window.OneSignal.push(() => {
+              window.OneSignal.setExternalUserId(userInfo.id);
+            });
+          }
 
           _paq.push(['trackGoal', 1]);
 
