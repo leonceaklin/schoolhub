@@ -1,6 +1,8 @@
 <?php
 namespace App\Classes;
 use \DomDocument;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Log;
 
 
 class SalApi{
@@ -528,8 +530,14 @@ class SalApi{
   }
 
   function login($username, $password, $school = "", $ct = 0){
+    if(RateLimiter::tooManyAttempts('failed-login-sal:'.request()->ip(), $perMinute = 4)){
+      Log::info("Too many login attempts for SAL", ["username" => $username, "school_identifier" => $school]);
+      return false;
+    }
+
     $this->username = $username;
     $this->password = $password;
+
     if(!empty($school)){
       $this->school = $school;
     }
@@ -551,10 +559,13 @@ class SalApi{
 
     if(sizeof(explode("eOSP - Login", $res)) == 1){
       $this->authenticated = true;
+      RateLimiter::clear("failed-login-sal:".request()->ip());
       return true;
     }
     else{
-      if($ct == 2){
+      if($ct == 0){
+        //Login failed
+        RateLimiter::hit("failed-login-sal:".request()->ip());
         return false;
       }
       return $this->login($username, $password, $school, $ct+1);
