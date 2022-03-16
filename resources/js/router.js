@@ -59,7 +59,10 @@ const router = new VueRouter({
           {
             path: 'cancel/:order_hash',
             name: 'bookstore.cancelorder',
-            component: CancelOrder
+            component: CancelOrder,
+            meta: {
+              analyticsIgnore: true
+            }
           },
           {
             path: ':item_slug/:copy_uid?',
@@ -97,10 +100,6 @@ router.beforeEach(async (to, from, next) => {
   }
 
   next()
-})
-
-router.afterEach(async (to, from) => {
-  _paq.push(['trackPageView']);
 })
 
 export default router

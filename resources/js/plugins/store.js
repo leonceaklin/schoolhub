@@ -114,6 +114,7 @@ export default new Vuex.Store({
         window.OneSignal.push(() => {
           window.OneSignal.removeExternalUserId();
         });
+        _paq.push(['setUserId', null]);
     },
 
     startSchoolSystemFetchInterval({state, commit, dispatch, getters}){
@@ -168,6 +169,7 @@ export default new Vuex.Store({
           });
 
           _paq.push(['trackGoal', 1]);
+          _paq.push(['setUserId', userInfo.id]);
 
           //Subjects
           var response = await api.fetchSchoolSystemSubjects()

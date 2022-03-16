@@ -12,6 +12,7 @@ import router from './router'
 import vuetify from './plugins/vuetify'
 import i18n from './plugins/i18n'
 import store from './plugins/store'
+import matomo from "./plugins/matomo"
 
 /**
  * The following block of code may be used to automatically register your

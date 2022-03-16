@@ -23,6 +23,8 @@ export default {
   data(){
     return {
       loading: false,
+      trackedQuery: "",
+      searchTrackTimeout: null
     }
   },
 
@@ -40,6 +42,7 @@ export default {
 
   methods: {
     async fetchResults(){
+      this.clearTrackTimeout();
       this.loading = true
       var res = (await api.fetch("items/items?fields=*.*&limit=50&sort=-year&q="+this.query)).data
 
@@ -51,8 +54,27 @@ export default {
       }
 
       this.results = results
+      this.setTrackTimeout();
       console.log("Results:", this.results)
       this.loading = false
+    },
+
+    setTrackTimeout(){
+      this.clearTrackTimeout();
+      this.searchTrackTimeout = setTimeout(() => {this.trackSearch()}, 3000)
+    },
+
+    clearTrackTimeout(){
+      clearTimeout(this.searchTrackTimeout)
+    },
+
+    trackSearch(){
+      console.log("track search")
+      if(this.query != this.trackedQuery){
+        window._paq.push(['trackSiteSearch', this.query, null, this.results.length])
+      }
+
+      this.trackedQuery = this.query
     },
   },
 
