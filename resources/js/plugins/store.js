@@ -27,7 +27,7 @@ var localStorageValues = {
   nextWeight: 1,
   acceptConditions: false,
   version: null,
-  school: null,
+  school: {},
   events: [],
   absencePeriods: [],
   subjects: [],
@@ -53,7 +53,7 @@ for(var [key, value] of Object.entries(localStorageValues)){
 
 export default new Vuex.Store({
   state: {
-    latestVersion: "1.0.2",
+    latestVersion: "1.0.3",
     fetchingData: false,
     store: null,
     ...hydratedValues
@@ -162,12 +162,10 @@ export default new Vuex.Store({
           dispatch('setUser', response.data)
 
           //SchoolHub Login
-          if(state.school == "gymli"){
-            var userInfo = await api.getUserInfo()
-            window.OneSignal.push(() => {
-              window.OneSignal.setExternalUserId(userInfo.id);
-            });
-          }
+          var userInfo = await api.getUserInfo()
+          window.OneSignal.push(() => {
+            window.OneSignal.setExternalUserId(userInfo.id);
+          });
 
           _paq.push(['trackGoal', 1]);
 

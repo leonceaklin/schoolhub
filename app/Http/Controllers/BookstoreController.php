@@ -19,6 +19,9 @@ use App\Mail\CopySubmitted;
 use App\Mail\OrderConfirmed;
 use Illuminate\Support\Facades\Mail;
 
+use App\Models\School;
+
+
 class BookstoreController extends Controller
 {
     /**
@@ -139,21 +142,26 @@ class BookstoreController extends Controller
 
      public function login($properties){
        $credentials = $this->getCredentials($properties);
+       $school = School::findOrFail($properties->school);
 
-       if($this->salApi->login($credentials->username, $credentials->password, "gymli")){
+       if($this->salApi->login($credentials->username, $credentials->password, $school->identifier)){
          $user = User::where('username', $credentials->username)->first();
          $token = Token::create($user->id, $this->secret, time()+3600*24*30, "SchoolHub");
          $this->salApi->logout();
          return $token;
+       }
+       else{
+         Log::info("SAL login for user login failed", ["username" => $user->username, "school_id" => $school->id]);
        }
        return null;
      }
 
      public function register($properties){
        $credentials = $this->getCredentials($properties);
+       $school = School::findOrFail($properties->school);
 
        if(!User::where('username', $credentials->username)->exists()){
-         if($this->salApi->login($credentials->username, $credentials->password, "gymli")){
+         if($this->salApi->login($credentials->username, $credentials->password, $school->identifier)){
              $user = new User();
              $user->username = $credentials->username;
              $user->email = $properties->email;
@@ -168,6 +176,9 @@ class BookstoreController extends Controller
              $this->salApi->logout();
              Log::info("New user created.", ["id" => $user->id, "username" => $user->username, "name" => $user->name]);
              return $token;
+         }
+         else{
+           Log::info("SAL login for user register failed", ["username" => $user->username, "school_id" => $school->id]);
          }
        }
      }

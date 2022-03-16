@@ -2,7 +2,7 @@
   <v-form @submit.prevent="login">
   <p class="mb-6 mt-4">
     {{ $t('auth.login_info')}}</p>
-    <v-autocomplete outlined :items="schools" item-text="name" item-value="identifier" label="Schule" v-model="school"></v-autocomplete>
+    <v-autocomplete outlined return-object :items="schools" item-text="name" label="Schule" v-model="school"></v-autocomplete>
     <div v-if="school">
       <p>{{ $t('auth.school_system_info', {system_name: systemName, credentials_name: systemCredentials}) }}</p>
       <v-text-field outlined v-model="username" :label="systemUsername" autocomplete="username" :error="loginError"></v-text-field>
@@ -36,7 +36,6 @@ export default {
 
       credentialsToken: this.$store.state.credentialsToken,
       school: this.$store.state.school,
-      selectedSchool: null,
 
       schools: [],
       acceptConditions: this.$store.state.acceptConditions,
@@ -128,12 +127,10 @@ export default {
     credentialsToken(val){
       this.$store.dispatch("setCredentialsToken", val)
     },
-    school(val){
-      this.$store.dispatch("setSchool", val)
-      for(var school of this.schools){
-        if(school.identifier == this.school){
-          this.selectedSchool = JSON.parse(JSON.stringify(school))
-        }
+    school: {
+      deep: true,
+      handler(val){
+        this.$store.dispatch("setSchool", val)
       }
     },
     acceptConditions(val){
