@@ -194,7 +194,8 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'PushNotifications' => Berkayk\OneSignal\OneSignalFacade::class
+        'PushNotifications' => Berkayk\OneSignal\OneSignalFacade::class,
+        'LSCache'   => Litespeed\LSCache\LSCache::class,
     ])->toArray(),
 
 ];
