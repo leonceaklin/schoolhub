@@ -20,4 +20,8 @@
     RewriteRule ^ index.php [L]
 </IfModule>
 
+<IfModule LiteSpeed>
+   CacheLookup on
+</IfModule>
+
 AddHandler application/x-httpd-php81 .php

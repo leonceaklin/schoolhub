@@ -62,6 +62,7 @@ return array(
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Matrix\\' => array($vendorDir . '/markbaker/matrix/classes/src'),
     'MartinLindhe\\VueInternationalizationGenerator\\' => array($vendorDir . '/leonceaklin/laravel-vue-i18n-generator/src'),
+    'Litespeed\\LSCache\\' => array($vendorDir . '/litespeed/lscache-laravel/src'),
     'League\\MimeTypeDetection\\' => array($vendorDir . '/league/mime-type-detection/src'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
     'League\\Config\\' => array($vendorDir . '/league/config/src'),

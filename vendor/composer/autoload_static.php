@@ -123,6 +123,7 @@ class ComposerStaticInit0b3dcb5a3056a32b0c26e62b3499e45f
         ),
         'L' => 
         array (
+            'Litespeed\\LSCache\\' => 18,
             'League\\MimeTypeDetection\\' => 25,
             'League\\Flysystem\\' => 17,
             'League\\Config\\' => 14,
@@ -413,6 +414,10 @@ class ComposerStaticInit0b3dcb5a3056a32b0c26e62b3499e45f
         array (
             0 => __DIR__ . '/..' . '/leonceaklin/laravel-vue-i18n-generator/src',
         ),
+        'Litespeed\\LSCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/litespeed/lscache-laravel/src',
+        ),
         'League\\MimeTypeDetection\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/mime-type-detection/src',
@@ -601,10 +606,12 @@ class ComposerStaticInit0b3dcb5a3056a32b0c26e62b3499e45f
         'App\\Mail\\OrderConfirmed' => __DIR__ . '/../..' . '/app/Mail/OrderConfirmed.php',
         'App\\Mail\\TransferOrderCreated' => __DIR__ . '/../..' . '/app/Mail/TransferOrderCreated.php',
         'App\\Mail\\TransferOrderUpdated' => __DIR__ . '/../..' . '/app/Mail/TransferOrderUpdated.php',
+        'App\\Models\\Charity' => __DIR__ . '/../..' . '/app/Models/Charity.php',
         'App\\Models\\Copy' => __DIR__ . '/../..' . '/app/Models/Copy.php',
         'App\\Models\\Edition' => __DIR__ . '/../..' . '/app/Models/Edition.php',
         'App\\Models\\File' => __DIR__ . '/../..' . '/app/Models/File.php',
         'App\\Models\\Item' => __DIR__ . '/../..' . '/app/Models/Item.php',
+        'App\\Models\\Order' => __DIR__ . '/../..' . '/app/Models/Order.php',
         'App\\Models\\School' => __DIR__ . '/../..' . '/app/Models/School.php',
         'App\\Models\\Store' => __DIR__ . '/../..' . '/app/Models/Store.php',
         'App\\Models\\TransferOrder' => __DIR__ . '/../..' . '/app/Models/TransferOrder.php',
@@ -3272,6 +3279,11 @@ class ComposerStaticInit0b3dcb5a3056a32b0c26e62b3499e45f
         'League\\MimeTypeDetection\\GeneratedExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/GeneratedExtensionToMimeTypeMap.php',
         'League\\MimeTypeDetection\\MimeTypeDetector' => __DIR__ . '/..' . '/league/mime-type-detection/src/MimeTypeDetector.php',
         'League\\MimeTypeDetection\\OverridingExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/OverridingExtensionToMimeTypeMap.php',
+        'Litespeed\\LSCache\\LSCache' => __DIR__ . '/..' . '/litespeed/lscache-laravel/src/LSCache.php',
+        'Litespeed\\LSCache\\LSCacheMiddleware' => __DIR__ . '/..' . '/litespeed/lscache-laravel/src/LSCacheMiddleware.php',
+        'Litespeed\\LSCache\\LSCacheServiceProvider' => __DIR__ . '/..' . '/litespeed/lscache-laravel/src/LSCacheServiceProvider.php',
+        'Litespeed\\LSCache\\LSTagsMiddleware' => __DIR__ . '/..' . '/litespeed/lscache-laravel/src/LSTagsMiddleware.php',
+        'Litespeed\\LSCache\\LiteSpeedCache' => __DIR__ . '/..' . '/litespeed/lscache-laravel/src/LiteSpeedCache.php',
         'MartinLindhe\\VueInternationalizationGenerator\\Commands\\GenerateInclude' => __DIR__ . '/..' . '/leonceaklin/laravel-vue-i18n-generator/src/Commands/GenerateInclude.php',
         'MartinLindhe\\VueInternationalizationGenerator\\Generator' => __DIR__ . '/..' . '/leonceaklin/laravel-vue-i18n-generator/src/Generator.php',
         'MartinLindhe\\VueInternationalizationGenerator\\GeneratorProvider' => __DIR__ . '/..' . '/leonceaklin/laravel-vue-i18n-generator/src/GeneratorProvider.php',
