@@ -316,7 +316,9 @@ class SalApi{
       $i++;
     }
 
-    $info["birth"] = date("Y-m-d", strtotime($info["birth"]));
+    if(isset($info["birth"])){
+      $info["birth"] = date("Y-m-d", strtotime($info["birth"]));
+    }
     $fullcity = explode(" ", $info["city"]);
     $info["zip"] = $fullcity[0];
     array_shift($fullcity);
