@@ -55,7 +55,7 @@ class WebhookController extends Controller
      public function onItemsUpdated(){
        $items = Item::where("slug", null)->orWhere("slug", "")->get();
        foreach($items as $item){
-         $slug = Str::slug($item->title." ".$item->authors." ".$item->publisher, "-");
+         $slug = Str::slug($item->title." ".$item->authors." ".$item->publisher." ".$item->id, "-");
          $item->slug = $slug;
          $item->save();
        }
