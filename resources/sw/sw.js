@@ -3,6 +3,10 @@ importScripts("https://cdn.onesignal.com/sdks/OneSignalSDKWorker.js");
 importScripts('https://analytics.zebrapig.com/offline-service-worker.js');
 matomoAnalytics.initialize();
 
+self.addEventListener('install', function(event) {
+  self.skipWaiting();
+});
+
 workbox.setConfig({
   debug: false,
 });
