@@ -81,9 +81,10 @@ export const app = new Vue({
       checkServiceWorker(){
         navigator.serviceWorker.getRegistrations().then((registrations) => {
           for(var registration of registrations){
+            console.log(registration)
             if(registration.active &&
-              (registration.active.scriptURL == window.baseUrl+"/sw.js" ||
-              registration.active.scriptURL == window.baseUrl+"/OneSignalSDKWorker.js")){
+              (registration.active.scriptURL == window.swUrl ||
+              registration.active.scriptURL == window.oneSignalSwUrl)){
               console.log("SW found")
               return
             }
@@ -94,7 +95,7 @@ export const app = new Vue({
 
       installServiceWorker(){
         if("serviceWorker" in navigator){
-          navigator.serviceWorker.register(window.baseUrl+"/sw.js").then((registration) => {
+          navigator.serviceWorker.register(window.swUrl).then((registration) => {
             console.log("SW installed");
           }).catch(function(error){
             console.log("SW not installed: ",error);
