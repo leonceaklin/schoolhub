@@ -1,7 +1,7 @@
 <template>
   <div class="item-page">
     <page-title>
-      <v-btn icon :exact-path="true" :to="{name: 'bookstore'}">
+      <v-btn icon :exact-path="true" :to="backUrl">
         <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
       <div class="ml-2">{{ $t('bookstore.book') }}</div>
@@ -82,12 +82,20 @@ export default {
       copiesVisible: false,
       confirmOrderVisible: false,
       selectedCopy: null,
+      pageBefore: null
     }
   },
 
   computed: {
     mainElement(){
       return this
+    },
+
+    backUrl(){
+      if(this.pageBefore != null && this.pageBefore.name != null){
+        return this.pageBefore
+      }
+      return {name: "bookstore"}
     },
 
     bookstore(){
@@ -117,6 +125,12 @@ export default {
         }
       }
     }
+  },
+
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+            vm.pageBefore = from;
+        });
   },
 
   methods: {
