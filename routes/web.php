@@ -19,10 +19,10 @@ use App\Http\Controllers\TransferOrderController;
 
 
 Route::get('/bookstore-signage/{school_identifier}', function () {
-    return view('bookstore-signage');
+  return response()->view('bookstore-signage')->header("Cache-Control", "no-cache");
 });
 
 
 Route::get('{route?}', function () {
-    return view('app');
-})->where('route', '(.*)')->header("Cache-Control", "no-cache");
+    return response()->view('app')->header("Cache-Control", "no-cache");
+})->where('route', '(.*)');
