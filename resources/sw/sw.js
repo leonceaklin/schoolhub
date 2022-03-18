@@ -12,7 +12,7 @@ const {
   expiration: { ExpirationPlugin },
   routing: { registerRoute },
   precaching: { precacheAndRoute },
-  strategies: { CacheFirst, StaleWhileRevalidate },
+  strategies: { CacheFirst, StaleWhileRevalidate, NetworkFirst },
 } = workbox;
 
 
@@ -131,7 +131,7 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
     new RegExp('^/(?!api$)[a-z0-9]+$'),
-    new StaleWhileRevalidate({
+    new NetworkFirst({
         cacheName: 'main-cache',
     })
 );

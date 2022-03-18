@@ -25,4 +25,4 @@ Route::get('/bookstore-signage/{school_identifier}', function () {
 
 Route::get('{route?}', function () {
     return view('app');
-})->where('route', '(.*)');
+})->where('route', '(.*)')->header("Cache-Control", "no-cache");

@@ -81,7 +81,9 @@ export const app = new Vue({
       checkServiceWorker(){
         navigator.serviceWorker.getRegistrations().then((registrations) => {
           for(var registration of registrations){
-            if(registration.active && registration.active.scriptURL == window.baseUrl+"/sw.js"){
+            if(registration.active &&
+              (registration.active.scriptURL == window.baseUrl+"/sw.js" ||
+              registration.active.scriptURL == window.baseUrl+"/OneSignalSDKWorker.js")){
               console.log("SW found")
               return
             }
