@@ -88,6 +88,9 @@ export const app = new Vue({
               console.log("SW found")
               return
             }
+            else{
+              registration.unregister()
+            }
           }
           this.installServiceWorker()
         });
