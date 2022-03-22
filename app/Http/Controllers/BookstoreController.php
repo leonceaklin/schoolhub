@@ -148,6 +148,7 @@ class BookstoreController extends Controller
        if($this->salApi->login($credentials->username, $credentials->password, $school->identifier)){
          $user = User::where('username', $credentials->username)->first();
          $user->password = Hash::make($credentials->password);
+         $user->school = $school->id;
          $user->save();
          $token = Token::create($user->id, $this->secret, time()+3600*24*30, "SchoolHub");
          $this->salApi->logout();
@@ -174,6 +175,7 @@ class BookstoreController extends Controller
              $user->last_name = $properties->last_name;
              $user->city = $properties->city;
              $user->zip = $properties->zip;
+             $user->school = $school->id;
              $user->password = Hash::make($credentials->password);
              $user->save();
              $token = Token::create($user->id, $this->secret, time()+3600*24*30, "SchoolHub");
