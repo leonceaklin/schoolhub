@@ -7,15 +7,19 @@
 
         <div v-if="!orderConfirmed">
           <h2 class="copy-price-large">CHF {{ copy.price }}.-</h2>
-          <v-btn class="full-width primary" :loading="loading" @click="confirmOrder()">Bestellung abschliessen</v-btn>
-          <p class="text--secondary my-2">Du bestellst als {{ user.first_name }} {{ user.last_name }}. <b>Bezahlung bei der Abholung.</b> Wir senden dir eine E-Mail als Bestätigung, mit der du die Bestellung auch stornieren kannst.</p>
+          <div class="mb-2" v-if="copy.charity != null && (copy.charity_commission > 0 || copy.donation == true)">
+            <h3 class="item-authors mb-2">{{ $t("bookstore.donation_info", {amount: copy.donation ? "CHF "+copy.price+".-" : "CHF "+Math.round(copy.price*copy.commission*copy.charity_commission*100)/100}) }}</h3>
+            <v-img v-if="copy.charity.logo" class="mx-auto mb-6 charity-logo-small" :alt="copy.charity.name" :src="copy.charity.logo.data.full_url" />
+          </div>
+          <v-btn class="full-width primary" :loading="loading" @click="confirmOrder()">{{ $t("bookstore.confirm_order") }}</v-btn>
+          <p class="text--secondary my-2">{{ $t("bookstore.you_order_as", {name: user.first_name + " " + user.last_name}) }} <b>{{ $t("bookstore.payment_on_pickup") }}</b><br>{{ $t("bookstore.order_email_info") }}</p>
         </div>
       <transition name="fade">
         <div class="order-confirmed" v-if="orderConfirmed">
           <v-icon class="mt-5" large>mdi-check-circle</v-icon>
           <h2 class="my-5">{{ $t('bookstore.order_thanks') }}</h2>
-          <p>Du hast von uns eine E-Mail erhalten, die deine Bestellung bestätigt. Du kannst das Buch beim Bookstore PickUp neben dem Lichthof gegen Bezahlung abholen.</p>
-          <v-btn class="full-width primary" @click="goBack()">Zurück zum Store</v-btn>
+          <p>{{ $t("bookstore.after_payment_info") }}</p>
+          <v-btn class="full-width primary" @click="goBack()">{{ $t("bookstore.back_to_store") }}</v-btn>
         </div>
       </transition>
     </div>

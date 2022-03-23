@@ -69,7 +69,7 @@
               <template v-else>
                 <h3 class="item-authors mt-6">{{ $t("bookstore.donate_at_sale") }}</h3>
                 <h2 class="copy-price-large mt-2 mb-2">CHF {{ price }}.-</h2>
-                <h3 class="item-authors">an</h3>
+                <h3 class="item-authors">{{ $t("bookstore.to") }}</h3>
                 <v-img v-if="charity && charity.logo" class="mx-auto mb-6 charity-logo-small" :alt="charity.name" :src="charity.logo.data.full_url" />
               </template>
               </div>

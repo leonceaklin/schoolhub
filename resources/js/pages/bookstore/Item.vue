@@ -114,7 +114,7 @@ export default {
         if(!this.item.copies[0].price){
           return `${this.item.copies.length} Exemplar${(this.item.copies.length > 1 ? 'e' : '')}`
         }
-        return `${this.item.copies.length} Exemplar${(this.item.copies.length > 1 ? 'e ab' : ' für')} ${this.item.copies[0].price}.-`
+        return `${this.item.copies.length} Exemplar${(this.item.copies.length > 1 ? 'e ab' : ' für')} CHF ${this.item.copies[0].price}.-`
       }
       else{
         if(this.hasUserInfo){
@@ -162,7 +162,7 @@ export default {
 
     var itemId = this.item.id
 
-    this.item.copies = (await api.fetch("items/copies?fields=id,condition,edition.*,price,status,uid&filter[status]=available&filter[ordered_by][null]=&sort=price&filter[item]="+itemId)).data
+    this.item.copies = (await api.fetch("items/copies?fields=id,condition,edition.*,charity.*.*,charity_commission,commission,price,donation,status,uid&filter[status]=available&filter[ordered_by][null]=&filter[storage_location][nnull]=&sort=price&filter[item]="+itemId)).data
 
     coverTransition.setToElement(this.$refs.coverEl.$el)
     if(this.item.copies.length == 1){

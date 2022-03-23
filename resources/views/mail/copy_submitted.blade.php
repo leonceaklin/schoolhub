@@ -18,7 +18,11 @@
 <p>{{ __("bookstore.copy_code_info") }}</p>
 <img src="{{ url('/images/pickup.svg') }}" class="icon" alt="{{ __("bookstore.what_next") }}">
 <div class="icon-side-text"><h2>{{ __("bookstore.what_next") }}</h2>
+  @if($copy->donation)
+    {{ __("bookstore.copy_submitted_further_donate", ["price" => "CHF ".$copy->price.".-", "amount" => "CHF ".$copy->charityAmount, "charity_name" => $copy->_charity->name]) }}
+  @else
   {{ __("bookstore.copy_submitted_further_sell", ["price" => "CHF ".$copy->price.".-", "commission" => $copy->realCommission*100, "payback" => "CHF ".$copy->payback]) }}
+  @endif
 </div>
 <br><br>
 <h2>{{ __("bookstore.cancellation") }}</h2>

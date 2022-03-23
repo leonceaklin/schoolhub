@@ -8,7 +8,7 @@
     <div class="scroll-content">
   <div class="subjects-page mx-5 nav-padding">
     <div class="mb-5">
-    <v-btn class="full-width mt-2 mb-2" :to="{name: 'bookstore.sell'}">Etwas verkaufen <v-icon right dark>mdi-chevron-right</v-icon></v-btn>
+    <v-btn class="full-width mt-2 mb-2 primary" :to="{name: 'bookstore.sell'}">Etwas verkaufen <v-icon right dark>mdi-chevron-right</v-icon></v-btn>
     <v-text-field outlined label="Finden" class="mt-1" append-icon="mdi-magnify" v-model="query" clearable></v-text-field>
     <search-results v-if="query != '' && query != null" :query="query"></search-results>
     <v-skeleton-loader v-if="relevantSubjects.length == 0" type="article@3"></v-skeleton-loader>
