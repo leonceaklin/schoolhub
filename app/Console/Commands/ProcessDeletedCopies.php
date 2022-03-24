@@ -41,7 +41,7 @@ class ProcessDeletedCopies extends Command
      */
     public function handle()
     {
-        $copies = Copy::where("deleted_on", '<', \Carbon\Carbon::now()->subWeeks(4))->where("status", "deleted")->get();
+        $copies = Copy::where("deleted_on", '<', \Carbon\Carbon::now()->subWeeks(8))->where("status", "deleted")->get();
         foreach($copies as $copy){
           Log::info("Copy deleted forever", ["id" => $copy->id, "uid" => $copy->uid, "owned_by" => $copy->owned_by]);
           $copy->delete();
