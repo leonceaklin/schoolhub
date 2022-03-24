@@ -31,6 +31,7 @@ class Order extends Model
   }
 
   public function calculate(){
+    $this->load("copies");
     $amount = 0;
 
     $nowPrepared = $this->status != "prepared";
@@ -53,7 +54,7 @@ class Order extends Model
       $this->paid_on = date("Y-m-d H:i:s");
     }
 
-    if($nowPrepared){
+    else if($nowPrepared){
       $this->status = "prepared";
       $this->prepared_since = date("Y-m-d H:i:s");
     }

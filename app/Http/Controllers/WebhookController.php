@@ -239,6 +239,7 @@ class WebhookController extends Controller
        foreach($copies as $copy){
          $copy->deleted_on = date("Y-m-d H:i:s");
          $copy->save();
+         Log::info("Copy soft deleted.", ["id" => $copy->id, "uid" => $copy->uid]);
        }
      }
 
@@ -348,6 +349,7 @@ class WebhookController extends Controller
                    $copy->prepared_since = date("Y-m-d H:i:s");
                  }
                  $copy->save();
+                 $copy->load('_order');
 
                  if($copy->_order != null){
                    $copy->_order->calculate();
@@ -395,6 +397,7 @@ class WebhookController extends Controller
        foreach($restoredCopies as $copy){
          $copy->deleted_on = null;
          $copy->save();
+         Log::info("Copy restored from deleted.", ["id" => $copy->id, "uid" => $copy->uid]);
        }
 
        $this->onCopiesDeleted();
