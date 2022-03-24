@@ -234,6 +234,14 @@ class WebhookController extends Controller
        return $this->copiesWebhook('updated');
      }
 
+     public function onCopiesDeleted(){
+       $copies = Copy::where('status', 'deleted')->where('deleted_on', null)->get();
+       foreach($copies as $copy){
+         $copy->deleted_on = date("Y-m-d H:i:s");
+         $copy->save();
+       }
+     }
+
      public function copiesWebhook($event){
        $copies = Copy::where('sold_on', null)->where('status', 'sold')
        ->orWhere(function($query){
@@ -382,6 +390,14 @@ class WebhookController extends Controller
          }
          $copy->save();
        }
+
+       $restoredCopies = Copy::where("status", "!=", "deleted")->where("deleted_on", "!=", null)->get();
+       foreach($restoredCopies as $copy){
+         $copy->deleted_on = null;
+         $copy->save();
+       }
+
+       $this->onCopiesDeleted();
      }
 
 
