@@ -179,16 +179,17 @@ class SalApi{
     $pDateTr = $absTrs[$absCount + 3];
     $pDateTds = $pDateTr->getElementsByTagName("td");
 
-    $initialQuotaStr = trim($pPointTds[2]->childNodes[0]->nodeValue);
+    if(isset($pPointTds[2])){
+      $initialQuotaStr = trim($pPointTds[2]->childNodes[0]->nodeValue);
+      $remainingQuotaStr = trim($pPointTds[2]->childNodes[2]->nodeValue);
+    }
 
-    $remainingQuotaStr = trim($pPointTds[2]->childNodes[2]->nodeValue);
 
-
-    if(!empty($initialQuotaStr)){
+    if(isset($initialQuotaStr) && !empty($initialQuotaStr)){
       $period->initial_quota = round(floatval($initialQuotaStr), 2);
     }
 
-    if(!empty($remainingQuotaStr)){
+    if(isset($remainingQuotaStr) && !empty($remainingQuotaStr)){
       $period->remaining_quota = round(floatval($remainingQuotaStr), 2);
     }
 
