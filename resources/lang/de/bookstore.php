@@ -80,6 +80,8 @@ return [
   "sell_item_charity_info" => "Zudem spenden wir :amount beim Verkauf an :charity_name",
   "donation" => "Spende",
   "donation_thanks" => "Vielen Dank für deine Spende!",
+  "divergent_version" => "Abweichende Ausgabe",
+  "divergent_version_info" => "Dieses Exemplar ist nicht exakt das oben abgebildete Buch. Der Inhalt des Buchs ist aber gleich wie bei den anderen Exemplaren. Oft handelt es sich dabei um ältere, günstigere Bücher.",
   "back_to_store" => "Zurück zum Store",
   "you_order_as" => "Du bestellst als :name.",
   "payment_on_pickup" => "Bezahlung bei der Abholung.",

@@ -4,12 +4,50 @@
       <v-card outlined :class="{'copy-option': true, 'selected': selectedCopy == copy}" @click="selectedCopy = copy" :key="copy.id" v-for="copy in copies">
         <div class="copy-check"><v-icon>{{ selectedCopy == copy ? 'mdi-check-circle' : 'mdi-circle-outline' }}</v-icon></div>
         <div class="copy-condition">
-          <b>{{ getCondition(copy) }}</b>
+          <b>{{ getCondition(copy) }}
+            <v-btn v-if="copy.condition_description != null && copy.condition_description != ''" icon :color="selectedCopy == copy ? 'primary' : ''" x-small
+            @click="conditionDescription = copy.condition_description; conditionDescriptionDialog = true">
+              <v-icon small>mdi-information</v-icon>
+            </v-btn>
+          </b>
           <div v-if="copy.edition">{{copy.edition.number}}. Auflage ({{copy.edition.year}}) {{ copy.edition.name }}</div>
+          <div v-if="copy.divergent">{{ $t("bookstore.divergent_version") }}
+            <v-btn icon :color="selectedCopy == copy ? 'primary' : ''" x-small @click="divergentDescriptionDialog = true">
+              <v-icon small>mdi-information</v-icon>
+            </v-btn>
+          </div>
         </div>
         <div class="copy-price">CHF {{ copy.price }}.-</div>
       </v-card>
     </div>
+
+    <v-dialog v-model="divergentDescriptionDialog" width="400">
+      <v-card>
+        <v-card-text class="pt-4 pb-0">
+          {{ $t("bookstore.divergent_version_info") }}
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn text @click="divergentDescriptionDialog = false">
+            {{ $t("general.ok") }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="conditionDescriptionDialog" width="400">
+      <v-card>
+        <v-card-text class="pt-4 pb-0">
+          {{ conditionDescription }}
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn text @click="conditionDescriptionDialog = false">
+            {{ $t("general.ok") }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -18,6 +56,9 @@ export default {
   props: ['copies'],
   data(){
     return {
+      divergentDescriptionDialog: false,
+      conditionDescriptionDialog: false,
+      conditionDescription: null,
       selectedCopy: null,
       conditions: ["Neuwertig", "Kleine Gebrauchsspuren", "Entfernbare Notizen", "Permanente Notizen", "Starke Gebrauchsspuren"]
     }
