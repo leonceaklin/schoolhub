@@ -313,7 +313,7 @@ class WebhookController extends Controller
                  $copy->save();
                  $copySaved = true;
                  Log::info("Copy made available.",
-                  ["id" => $copy->id, "price" => $copy->price, "owned_by" => $copy->ownedBy->id]);
+                  ["id" => $copy->id, "price" => $copy->price, "owned_by" => $copy->owned_by]);
 
                  if($event == 'updated'){
                    Mail::to($copy->ownedBy->activeEmail, $copy->ownedBy->name)->send(new CopyAvailable($copy));
