@@ -315,6 +315,10 @@ class BookstoreController extends Controller
        if(!isset($item->id)){
          return null;
        }
+       if($item->status != "published"){
+         return null;
+       }
+
        $copy->item = $data->item;
 
        $editions = $item->editions;

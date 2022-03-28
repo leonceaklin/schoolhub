@@ -23,7 +23,7 @@
               <v-btn class="btn primary mt-2 full-width" :href="'mailto:GymLi Bookstore Support<'+'buecher'+'gymli'+'estal'+'@'+'gma'+'il.c'+'om?subject=['+isbn+'] Bitte nehmt dieses Buch in den Bookstore auf&body=ISBN: '+isbn+'%0D%0AMein Name: '+user.name+' ('+user.username+')%0D%0ADas Buch heisst: %0D%0AWird in folgendem Fach verwendet: %0D%0A'"><v-icon dark left>mdi-book</v-icon>{{ $t("bookstore.apply_for_admission") }}</v-btn>
           </div>
       </div>
-      <div class="mt-3" v-if="this.item">
+      <div class="mt-3" v-if="this.item && this.item.status == 'published'">
         <v-img class="full-cover small elevation-2 mt-2" :aspect-ratio="item.cover.width/item.cover.height" :src="item.cover.data.thumbnails[5].url"></v-img>
         <h2 class="item-title">{{ item.title }}</h2>
         <h3 class="item-authors">{{ item.authors }}</h3>
@@ -39,6 +39,12 @@
         <login ref="loginForm" @success="goToConfirmation" />
 
         <v-btn @click="goToConfirmation" :loading="verifyingAccount" v-if="this.price" class="primary full-width mt-2" :disabled="priceError || !editionValid">{{ sellConfirmText }}</v-btn>
+      </div>
+      <div v-if="this.item && this.item.status != 'published'">
+        <v-img class="full-cover small elevation-2 mt-2" :aspect-ratio="item.cover.width/item.cover.height" :src="item.cover.data.thumbnails[5].url"></v-img>
+        <h2 class="item-title">{{ $t("bookstore.oh_no") }}</h2>
+        <p class="center">{{ $t("bookstore.item_archived_information") }}</p>
+        <v-btn class="mt-2 primary full-width" @click="reset">{{ $t('bookstore.item_archived_advance') }}</v-btn>
       </div>
 
     <v-dialog
@@ -300,6 +306,13 @@ export default {
   },
 
   methods: {
+    reset(){
+      this.item = null
+      this.showScanner = false
+      this.showManually = false
+      this.isbnInput = null
+      this.isbn = null
+    },
     async goToConfirmation(){
       if(!this.hasUserInfo){
         this.$refs.loginForm.show()
