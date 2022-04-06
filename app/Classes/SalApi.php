@@ -195,8 +195,13 @@ class SalApi{
 
     $pStartStr = ""; $pEndStr = "";
 
-    $dateParseStr = explode(")",explode("(", ($pDateTds[0]->nodeValue))[2])[0];
-    if($dateParseStr){
+    $dateExplode = explode("(", ($pDateTds[0]->nodeValue));
+
+    if(isset($dateExplode[2])){
+      $dateParseStr = explode(")", $dateExplode[2])[0];
+    }
+
+    if(isset($dateParseStr)){
       $pDateParts = explode("-", $dateParseStr);
       $pStartStr = $pDateParts[0];
       $pEndStr = $pDateParts[1];
@@ -313,6 +318,10 @@ class SalApi{
     $dataKeys = ["name", "street", "city", "birth", "profile", "hometown", "phone", "mobile"];
     foreach($rows as $row){
       $value = $row->getElementsByTagName("td")[1]->nodeValue;
+      if(!isset($dataKeys[$i])){
+        //Hrm… there are more rows here than expected
+        break;
+      }
       $info[$dataKeys[$i]] = $value;
       $i++;
     }
