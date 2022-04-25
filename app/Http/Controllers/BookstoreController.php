@@ -164,6 +164,10 @@ class BookstoreController extends Controller
        $credentials = $this->getCredentials($properties);
        $school = School::findOrFail($properties->school);
 
+       if($this->user()){
+         return $this->updateUser();
+       }
+
        if(!User::where('username', $credentials->username)->exists()){
          if($this->salApi->login($credentials->username, $credentials->password, $school->identifier)){
              $user = new User();

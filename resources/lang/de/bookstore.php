@@ -78,7 +78,7 @@ return [
   "confirm_order" => "Bestellung abschliessen",
   "after_payment_info" => "Du hast von uns eine E-Mail erhalten, die deine Bestellung bestätigt. Du kannst das Buch beim Bookstore neben dem Lichthof während der Öffnungszeiten gegen Bezahlung abholen.",
   "book_is_marked" => "Das Buch ist markiert",
-  "copy_code_info" => "Schreibe ihn mit grossen Buchstaben auf einen Zettel und klebe diesen gut sichtbar auf das Buch. Achtung: Verwende dafür schonendes Klebeband wie Krepp oder Washi Tape! Gib dein Buch markiertes Buch in der Mediathek ab.",
+  "copy_code_info" => "Schreibe ihn mit grossen Buchstaben auf einen Zettel und klebe diesen gut sichtbar auf das Buch. Achtung: Verwende dafür schonendes Klebeband wie Krepp oder Washi Tape! Gib dein markiertes Buch in der Mediathek ab.",
   "copy_code_introduction" => "Nun musst du dein Buch mit folgendem Code kennzeichnen:",
   "sell_item_charity_info" => "Zudem spenden wir :amount beim Verkauf an :charity_name",
   "donation" => "Spende",
