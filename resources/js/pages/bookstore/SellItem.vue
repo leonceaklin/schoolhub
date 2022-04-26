@@ -92,7 +92,7 @@
                     <p v-if="donation">{{ $t("bookstore.check_contact_details_donate") }}</p>
                     <v-text-field type="email" :error="!emailValid" :label="$t('auth.email')" :hint="$t('auth.email_hint')" outlined v-model="user.email"></v-text-field>
                     <v-text-field type="tel" :error="user.mobile == ''" :label="$t('auth.mobile')" outlined v-model="user.mobile"></v-text-field>
-                    <v-text-field :label="$t('auth.iban')" :error="user.iban == ''" outlined v-model="user.iban"></v-text-field>
+                    <v-text-field :label="$t('auth.iban')" :error="!ibanValid" @input="ibanInput" @blur="validateIban" :hint="bankName" :append-icon="ibanValid && ibanValidated ? 'mdi-check' : null" outlined v-model="user.iban"></v-text-field>
                     <v-text-field :label="$t('auth.zip')" :error="user.zip == ''" outlined v-model="user.zip"></v-text-field>
                     <v-text-field :label="$t('auth.city')" :error="user.city == ''" outlined v-model="user.city"></v-text-field>
                   </v-expansion-panel-content>
@@ -125,6 +125,7 @@
 
 <script>
 import api from "../../business/api.js"
+import axios from 'axios'
 
 import barcodeScanner from "../../components/bookstore/BarcodeScanner"
 import login from "../../components/dialogs/LoginBookstore"
@@ -154,6 +155,11 @@ export default {
       loading: false,
       edition: null,
       donation: false,
+      ibanValid: true,
+      ibanValidated: false,
+      bankName: null,
+
+      validateIbanTimeout: null,
 
       copy: null,
 
@@ -258,7 +264,7 @@ export default {
 
     formValid(){
       var user = this.user
-      return user.email && user.mobile && user.iban && user.zip && user.city && this.emailValid;
+      return user.email && user.mobile && this.ibanValid && user.iban && user.zip && user.city && this.emailValid;
     },
 
     editionValid(){
@@ -330,6 +336,37 @@ export default {
       }
       this.verifyingAccount = false
       this.confirmSaleVisible = true
+    },
+
+    async ibanInput(){
+      this.ibanValidated = false
+      if(this.user.iban == ''){
+        this.ibanValid = false
+      }
+      else{
+        console.log('Validate Iban')
+        clearTimeout(this.validateIbanTimeout)
+        this.validateIbanTimeout = setTimeout(() => {this.validateIban()}, 1000)
+      }
+    },
+
+    async validateIban(){
+      var callback = await axios.get('https://openiban.com/validate/'+this.user.iban+'?getBIC=true&validateBankCode=true')
+      var info = callback.data
+      if(info.valid == true){
+        this.ibanValid = true
+      }
+      else{
+        this.ibanValid = false
+      }
+
+      if(info.bankData.name){
+        this.bankName = info.bankData.name
+      }
+      else{
+        this.bankName = null
+      }
+      this.ibanValidated = true
     },
 
     async confirmSale(){

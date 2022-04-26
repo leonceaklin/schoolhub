@@ -266,9 +266,14 @@ class SalApi{
           continue;
         }
 
+        if(!isset($period->start)){
+          continue;
+        }
+
         if($absence->start == $period->start || !isset($absence->end)){
           continue;
         }
+
 
         $absences[] = $absence;
         if($inCurrentPeriod){

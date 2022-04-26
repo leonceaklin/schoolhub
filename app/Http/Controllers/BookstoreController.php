@@ -168,7 +168,7 @@ class BookstoreController extends Controller
          return $this->updateUser();
        }
 
-       if(!User::where('username', $credentials->username)->exists()){
+       if(User::where('username', $credentials->username)->where('id', '!=', null)->first() == null){
          if($this->salApi->login($credentials->username, $credentials->password, $school->identifier)){
              $user = new User();
              $user->username = $credentials->username;
@@ -367,7 +367,20 @@ class BookstoreController extends Controller
        }
 
        if(isset($data->iban)){
-         $user->iban = $data->iban;
+
+         //Check IBAN with external API
+         $callback = file_get_contents('https://openiban.com/validate/'.$data->iban.'?getBIC=true&validateBankCode=true');
+
+         if($callback == false){
+           $user->iban = $data->iban;
+         }
+
+         else{
+           $info = json_decode($callback, false);
+           if($info->valid == true){
+             $user->iban = $data->iban;
+           }
+         }
        }
 
        if(isset($data->city)){
