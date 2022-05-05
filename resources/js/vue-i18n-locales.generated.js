@@ -141,7 +141,7 @@ export default {
             "upcoming_tests": "Nächste Prüfungen",
             "schedule_changes": "Veränderungen im Stundenplan",
             "party_presale": "Party-Vorverkauf",
-            "party_presale_matura_info": "Sichere dir Tickets für die diesjährigen Maturaparties 🎟🎉",
+            "party_presale_matura_info": "Sichere dir Tickets für die diesjährigen Maturapartys 🎟🎉",
             "tickets": "Tickets",
             "tickets_for": "Tickets für {price}"
         },
