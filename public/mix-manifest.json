@@ -1,8 +1,8 @@
 {
-    "/js/app.js": "/js/app.js?id=8e52cc110f2a3201d3b7",
+    "/js/app.js": "/js/app.js?id=f820ad0a066dea72ea3d",
     "/js/bookstore-signage.js": "/js/bookstore-signage.js?id=88571195a3fa8a70db4d",
-    "/css/bookstore-signage.css": "/css/bookstore-signage.css?id=ab26c1c2450b142ab79d",
-    "/css/app.css": "/css/app.css?id=b858f014785815eee666",
+    "/css/bookstore-signage.css": "/css/bookstore-signage.css?id=d8ab28b3e49b72caeccc",
+    "/css/app.css": "/css/app.css?id=6b4f063f9b6fc56112f4",
     "/css/mail.css": "/css/mail.css?id=bf71b3b312db47433055",
     "/icon/android-chrome-192x192.png": "/icon/android-chrome-192x192.png?id=bfb3e9a09a5c85a33159",
     "/icon/android-chrome-512x512.png": "/icon/android-chrome-512x512.png?id=a0ef8250afc9c4417cd2",
@@ -21,6 +21,7 @@
     "/OneSignalSDKWorker.js": "/OneSignalSDKWorker.js?id=36e8bf01845f3ba05ab6",
     "/sw.js": "/sw.js?id=36e8bf01845f3ba05ab6",
     "/images/bookstore-banner.png": "/images/bookstore-banner.png?id=2f2d5ceddd9f722e8dec",
+    "/images/celebration.jpg": "/images/celebration.jpg?id=18676806fcbdc350dab6",
     "/images/logo.svg": "/images/logo.svg?id=5d823e24b6e0fc0240f5",
     "/images/pickup.svg": "/images/pickup.svg?id=252d4a30464f03854f9e",
     "/images/sell.svg": "/images/sell.svg?id=94249ea1d5ae7fd74c62"

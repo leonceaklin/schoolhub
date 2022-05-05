@@ -453,6 +453,30 @@ body{
   }
 }
 
+.event-tickets-sheet{
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  background-image: url("../../images/celebration.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.ticketing-embed{
+  width: 100%;
+  min-height: 600px;
+  border: none;
+}
+
+.embed-is-loading{
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 #onesignal-bell-container.onesignal-reset .onesignal-bell-launcher.onesignal-bell-launcher-theme-default .onesignal-bell-launcher-button svg .background,
 #onesignal-bell-container.onesignal-reset .onesignal-bell-launcher .onesignal-bell-launcher-dialog button.action{
   fill: var(--primary-color) !important;

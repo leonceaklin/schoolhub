@@ -38,7 +38,7 @@ export default {
             "cancel_order": "Bestellung stornieren",
             "pickup_and_payment": "Abholung und Bezahlung",
             "copy_code": "Exemplar-Code",
-            "copy_code_info": "Schreibe ihn mit grossen Buchstaben auf einen Zettel und klebe diesen gut sichtbar auf das Buch. Achtung: Verwende dafür schonendes Klebeband wie Krepp oder Washi Tape! Gib dein Buch markiertes Buch in der Mediathek ab.",
+            "copy_code_info": "Schreibe ihn mit grossen Buchstaben auf einen Zettel und klebe diesen gut sichtbar auf das Buch. Achtung: Verwende dafür schonendes Klebeband wie Krepp oder Washi Tape! Gib dein markiertes Buch in der Mediathek ab.",
             "cancel_submission": "Verkauf stornieren",
             "submission_cancellation_info": "Möchtest du das Buch doch nicht verkaufen? Dann storniere bitte deine Einreichung.",
             "pickup_info": "Abholen und bezahlen kannst du deine Bestellung beim Bookstore neben dem Lichthof während der Öffnungszeiten. Bezahlen kannst du in Bar und ab CHF 5 auch mit TWINT",
@@ -139,7 +139,11 @@ export default {
             "task_by": "Arbeitsauftrag von {name}",
             "upcoming": "Als nächstes",
             "upcoming_tests": "Nächste Prüfungen",
-            "schedule_changes": "Veränderungen im Stundenplan"
+            "schedule_changes": "Veränderungen im Stundenplan",
+            "party_presale": "Party-Vorverkauf",
+            "party_presale_matura_info": "Sichere dir Tickets für die diesjährigen Maturaparties 🎟🎉",
+            "tickets": "Tickets",
+            "tickets_for": "Tickets für {price}"
         },
         "calculator": {
             "calculator": "Rechner",

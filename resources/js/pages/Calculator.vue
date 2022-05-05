@@ -10,6 +10,8 @@
     <login-dialog/>
     <v-btn v-if="hasCustomGrades" class="mb-3 full-width primary" :to="{name: 'grades'}">{{ $t('grades.my_grades') }}</v-btn>
     <birthday-banner/>
+    <event-tickets/>
+
     <div class="elevation-2 mb-5">
         <v-data-table class="mb-3" v-if="grades.length > 0" :items="grades" hide-default-footer :mobile-breakpoint="0" :headers="mainGradeHeaders">
           <template v-slot:item.uid="{ item }">
@@ -73,6 +75,8 @@ import birthdayBanner from "../components/BirthdayBanner"
 import loginDialog from "../components/dialogs/Login"
 import userDialog from "../components/dialogs/UserInfo"
 
+import eventTickets from "../components/EventTickets"
+
 import pageTitle from "../components/PageTitle"
 
 export default {
@@ -82,7 +86,8 @@ export default {
     birthdayBanner,
     loginDialog,
     userDialog,
-    pageTitle
+    pageTitle,
+    eventTickets,
   },
   data(){
     return {
