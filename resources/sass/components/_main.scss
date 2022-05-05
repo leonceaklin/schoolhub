@@ -453,6 +453,10 @@ body{
   }
 }
 
+.v-application .banner-info-text{
+  color: var(--text-color) !important;
+}
+
 .event-tickets-sheet{
   text-transform: uppercase;
   font-weight: bold;

@@ -8,6 +8,7 @@
     <div class="scroll-content">
   <div class="subjects-page mx-5 nav-padding">
     <div class="mb-5">
+      <banner place="bookstore"/>
     <v-btn class="full-width mt-2 mb-2 primary" :to="{name: 'bookstore.sell'}">Etwas verkaufen <v-icon right dark>mdi-chevron-right</v-icon></v-btn>
     <v-text-field outlined label="Finden" class="mt-1" append-icon="mdi-magnify" v-model="query" clearable></v-text-field>
     <search-results v-if="query != '' && query != null" :query="query"></search-results>
@@ -28,13 +29,15 @@ import itemsDisplay from "../../components/bookstore/ItemsDisplay"
 import searchResults from "../../components/bookstore/SearchResults"
 import pageTitle from "../../components/PageTitle"
 import userDialog from "../../components/dialogs/UserInfo"
+import banner from "../../components/Banner"
 
 export default {
   components: {
     itemsDisplay,
     searchResults,
     pageTitle,
-    userDialog
+    userDialog,
+    banner
   },
   data(){
     return {
