@@ -57,6 +57,15 @@ export default {
     showDetails(){
       if(this.banner.content != '' && this.banner.content != null){
         this.showBannerDetails = true
+
+        var goalId = null
+        if(this.place == 'bookstore'){
+          goalId = 7
+        }
+
+        if(goalId != null){
+          _paq.push(['trackGoal', goalId]);
+        }
       }
     }
   }

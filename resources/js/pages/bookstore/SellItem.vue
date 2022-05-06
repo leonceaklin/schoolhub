@@ -392,6 +392,7 @@ export default {
 
       if(this.copy.id){
         this.confirmed = true
+        _paq.push(['trackGoal', 6]);
       }
 
       this.loading = false

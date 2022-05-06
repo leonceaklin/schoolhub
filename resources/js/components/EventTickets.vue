@@ -91,6 +91,8 @@ export default {
   watch: {
     showEventDetails(val){
       if(val == true){
+        _paq.push(['trackGoal', 8]);
+
         this.$nextTick(() => {
           this.setupEventEmbed()
         })

@@ -144,7 +144,6 @@ export default {
   mounted(){
     this.setNow()
     this.eventsCalendarDate = this.formatDateString(new Date())
-    _paq.push(['trackGoal', 2]);
 
     this.timesInterval = setInterval(() => {
       console.log(this.$refs.eventsCalendar)

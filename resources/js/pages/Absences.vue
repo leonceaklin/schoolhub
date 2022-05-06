@@ -56,7 +56,6 @@ export default {
     }
   },
   mounted(){
-    _paq.push(['trackGoal', 3]);
   },
   computed: {
     absencePeriods(){

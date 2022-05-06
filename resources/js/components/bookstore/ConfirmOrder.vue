@@ -55,6 +55,7 @@ export default {
       this.loading = false
       if(response.data.copy.id == this.copy.id){
         this.orderConfirmed = true
+        _paq.push(['trackGoal', 5]);
       }
     },
 
