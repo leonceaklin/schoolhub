@@ -475,6 +475,12 @@ body{
   border: none;
 }
 
+.theme--dark{
+  .ticketing-embed{
+    filter: invert(1) hue-rotate(180deg);
+  }
+}
+
 .embed-is-loading{
   opacity: 0;
   height: 0;
