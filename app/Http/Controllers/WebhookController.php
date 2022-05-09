@@ -310,6 +310,11 @@ class WebhookController extends Controller
 
              if(!$copy->available_since){
                  $copy->available_since = date("Y-m-d H:i:s");
+                 
+                 if($copy->_item != undefined){
+                   $copy->cover = $copy->_item->cover;
+                 }
+
                  $copy->save();
                  $copySaved = true;
                  Log::info("Copy made available.",
