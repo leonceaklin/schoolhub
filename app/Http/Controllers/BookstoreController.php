@@ -214,6 +214,8 @@ class BookstoreController extends Controller
          return null;
        }
 
+       $copy->cover = $copy->_item->cover;
+
        $copy->status = 'ordered';
        $copy->ordered_by = $this->user()->id;
        $copy->ordered_on = date("Y-m-d H:i:s");
@@ -269,6 +271,8 @@ class BookstoreController extends Controller
            }
          }
 
+         $copy->cover = $copy->_item->cover;
+
          $copy->save();
 
          Log::info("Order cancelled.", ["uid" => $copy->uid, "id" => $copy->id]);
@@ -289,6 +293,7 @@ class BookstoreController extends Controller
 
        $copy = new Copy();
        $copy->status = 'submitted';
+
        $copy->price = intval($data->price);
        if($copy->price > 200){
          return null;
