@@ -310,8 +310,8 @@ class WebhookController extends Controller
 
              if(!$copy->available_since){
                  $copy->available_since = date("Y-m-d H:i:s");
-                 
-                 if($copy->_item != undefined){
+
+                 if(isset($copy->_item)){
                    $copy->cover = $copy->_item->cover;
                  }
 
