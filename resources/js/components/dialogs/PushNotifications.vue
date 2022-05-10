@@ -75,21 +75,20 @@ export default {
           }
           else{
             this.showDialog = false
-            window.localStorage.setItem("isOptedOut", true)
           }
         });
       });
 
     },
     deny(){
-      this.$store.dispatch("setAllowNotifications", false)
       this.showDialog = false
       window.OneSignal.push(["setSubscription", false]);
+      window.localStorage.setItem("isOptedOut", true)
     },
 
     checkShowBanner(){
+
       var optedOut = window.localStorage.getItem("isOptedOut")
-      console.log(optedOut)
       if(optedOut == 'true' || optedOut == true){
         this.showDialog = false
         return
