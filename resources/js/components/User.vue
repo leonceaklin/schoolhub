@@ -34,7 +34,6 @@ export default {
     },
 
     allowNotifications(val){
-      console.log("TEST")
       this.$store.dispatch("setAllowNotifications", val)
       if(val == true){
         window.OneSignal.push(["registerForPushNotifications"])
@@ -64,7 +63,6 @@ export default {
       window.OneSignal.isPushNotificationsEnabled((isEnabled) => {
         if (isEnabled) {
           this.showNotificationsOption = true
-          this.$store.dispatch("setAllowNotifications", true)
           this.allowNotifications = true
         } else {
           this.showNotificationsOption = true

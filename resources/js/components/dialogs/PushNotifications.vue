@@ -34,12 +34,20 @@ export default {
     return{
       showDialog: false,
       allowNotifications: this.$store.state.allowNotifications,
+      loggedIn: this.$store.getters.schoolSystemLoggedIn,
       askingForPermission: false
     }
   },
   computed: {
     baseUrl(){
       return window.baseUrl
+    }
+  },
+  watch: {
+    loggedIn(val){
+      if(val == true){
+        this.checkShowBanner()
+      }
     }
   },
   methods: {
@@ -77,34 +85,39 @@ export default {
       this.$store.dispatch("setAllowNotifications", false)
       this.showDialog = false
       window.OneSignal.push(["setSubscription", false]);
+    },
+
+    checkShowBanner(){
+      if(this.allowNotifications == false){
+        return
+      }
+
+      window.OneSignal.push(() => {
+        // If we're on an unsupported browser, do nothing
+        if (!window.OneSignal.isPushNotificationsSupported()) {
+          this.showDialog = false
+          return;
+        }
+        window.OneSignal.isPushNotificationsEnabled((isEnabled) => {
+          if (isEnabled) {
+            // The user is subscribed to notifications
+            this.$store.dispatch("setAllowNotifications", true)
+            this.showDialog = false
+          } else {
+            this.showDialog = true
+
+            else{
+              window.OneSignal.push(["setSubscription", true]);
+            }
+          }
+        });
+      });
     }
   },
   mounted(){
-    if(this.allowNotifications == false){
-      return
+    if(this.loggedIn){
+      this.checkShowBanner()
     }
-
-    window.OneSignal.push(() => {
-      // If we're on an unsupported browser, do nothing
-      if (!window.OneSignal.isPushNotificationsSupported()) {
-        return;
-      }
-      window.OneSignal.isPushNotificationsEnabled((isEnabled) => {
-        if (isEnabled) {
-          // The user is subscribed to notifications
-          this.$store.dispatch("setAllowNotifications", true)
-        } else {
-          this.showDialog = true
-
-          if(this.allowNotifications == false){
-            this.showDialog = true
-          }
-          else{
-            window.OneSignal.push(["setSubscription", true]);
-          }
-        }
-      });
-    });
   }
 }
 </script>
