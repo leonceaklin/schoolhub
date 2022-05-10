@@ -3,7 +3,7 @@
     <div v-if="user.username">
       <h2>{{ user.first_name }} {{ user.last_name}}</h2>
       <p>({{ user.username }})</p>
-      <v-switch v-model="allowNotifications" v-if="showNotificationsOption" :label="$t('general.get_notifications')"/>
+      <v-switch v-model="allowNotifications" @change="onNotificationSwitchChange" :disabled="!showNotificationsOption" :label="$t('general.get_notifications')"/>
     </div>
     <v-skeleton-loader v-if="!user.username" type="article"></v-skeleton-loader>
     <v-btn class="full-width mt-5" @click="logout">Logout</v-btn>
@@ -15,8 +15,8 @@ export default {
   data(){
     return {
       user: this.$store.state.user,
-      allowNotifications: this.$store.state.allowNotifications,
-      showNotificationsOption: false
+      showNotificationsOption: false,
+      allowNotifications: null,
     }
   },
 
@@ -32,9 +32,22 @@ export default {
         this.user = val
       }
     },
+  },
 
-    allowNotifications(val){
-      this.$store.dispatch("setAllowNotifications", val)
+  methods: {
+    logout(){
+      this.$store.dispatch("logout")
+      if(this.$route.name != "calculator"){
+        this.$router.push({name: calculator});
+      }
+    },
+
+    onNotificationSwitchChange(){
+      var val = this.allowNotifications
+      if(val == null){
+        return
+      }
+
       if(val == true){
         window.OneSignal.push(["registerForPushNotifications"])
         window.OneSignal.push(["setSubscription", true]);
@@ -45,26 +58,19 @@ export default {
     }
   },
 
-  methods: {
-    logout(){
-      this.$store.dispatch("logout")
-      if(this.$route.name != "calculator"){
-        this.$router.push({name: calculator});
-      }
-    }
-  },
-
   mounted(){
     window.OneSignal.push(() => {
       // If we're on an unsupported browser, do nothing
       if (!window.OneSignal.isPushNotificationsSupported()) {
         return;
       }
+
       window.OneSignal.isPushNotificationsEnabled((isEnabled) => {
         if (isEnabled) {
           this.showNotificationsOption = true
           this.allowNotifications = true
         } else {
+          this.allowNotifications = false
           this.showNotificationsOption = true
         }
       });

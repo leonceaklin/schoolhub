@@ -101,7 +101,6 @@ export default {
         window.OneSignal.isPushNotificationsEnabled((isEnabled) => {
           if (isEnabled) {
             // The user is subscribed to notifications
-            this.$store.dispatch("setAllowNotifications", true)
             this.showDialog = false
           } else {
             this.showDialog = true

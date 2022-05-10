@@ -31,7 +31,6 @@ var localStorageValues = {
   events: [],
   absencePeriods: [],
   subjects: [],
-  allowNotifications: null,
 
   user: {},
   schoolClass: {},
@@ -109,7 +108,6 @@ export default new Vuex.Store({
         dispatch('setEvents', [])
         dispatch('setBookstoreSubjects', [])
         dispatch('setAuth', null)
-        dispatch('setAllowNotifications', null)
         commit('fetchingStopped')
         window.OneSignal.push(() => {
           window.OneSignal.removeExternalUserId();
