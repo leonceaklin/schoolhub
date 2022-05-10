@@ -90,7 +90,7 @@ export default {
     checkShowBanner(){
       var optedOut = window.localStorage.getItem("isOptedOut")
       console.log(optedOut)
-      if(optedOut == true){
+      if(optedOut == 'true' || optedOut == true){
         this.showDialog = false
         return
       }
