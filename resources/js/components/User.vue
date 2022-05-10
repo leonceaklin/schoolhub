@@ -34,6 +34,7 @@ export default {
     },
 
     allowNotifications(val){
+      console.log("TEST")
       this.$store.dispatch("setAllowNotifications", val)
       if(val == true){
         window.OneSignal.push(["registerForPushNotifications"])
