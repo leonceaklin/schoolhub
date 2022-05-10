@@ -54,6 +54,7 @@ export default {
       }
       if(val == false){
         window.OneSignal.push(["setSubscription", false]);
+        window.localStorage.setItem("isOptedOut", true);
       }
     }
   },

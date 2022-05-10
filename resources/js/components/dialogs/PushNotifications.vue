@@ -87,6 +87,12 @@ export default {
     },
 
     checkShowBanner(){
+      var optedOut = window.localStorage.getItem("isOptedOut")
+      if(optedOut == true){
+        this.showDialog = false
+        return false
+      }
+
       window.OneSignal.push(() => {
         // If we're on an unsupported browser, do nothing
         if (!window.OneSignal.isPushNotificationsSupported()) {
