@@ -33,7 +33,6 @@ export default {
   data(){
     return{
       showDialog: false,
-      allowNotifications: this.$store.state.allowNotifications,
       loggedIn: this.$store.getters.schoolSystemLoggedIn,
       askingForPermission: false
     }
@@ -88,10 +87,6 @@ export default {
     },
 
     checkShowBanner(){
-      if(this.allowNotifications == false){
-        return
-      }
-
       window.OneSignal.push(() => {
         // If we're on an unsupported browser, do nothing
         if (!window.OneSignal.isPushNotificationsSupported()) {
