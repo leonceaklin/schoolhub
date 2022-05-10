@@ -75,6 +75,7 @@ export default {
           }
           else{
             this.showDialog = false
+            window.localStorage.setItem("isOptedOut", true)
           }
         });
       });
@@ -90,7 +91,7 @@ export default {
       var optedOut = window.localStorage.getItem("isOptedOut")
       if(optedOut == true){
         this.showDialog = false
-        return false
+        return
       }
 
       window.OneSignal.push(() => {
