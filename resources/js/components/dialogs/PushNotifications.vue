@@ -105,12 +105,8 @@ export default {
             this.showDialog = false
           } else {
             this.showDialog = true
-
-            else{
-              window.OneSignal.push(["setSubscription", true]);
-            }
           }
-        });
+      });
       });
     }
   },
