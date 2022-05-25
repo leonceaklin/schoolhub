@@ -19,7 +19,7 @@
         <v-card-text class="pa-4">
           <div class="mb-4">{{ $t("events.party_presale_matura_info") }}</div>
 
-          <v-card v-for="event in events" @click="showEventDetails = true; selectedEvent = event" v-key="event.id">
+          <v-card class="mb-4" v-for="event in events" @click="showEventDetails = true; selectedEvent = event" v-key="event.id">
             <v-img :src="event.image.data.full_url" :aspect-ratio="event.image.width/event.image.height"></v-img>
             <v-card-title class="font-weight-bold">{{ event.name }}</v-card-title>
             <v-card-text class="font-weight-bold">
