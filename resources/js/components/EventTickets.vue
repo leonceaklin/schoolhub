@@ -1,7 +1,7 @@
 <template>
 <div>
   <v-sheet dark v-if="show" rounded elevation="2" v-ripple class="event-tickets-sheet mb-5 pa-5 full-width" @click="eventsDialog = true">
-    {{ $t("events.party_presale") }}<img :src="window.baseUrl+'/images/partypopper.gif'" class="ml-4" style="width: 35px" />
+    {{ $t("events.party_presale") }}<img :src="baseUrl+'/images/partypopper.gif'" class="ml-4" style="width: 35px" />
   </v-sheet>
 
 
@@ -214,6 +214,9 @@ export default {
 
     username(){
       return this.$store.state.user.username
+    },
+    baseUrl(){
+      return window.baseUrl
     }
   }
 
