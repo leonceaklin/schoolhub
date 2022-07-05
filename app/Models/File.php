@@ -13,6 +13,6 @@ class File extends Model
     const UPDATED_AT = 'modified_on';
 
     public function getThumbnailUrlAttribute(){
-      return "https://content.zebrapig.com/schoolhub/assets/".$this->private_hash."?key=directus-large-contain";
+      return "https://content.schoolhub.ch/schoolhub/assets/".$this->private_hash."?key=directus-large-contain";
     }
 }

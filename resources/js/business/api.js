@@ -212,6 +212,6 @@ class SchoolHubApi{
 }
 
 export default new SchoolHubApi({
-  catalogUrl: "https://content.zebrapig.com/schoolhub",
+  catalogUrl: "https://content.schoolhub.ch/schoolhub",
   apiUrl: window.baseUrl+"/api"
 })

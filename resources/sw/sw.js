@@ -72,7 +72,7 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-    new RegExp('^https://content.zebrapig.com'),
+    new RegExp('^https://content.schoolhub.ch'),
     new StaleWhileRevalidate({
         cacheName: 'content-cache',
         plugins: [
