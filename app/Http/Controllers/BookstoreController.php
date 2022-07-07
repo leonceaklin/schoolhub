@@ -155,7 +155,7 @@ class BookstoreController extends Controller
          return $token;
        }
        else{
-         Log::info("SAL login for user login failed", ["username" => $user->username, "school_id" => $school->id]);
+         Log::info("SAL login for user login failed", ["username" => $credentials->username, "school_id" => $school->id]);
        }
        return null;
      }
@@ -168,7 +168,7 @@ class BookstoreController extends Controller
          return $this->updateUser();
        }
 
-       if(User::where('username', $credentials->username)->where('id', '!=', null)->first() == null){
+       if(User::where('username', "=", $credentials->username)->exists() == false){
          if($this->salApi->login($credentials->username, $credentials->password, $school->identifier)){
              $user = new User();
              $user->username = $credentials->username;
@@ -188,7 +188,7 @@ class BookstoreController extends Controller
              return $token;
          }
          else{
-           Log::info("SAL login for user register failed", ["username" => $user->username, "school_id" => $school->id]);
+           Log::info("SAL login for user register failed", ["username" => $credentials->username, "school_id" => $school->id]);
          }
        }
      }
@@ -352,10 +352,14 @@ class BookstoreController extends Controller
        return $copy;
      }
 
-     public function updateUser($data){
+     public function updateUser($data = null){
        $user = $this->user();
        if(!$this->user()){
          return false;
+       }
+       
+       if($data == null){
+          $data = (object) [];
        }
 
        if(isset($data->email)){
